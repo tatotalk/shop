@@ -1,0 +1,2734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patreon+ · Portal · Bio · Offers · Forums · Premium</title>
+    <style>
+        /* ===== RESET & THEME ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            padding: 16px;
+            background: linear-gradient(-45deg, #1a0a1a, #2d0a2d, #1a0a2e, #0d0a1a);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== SPARKLE CANVAS ===== */
+        #sparkleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== FLOATING HEARTS ===== */
+        .floating-heart {
+            position: fixed;
+            font-size: 22px;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatHeart linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 0.2;
+            }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% {
+                transform: translateY(-10vh) scale(1.1) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(10, 5, 20, 0.8);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border-radius: 36px;
+            padding: 28px 18px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.7),
+                0 0 0 1px rgba(255, 0, 102, 0.2) inset,
+                0 0 50px rgba(255, 0, 102, 0.1),
+                0 0 100px rgba(255, 0, 102, 0.05);
+            margin-top: 16px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: floatContainer 6s ease-in-out infinite;
+            transition: box-shadow 0.5s ease;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            z-index: -1;
+            border-radius: 38px;
+            background: linear-gradient(135deg, #ff0066, #00e5ff, #ffcc00, #ff0066);
+            background-size: 300% 300%;
+            animation: shimmerBorder 4s ease-in-out infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 2px;
+        }
+
+        @keyframes shimmerBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container:hover {
+            box-shadow: 
+                0 40px 80px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(255, 0, 102, 0.4) inset,
+                0 0 70px rgba(255, 0, 102, 0.2),
+                0 0 140px rgba(255, 0, 102, 0.1);
+        }
+
+        @keyframes floatContainer {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
+            background-size: 200% 200%;
+            animation: avatarGradient 3s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: 700;
+            color: #fff;
+            user-select: none;
+            box-shadow: 0 0 30px rgba(255, 0, 102, 0.4), 0 0 60px rgba(255, 0, 102, 0.15);
+            animation: avatarGradient 3s ease-in-out infinite, floatAvatar 5s ease-in-out infinite;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes avatarGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes floatAvatar {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff, #ffcc00);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 3s ease-in-out infinite;
+            letter-spacing: -0.5px;
+            filter: drop-shadow(0 2px 20px rgba(255, 0, 102, 0.15));
+        }
+
+        @keyframes shimmerText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            margin-top: 4px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(255, 0, 102, 0.1);
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 3px 16px;
+            background: rgba(255, 0, 102, 0.2);
+            border: 1.5px solid rgba(255, 204, 0, 0.3);
+            border-radius: 30px;
+            font-size: 10px;
+            color: #ffcc00;
+            letter-spacing: 0.8px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 20px rgba(255, 0, 102, 0.1);
+            font-weight: 600;
+        }
+
+        /* ===== TABS ===== */
+        .tab-nav {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 24px;
+            padding-bottom: 0;
+            border-bottom: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 40px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.3px;
+            flex: 1;
+            text-align: center;
+            min-width: 60px;
+            position: relative;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 204, 0, 0.3);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 204, 0, 0.08);
+        }
+
+        .tab-btn.active {
+            background: rgba(255, 204, 0, 0.15);
+            border-color: #ffcc00;
+            color: #ffcc00;
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.1), 0 4px 20px rgba(255, 204, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(14px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ============================================================ */
+        /* SOCIAL MARQUEE */
+        /* ============================================================ */
+        .social-marquee {
+            overflow: hidden;
+            padding: 8px 0;
+            margin-bottom: 14px;
+            mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+        }
+
+        .marquee-wrapper {
+            display: flex;
+            width: max-content;
+            animation: scrollMarquee 35s linear infinite;
+        }
+
+        .marquee-item {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.4px;
+            text-transform: lowercase;
+            white-space: nowrap;
+            padding: 0 10px;
+            flex-shrink: 0;
+        }
+
+        .marquee-item.separator {
+            color: rgba(255, 255, 255, 0.12);
+            padding: 0 4px;
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ============================================================ */
+        /* TAB 1: PORTAL */
+        /* ============================================================ */
+        .portal-container {
+            text-align: center;
+        }
+
+        .heading-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+
+        .heading-wrapper h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 3s ease-in-out infinite;
+        }
+
+        .tip-btn {
+            background: rgba(0, 255, 0, 0.08);
+            border: 1.5px solid #00ff00;
+            color: #00ff00;
+            padding: 3px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), 0 0 40px rgba(0, 255, 0, 0.1);
+        }
+
+        .tip-btn:hover {
+            background: rgba(0, 255, 0, 0.18);
+            border-color: #00ff88;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), 0 0 60px rgba(0, 255, 0, 0.2);
+        }
+
+        .portal-container .sub {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        .join-top-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 800;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 30px rgba(255, 0, 102, 0.4), 0 0 60px rgba(255, 0, 102, 0.15);
+            margin-bottom: 18px;
+            text-align: center;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+            animation: shimmerBtn 3s ease-in-out infinite;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .join-top-btn::before {
+            content: '🚀';
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .join-top-btn::after {
+            content: '✨';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            animation: sparkle 1.5s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes shimmerBtn {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+            50% { opacity: 0.3; transform: translateY(-50%) scale(0.8); }
+        }
+
+        .join-top-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 50px rgba(255, 0, 102, 0.6), 0 0 100px rgba(255, 0, 102, 0.2);
+        }
+
+        .order-summary {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 16px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 24px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            transition: all 0.4s ease;
+        }
+
+        .order-summary:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .order-summary .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .order-summary .row:last-child {
+            border-bottom: none;
+        }
+
+        .order-summary .row .label {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .order-summary .row .value {
+            color: #fff;
+            font-weight: 600;
+        }
+        .order-summary .row.total {
+            margin-top: 4px;
+            font-size: 15px;
+        }
+        .order-summary .row.total .value {
+            background: linear-gradient(135deg, #ffcc00, #ff0066);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        /* ===== STATIC IMAGE + SUBSCRIBE + PREVIEW BUTTON ===== */
+        .promo-section {
+            margin-bottom: 24px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s ease;
+            background: #000;
+        }
+
+        .promo-section:hover {
+            border-color: rgba(255, 204, 0, 0.3);
+            box-shadow: 0 4px 30px rgba(255, 204, 0, 0.05);
+        }
+
+        .promo-section img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 350px;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .promo-section .subscribe-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff0066, #ffcc00);
+            border: none;
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .promo-section .subscribe-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 30px rgba(255, 0, 102, 0.3);
+        }
+
+        /* Preview Button – no glare (reverted) */
+        .promo-section .preview-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 229, 255, 0.15);
+            border: 1.5px solid rgba(0, 229, 255, 0.3);
+            color: #00e5ff;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            backdrop-filter: blur(4px);
+        }
+
+        .promo-section .preview-btn:hover {
+            background: rgba(0, 229, 255, 0.25);
+            border-color: #00e5ff;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+        }
+
+        /* ===== PAYMENT PROCESSORS ===== */
+        .processors-section {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .processors-section .section-label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            display: block;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 12px;
+        }
+
+        .processors-section .section-label:first-of-type {
+            border-top: none;
+            padding-top: 0;
+            margin-top: 0;
+        }
+
+        .processor-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .processor-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 5px 12px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .processor-chip:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 204, 0, 0.5);
+            color: #fff;
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.1);
+        }
+
+        .processor-chip .emoji {
+            font-size: 13px;
+        }
+
+        .processor-chip:nth-child(1) { border-color: #00e5ff; }
+        .processor-chip:nth-child(2) { border-color: #ffcc00; }
+        .processor-chip:nth-child(3) { border-color: #00e676; }
+        .processor-chip:nth-child(4) { border-color: #ff9100; }
+        .processor-chip:nth-child(5) { border-color: #00e5ff; }
+        .processor-chip:nth-child(6) { border-color: #ff0066; }
+
+        .processor-chip.highlight {
+            border-color: #ff0066;
+            background: rgba(255, 0, 102, 0.2);
+            box-shadow: 0 0 25px rgba(255, 0, 102, 0.2);
+            color: #fff;
+            font-size: 18px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            gap: 8px;
+            font-weight: 700;
+            animation: highlightPulse 2.2s ease-in-out infinite;
+            border-width: 2.5px;
+            letter-spacing: 0.5px;
+        }
+
+        .processor-chip.highlight .emoji {
+            font-size: 24px;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% {
+                box-shadow: 0 0 25px rgba(255, 0, 102, 0.2);
+                transform: scale(1);
+                border-color: #ff0066;
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(255, 0, 102, 0.4), 0 0 100px rgba(255, 0, 102, 0.15);
+                transform: scale(1.03);
+                border-color: #ffcc00;
+            }
+        }
+
+        .processor-chip.highlight:hover {
+            transform: scale(1.08);
+            background: rgba(255, 0, 102, 0.35);
+            box-shadow: 0 0 60px rgba(255, 0, 102, 0.6);
+        }
+
+        /* ===== SECURE BADGE ===== */
+        .secure-badge {
+            text-align: center;
+            margin-top: 12px;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== VIDEO ===== */
+        .video-wrapper {
+            margin-top: 24px;
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 25px rgba(255, 0, 102, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .video-wrapper:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+            box-shadow: 0 0 40px rgba(255, 0, 102, 0.2);
+            transform: scale(1.01);
+        }
+
+        .video-wrapper video {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        /* ===== PAY SECTION (bottom) ===== */
+        .pay-section {
+            margin-top: 24px;
+            position: relative;
+        }
+
+        .pay-simple-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(255, 0, 102, 0.3);
+            text-align: center;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+            animation: shimmerBtn 3s ease-in-out infinite;
+        }
+
+        .pay-simple-btn::before {
+            content: '⚡';
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .pay-simple-btn::after {
+            content: '✨';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            animation: sparkle 1.5s ease-in-out infinite 0.5s;
+        }
+
+        .pay-simple-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 40px rgba(255, 0, 102, 0.5);
+        }
+
+        .subscriber-count {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 3px 14px;
+            backdrop-filter: blur(4px);
+        }
+
+        .subscriber-count strong {
+            color: #ffcc00;
+        }
+
+        /* ============================================================ */
+        /* TAB 2: BIO (unchanged) */
+        /* ============================================================ */
+        .bio-full {
+            text-align: left;
+        }
+
+        .bio-intro {
+            margin-bottom: 20px;
+        }
+
+        .bio-intro h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .bio-intro p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .bio-intro .highlight {
+            color: #ffcc00;
+            font-weight: 600;
+        }
+
+        .bio-features {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 18px;
+            padding: 16px 16px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .bio-features h3 {
+            color: #fff;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bio-features .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+        }
+
+        .bio-features .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .bio-features .feature-item .feat-icon {
+            font-size: 18px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .bio-features .feature-item .feat-label {
+            flex: 1;
+        }
+
+        .bio-features .feature-item .feat-tag {
+            font-size: 9px;
+            background: rgba(255, 204, 0, 0.15);
+            color: #ffcc00;
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255, 204, 0, 0.1);
+        }
+
+        .bio-instructions {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 18px;
+            padding: 16px 14px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .bio-instructions h3 {
+            color: #fff;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .bio-instructions .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 4px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .bio-instructions .step .step-num {
+            background: linear-gradient(135deg, #ff0066, #ffcc00);
+            color: #fff;
+            font-weight: 700;
+            font-size: 11px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bio-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .bio-contact .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 6px 14px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .bio-contact .contact-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(0, 229, 255, 0.3);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .bio-quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .bio-quick-links .quick-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .bio-quick-links .quick-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 204, 0, 0.3);
+            transform: scale(1.01);
+        }
+
+        .bio-quick-links .quick-link .ql-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bio-quick-links .quick-link .ql-icon {
+            font-size: 18px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .bio-quick-links .quick-link .ql-arrow {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+            transition: transform 0.3s ease;
+        }
+
+        .bio-quick-links .quick-link:hover .ql-arrow {
+            color: rgba(255, 255, 255, 0.6);
+            transform: translateX(4px);
+        }
+
+        .bio-footer {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.12);
+            letter-spacing: 0.3px;
+        }
+
+        .join-free-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 14px;
+            background: linear-gradient(135deg, #00e5ff, #ffcc00);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 30px;
+            color: #0b0b1a;
+            font-weight: 800;
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(0, 229, 255, 0.3);
+            text-align: center;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+            animation: shimmerBtn 3s ease-in-out infinite;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .join-free-btn::before {
+            content: '🎉';
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .join-free-btn::after {
+            content: '✨';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            animation: sparkle 1.5s ease-in-out infinite 0.5s;
+        }
+
+        .join-free-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 40px rgba(0, 229, 255, 0.5);
+        }
+
+        /* ============================================================ */
+        /* TAB 3: OFFERS (unchanged) */
+        /* ============================================================ */
+        .offers-container {
+            text-align: left;
+        }
+
+        .offers-container h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 3s ease-in-out infinite;
+        }
+
+        .offers-container .sub {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        .offer-tier {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 16px 14px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .offer-tier:hover {
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.04);
+            transform: translateY(-2px);
+        }
+
+        .offer-tier .tier-badge {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .offer-tier .tier-badge.tier1 {
+            background: rgba(0, 229, 255, 0.2);
+            color: #00e5ff;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+        }
+
+        .offer-tier .tier-badge.tier2 {
+            background: rgba(255, 204, 0, 0.2);
+            color: #ffcc00;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+        }
+
+        .offer-tier .tier-badge.tier3 {
+            background: rgba(255, 0, 102, 0.2);
+            color: #ff0066;
+            border: 1px solid rgba(255, 0, 102, 0.3);
+        }
+
+        .offer-tier h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .offer-tier .tier-sub {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .offer-tier .tier-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .offer-tier .tier-codes {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .offer-tier .tier-codes .code-label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .offer-tier .tier-codes .code-item {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            padding: 2px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .offer-tier .tier-codes .code-item:last-child {
+            border-bottom: none;
+        }
+
+        .offer-tier .tier-codes .code-item strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* ============================================================ */
+        /* TAB 4: FORUMS (unchanged) */
+        /* ============================================================ */
+        .section-title {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 14px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .section-title .lock {
+            font-size: 12px;
+            color: #ffcc00;
+            background: rgba(255, 204, 0, 0.1);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.05);
+            border: 1px solid rgba(255, 204, 0, 0.15);
+        }
+
+        .form-wrapper {
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .form-wrapper:hover {
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.04);
+            transform: translateY(-2px);
+        }
+
+        .form-wrapper iframe {
+            width: 100%;
+            height: 750px;
+            border: none;
+            display: block;
+            background: transparent;
+        }
+
+        .join-list-text {
+            text-align: center;
+            margin-top: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            font-weight: 500;
+        }
+
+        /* ============================================================ */
+        /* TAB 5: PREMIUM (unchanged) */
+        /* ============================================================ */
+        .premium-container {
+            text-align: left;
+        }
+
+        .premium-container h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 3s ease-in-out infinite;
+        }
+
+        .premium-container .sub {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        .premium-pricing {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .premium-pricing .price-card {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 18px;
+            padding: 14px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .premium-pricing .price-card:hover {
+            border-color: rgba(0, 229, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .premium-pricing .price-card .plan-name {
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .premium-pricing .price-card .plan-price {
+            color: #ffcc00;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 4px 0;
+        }
+
+        .premium-pricing .price-card .plan-desc {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .premium-pricing .price-card.highlight {
+            border-color: #ff0066;
+            background: rgba(255, 0, 102, 0.08);
+        }
+
+        .unlock-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
+            background-size: 300% 300%;
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 30px rgba(255, 0, 102, 0.4), 0 0 60px rgba(255, 0, 102, 0.15);
+            margin-bottom: 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: shimmerBtn 3s ease-in-out infinite;
+            letter-spacing: 0.5px;
+        }
+
+        .unlock-btn::before {
+            content: '🔓';
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .unlock-btn::after {
+            content: '✨';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            animation: sparkle 1.5s ease-in-out infinite 0.5s;
+        }
+
+        .unlock-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 50px rgba(255, 0, 102, 0.6), 0 0 100px rgba(255, 0, 102, 0.2);
+        }
+
+        .unlock-btn.locked {
+            background: linear-gradient(135deg, #555, #333);
+            animation: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .unlock-btn.locked::before {
+            content: '🔒';
+        }
+
+        .unlock-btn.locked::after {
+            content: '⛔';
+        }
+
+        .unlock-btn.locked:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .premium-features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .premium-category {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 18px;
+            padding: 14px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.5s ease;
+        }
+
+        .premium-category.unlocked {
+            border-color: rgba(255, 204, 0, 0.3);
+            background: rgba(255, 204, 0, 0.04);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.03);
+        }
+
+        .premium-category h4 {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .premium-category .status-badge {
+            font-size: 13px;
+            margin-left: auto;
+            transition: all 0.5s ease;
+        }
+
+        .premium-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .premium-category ul li {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 12px;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .premium-category ul li:last-child {
+            border-bottom: none;
+        }
+
+        .premium-category ul li .li-icon {
+            font-size: 15px;
+            width: 22px;
+            text-align: center;
+        }
+
+        .premium-category ul li strong {
+            color: #fff;
+        }
+
+        .premium-category ul li .feature-tooltip {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-left: 4px;
+            cursor: help;
+        }
+
+        .premium-note {
+            margin-top: 16px;
+            padding: 14px;
+            background: rgba(255, 204, 0, 0.05);
+            border: 1px solid rgba(255, 204, 0, 0.15);
+            border-radius: 16px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .premium-note strong {
+            color: #ffcc00;
+        }
+
+        /* ===== CELEBRATION OVERLAY ===== */
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .celebration.active {
+            display: block;
+            pointer-events: none;
+        }
+
+        .celebration-emoji {
+            position: absolute;
+            font-size: 36px;
+            animation: celebFloat linear forwards;
+            opacity: 0;
+        }
+
+        @keyframes celebFloat {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-10vh) scale(1.1) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.1);
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== MULTILINGUAL POP-UP ===== */
+        .multilingual-popup {
+            position: fixed;
+            bottom: 24px;
+            right: 16px;
+            max-width: 300px;
+            background: rgba(10, 5, 20, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(255, 204, 0, 0.3);
+            border-radius: 18px;
+            padding: 16px 18px 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 204, 0, 0.05);
+            z-index: 9998;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: left;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+            transform: translateX(120%);
+            opacity: 0;
+            animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s forwards;
+        }
+
+        .multilingual-popup.closed {
+            transform: translateX(120%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .multilingual-popup .popup-close {
+            position: absolute;
+            top: 6px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+            padding: 0 4px;
+        }
+
+        .multilingual-popup .popup-close:hover {
+            color: #fff;
+        }
+
+        .multilingual-popup .popup-message {
+            margin-right: 18px;
+        }
+
+        .multilingual-popup .popup-message .lang {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 4px;
+            padding: 2px 0;
+        }
+
+        .multilingual-popup .popup-message .lang:last-child {
+            margin-bottom: 0;
+        }
+
+        .multilingual-popup .popup-message .lang .flag {
+            font-size: 15px;
+            flex-shrink: 0;
+            line-height: 1.4;
+        }
+
+        .multilingual-popup .popup-message .lang .text {
+            word-break: break-word;
+            font-size: 11.5px;
+        }
+
+        .multilingual-popup .popup-message .lang .text a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .multilingual-popup .popup-message .lang .text a:hover {
+            color: #00e5ff;
+            text-decoration: underline;
+        }
+
+        /* ===== MODAL OVERLAY ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(15, 5, 30, 0.9);
+            border-radius: 24px;
+            max-width: 700px;
+            width: 100%;
+            padding: 24px 20px 20px;
+            border: 2px solid rgba(0, 229, 255, 0.3);
+            box-shadow: 0 0 60px rgba(0, 229, 255, 0.15);
+            position: relative;
+            animation: modalFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 90vh;
+            overflow: hidden;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-content .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10;
+            line-height: 1;
+        }
+
+        .modal-content .close-modal:hover {
+            color: #fff;
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 430px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 550px) {
+            .container {
+                padding: 20px 14px;
+            }
+            .tab-btn {
+                font-size: 11px;
+                padding: 5px 10px;
+                min-width: 55px;
+            }
+            .processor-chip {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            .processor-chip.highlight {
+                font-size: 15px;
+                padding: 8px 18px;
+            }
+            .processor-chip.highlight .emoji {
+                font-size: 18px;
+            }
+            .form-wrapper iframe {
+                height: 650px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+            .avatar {
+                width: 70px;
+                height: 70px;
+                font-size: 36px;
+            }
+            .join-top-btn {
+                font-size: 17px;
+                padding: 14px;
+            }
+            .join-top-btn::before,
+            .join-top-btn::after {
+                font-size: 17px;
+            }
+            .pay-simple-btn::before,
+            .pay-simple-btn::after {
+                display: none;
+            }
+            .join-free-btn::before,
+            .join-free-btn::after {
+                display: none;
+            }
+            .offer-tier h4 {
+                font-size: 17px;
+            }
+            .bio-contact .contact-item {
+                font-size: 11px;
+                padding: 5px 12px;
+            }
+            .premium-pricing {
+                grid-template-columns: 1fr;
+            }
+            .unlock-btn {
+                font-size: 16px;
+                padding: 12px;
+            }
+            .unlock-btn::before,
+            .unlock-btn::after {
+                font-size: 17px;
+            }
+            .multilingual-popup {
+                max-width: 250px;
+                right: 8px;
+                bottom: 16px;
+                padding: 12px 14px 10px;
+                font-size: 11px;
+            }
+            .multilingual-popup .popup-message .lang .text {
+                font-size: 10.5px;
+            }
+            .marquee-item {
+                font-size: 11px;
+                padding: 0 8px;
+            }
+            .promo-section .subscribe-btn {
+                font-size: 15px;
+                padding: 10px;
+            }
+            .promo-section .preview-btn {
+                font-size: 14px;
+                padding: 8px;
+            }
+            .heading-wrapper h3 {
+                font-size: 20px;
+            }
+            .tip-btn {
+                font-size: 12px;
+                padding: 3px 12px;
+            }
+            .promo-section img {
+                max-height: 280px;
+            }
+            .order-summary .row {
+                font-size: 12px;
+                max-width: 240px;
+            }
+            .order-summary .row.total .value {
+                font-size: 18px;
+            }
+            .modal-content iframe {
+                height: 350px;
+            }
+            .modal-content {
+                padding: 16px 12px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .tab-nav {
+                gap: 3px;
+            }
+            .tab-btn {
+                font-size: 10px;
+                padding: 4px 6px;
+                min-width: 50px;
+            }
+            .processor-chip.highlight {
+                font-size: 13px;
+                padding: 6px 12px;
+            }
+            .processor-chip.highlight .emoji {
+                font-size: 16px;
+            }
+            .form-wrapper iframe {
+                height: 550px;
+            }
+            .join-top-btn {
+                font-size: 15px;
+                padding: 10px;
+            }
+            .join-top-btn::before,
+            .join-top-btn::after {
+                display: none;
+            }
+            .join-free-btn::before,
+            .join-free-btn::after {
+                display: none;
+            }
+            .offer-tier {
+                padding: 14px 12px;
+            }
+            .unlock-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .unlock-btn::before,
+            .unlock-btn::after {
+                display: none;
+            }
+            .multilingual-popup {
+                max-width: 210px;
+                right: 4px;
+                bottom: 12px;
+                padding: 10px 10px 8px;
+                font-size: 10px;
+            }
+            .multilingual-popup .popup-message .lang .text {
+                font-size: 9.5px;
+            }
+            .multilingual-popup .popup-close {
+                font-size: 14px;
+                top: 4px;
+                right: 6px;
+            }
+            .marquee-item {
+                font-size: 10px;
+                padding: 0 6px;
+            }
+            .promo-section .subscribe-btn {
+                font-size: 13px;
+                padding: 8px;
+            }
+            .promo-section .preview-btn {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .heading-wrapper h3 {
+                font-size: 18px;
+            }
+            .tip-btn {
+                font-size: 11px;
+                padding: 2px 10px;
+            }
+            .promo-section img {
+                max-height: 220px;
+            }
+            .order-summary .row {
+                font-size: 11px;
+                max-width: 200px;
+            }
+            .order-summary .row.total .value {
+                font-size: 16px;
+            }
+            .order-summary {
+                padding: 12px 12px;
+            }
+            .modal-content iframe {
+                height: 280px;
+            }
+            .modal-content {
+                padding: 12px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== SPARKLE CANVAS ===== -->
+    <canvas id="sparkleCanvas"></canvas>
+
+    <!-- ===== FLOATING HEARTS ===== -->
+
+    <!-- ===== CELEBRATION OVERLAY ===== -->
+    <div class="celebration" id="celebration"></div>
+
+    <!-- ===== MULTILINGUAL POP-UP ===== -->
+    <div class="multilingual-popup" id="multilingualPopup">
+        <button class="popup-close" id="popupClose" aria-label="Close">✕</button>
+        <div class="popup-message">
+            <div class="lang">
+                <span class="flag">🇬🇧</span>
+                <span class="text">📬 Please message me if you have any questions: <a href="https://t.me/Superhelpful" target="_blank">t.me/Superhelpful</a></span>
+            </div>
+            <div class="lang">
+                <span class="flag">🇪🇸</span>
+                <span class="text">📬 Por favor, escríbeme si tienes alguna pregunta: <a href="https://t.me/Superhelpful" target="_blank">t.me/Superhelpful</a></span>
+            </div>
+            <div class="lang">
+                <span class="flag">🇨🇳</span>
+                <span class="text">📬 如有任何问题，请给我发消息：<a href="https://t.me/Superhelpful" target="_blank">t.me/Superhelpful</a></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL OVERLAY (for form preview) ===== -->
+    <div class="modal-overlay" id="formModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModalBtn">&times;</button>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScRhmXdZ5pu8fxPM9b7X9XqI-JaiWb1JnXt-g6DgkdJ6L9yrg/viewform?embedded=true" width="640" height="430" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- ========================================================= -->
+        <!-- HEADER -->
+        <!-- ========================================================= -->
+        <div class="header">
+            <div class="avatar">🍕</div>
+            <h1>Patreon+</h1>
+            <p>✨ Portal · Bio · Offers · Forums · Premium ✨</p>
+            <span class="badge">✦ No middlemen · 100% direct ✦</span>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TABS -->
+        <!-- ========================================================= -->
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="payments">💳 Portal</button>
+            <button class="tab-btn" data-tab="bio">🌐 Bio</button>
+            <button class="tab-btn" data-tab="offers">📦 Offers</button>
+            <button class="tab-btn" data-tab="forums">💬 Forums</button>
+            <button class="tab-btn" data-tab="premium">💎 Premium</button>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 1: PORTAL -->
+        <!-- ========================================================= -->
+        <div class="tab-content active" id="tab-payments">
+            <div class="portal-container">
+
+                <div class="social-marquee">
+                    <div class="marquee-wrapper">
+                        <span class="marquee-item">bluesky</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">twitter</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">keet.io</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">wordpress</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">patreon</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">github</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">telegram</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">fanvue</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">deviant art</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">tumblr</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">tiktok</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">gumroad</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">substack</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">whop</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">stoat</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">buymeacoffee</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">ko fi</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">vimeo</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">jabburr</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">eachoed</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">element</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">matrix.io</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">discord</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">facebook</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">instagram</span>
+                        <span class="marquee-item">bluesky</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">twitter</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">keet.io</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">wordpress</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">patreon</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">github</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">telegram</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">fanvue</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">deviant art</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">tumblr</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">tiktok</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">gumroad</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">substack</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">whop</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">stoat</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">buymeacoffee</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">ko fi</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">vimeo</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">jabburr</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">eachoed</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">element</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">matrix.io</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">discord</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">facebook</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">instagram</span>
+                    </div>
+                </div>
+
+                <!-- Heading with Tip button (green glow) -->
+                <div class="heading-wrapper">
+                    <h3>Direct Checkout</h3>
+                    <button class="tip-btn" id="tipBtn">💵 Tip</button>
+                </div>
+                <p class="sub">Pay me directly – no platform fees, 100% goes to me.</p>
+
+                <button class="join-top-btn" id="joinNowBtn">🚀 Join Now</button>
+
+                <div class="order-summary">
+                    <div class="row">
+                        <span class="label">📦 Plan</span>
+                        <span class="value">Pro ⭐ (Monthly)</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">🔄 Billing</span>
+                        <span class="value">Recurring</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">👥 Members</span>
+                        <span class="value">18</span>
+                    </div>
+                    <div class="row total">
+                        <span class="label">Total</span>
+                        <span class="value">$5.99</span>
+                    </div>
+                </div>
+
+                <!-- ===== STATIC IMAGE + SUBSCRIBE + PREVIEW BUTTON ===== -->
+                <div class="promo-section">
+                    <img src="https://64.media.tumblr.com/2c011126c5d542b512e44074dde71e4b/bd3245c4a4990ffd-95/s1280x1920/0a7e96ee0df53ec021a8df88f3efa0f461d9340b.jpg" alt="Promo" loading="lazy" />
+                    <button class="subscribe-btn" id="subscribeBtn">Subscribe</button>
+                    <button class="preview-btn" id="previewFormBtn">📋 Open Form Preview</button>
+                </div>
+
+                <!-- Payment Processors -->
+                <div class="processors-section">
+                    <span class="section-label">💳 Payment Processors</span>
+                    <div class="processor-grid">
+                        <a href="https://buy.stripe.com/28EeVd4O216l9HzaVJenS00" target="_blank" class="processor-chip highlight"><span class="emoji">⚡</span> Stripe</a>
+                        <a href="https://www.paypal.com/ncp/payment/232MAXP5VWDSC" target="_blank" class="processor-chip highlight"><span class="emoji">💸</span> PayPal</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📱</span> Venmo</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🏦</span> Zelle</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📲</span> Cash App</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">💳</span> Helcim</a>
+                    </div>
+
+                    <span class="section-label">📱 Digital Wallets & Mobile</span>
+                    <div class="processor-grid">
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📲</span> Google Pay</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📱</span> Apple Pay</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">💰</span> Cash</a>
+                    </div>
+
+                    <span class="section-label">🛒 Subscription & Creator Platforms</span>
+                    <div class="processor-grid">
+                        <a href="https://www.fedpromptly.com" target="_blank" class="processor-chip"><span class="emoji">📰</span> Substack</a>
+                        <a href="https://www.patreon.com/c/Viraldancandofunk/membership" target="_blank" class="processor-chip highlight"><span class="emoji">❤️</span> Patreon</a>
+                        <a href="https://github.com/sponsors/PokeLegend" target="_blank" class="processor-chip"><span class="emoji">💻</span> GitHub Sponsors</a>
+                        <a href="https://ko-fi.com/fedjumpergaming" target="_blank" class="processor-chip"><span class="emoji">☕</span> Ko-fi</a>
+                        <a href="https://buymeacoffee.com/Potatochat" target="_blank" class="processor-chip"><span class="emoji">🍵</span> Buy Me a Coffee</a>
+                    </div>
+
+                    <span class="section-label">🛍️ E‑Commerce & Storefronts</span>
+                    <div class="processor-grid">
+                        <a href="https://whop.com/viraldancandotrends" target="_blank" class="processor-chip highlight"><span class="emoji">🛍️</span> Whop</a>
+                        <a href="https://theworldtrade.gumroad.com" target="_blank" class="processor-chip"><span class="emoji">🎨</span> Gumroad</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🔗</span> Linktree</a>
+                        <a href="https://tinyurl.com/mr4acvdn" target="_blank" class="processor-chip"><span class="emoji">🔄</span> Keet.io</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📊</span> Stoat</a>
+                    </div>
+
+                    <span class="section-label">💬 Social & Community</span>
+                    <div class="processor-grid">
+                        <a href="https://discord.gg/JBSE9wN2kA" target="_blank" class="processor-chip"><span class="emoji">💬</span> Discord</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🚀</span> Launch Pass</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">💬</span> upgrade.chat</a>
+                        <a href="https://t.me/viraldancandotrends" target="_blank" class="processor-chip"><span class="emoji">⭐</span> Telegram Stars</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🎥</span> Streamlabs Tips</a>
+                    </div>
+
+                    <span class="section-label">₿ Crypto & Banking</span>
+                    <div class="processor-grid">
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">₿</span> All Crypto</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🏦</span> Direct Wire</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🛒</span> Klarna</a>
+                    </div>
+                </div>
+
+                <div class="secure-badge">🔒 Secured by me · No third-party fees</div>
+
+                <!-- Video -->
+                <div class="video-wrapper">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://va.media.tumblr.com/tumblr_t81yecxafR1aitcze_720.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <!-- ===== PAY SECTION (bottom) ===== -->
+                <div class="pay-section">
+                    <button class="pay-simple-btn" id="payNowBtn">Pay $5.99 now</button>
+                    <div class="subscriber-count">👥 Total subscribers: <strong>18</strong></div>
+                </div>
+
+            </div>
+            <div class="footer">© 2026 Patreon+ · Direct payments · ⚡</div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 2: BIO -->
+        <!-- ========================================================= -->
+        <div class="tab-content" id="tab-bio">
+            <div class="bio-full">
+
+                <div class="bio-intro">
+                    <h2>👋 Welcome to Patreon+</h2>
+                    <p>
+                        I'm <span class="highlight">Fed Jumper</span> – a creator, developer, and community builder. 
+                        This is your direct hub to everything I offer: <strong>premium content, exclusive services, 
+                        and a vibrant community</strong> – all without middlemen or platform fees.
+                    </p>
+                    <p>
+                        Whether you're here for <span class="highlight">Street Style</span>, 
+                        <span class="highlight">Global Relaxation</span>, or the <span class="highlight">Vault</span>, 
+                        you've come to the right place. Everything is designed to give you the best experience, 
+                        and I'm always open to feedback.
+                    </p>
+                </div>
+
+                <div class="bio-features">
+                    <h3>🎁 Free Premium Features</h3>
+                    <div class="feature-item">
+                        <span class="feat-icon">🔓</span>
+                        <span class="feat-label">Unlock exclusive content from all three tiers</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feat-icon">🎥</span>
+                        <span class="feat-label">Early access to videos and guides</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feat-icon">💬</span>
+                        <span class="feat-label">Private community chat (Discord & Telegram)</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feat-icon">📅</span>
+                        <span class="feat-label">1‑on‑1 consultation sessions (limited)</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feat-icon">📈</span>
+                        <span class="feat-label">Real‑time analytics and insights</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
+                </div>
+
+                <div class="bio-instructions">
+                    <h3>📋 How to get started</h3>
+                    <div class="step">
+                        <span class="step-num">1</span>
+                        <span><strong>Join the community</strong> – Click the "Join Now" button on the Portal tab to get instant access.</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">2</span>
+                        <span><strong>Explore the Offers</strong> – Check out the <strong>Offers</strong> tab to see all my curated content tiers.</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">3</span>
+                        <span><strong>Visit the Forums</strong> – Head to the <strong>Forums</strong> tab to ask questions, share feedback, and connect with others.</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">4</span>
+                        <span><strong>Stay updated</strong> – Join my email list below or follow me on social media for the latest news.</span>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <h3 style="color:#fff; font-size:17px; font-weight:700; margin-bottom:10px;">📬 Contact & Social</h3>
+                    <div class="bio-contact">
+                        <a href="mailto:viraldancandotrends@proton.me" class="contact-item">✉️ Email</a>
+                        <a href="https://t.me/viraldancandotrends" target="_blank" class="contact-item">📱 Telegram</a>
+                        <a href="https://discord.gg/JBSE9wN2kA" target="_blank" class="contact-item">🎮 Discord</a>
+                        <a href="https://bsky.app/profile/planetdanca.bsky.social" target="_blank" class="contact-item">🦋 Bluesky</a>
+                        <a href="https://x.com/Bopelementary" target="_blank" class="contact-item">🐦 X</a>
+                        <a href="https://www.youtube.com/@FedjumperGaming" target="_blank" class="contact-item">📺 YouTube</a>
+                    </div>
+                </div>
+
+                <div class="bio-quick-links">
+                    <div class="quick-link" id="bioQuickPortal">
+                        <span class="ql-left">
+                            <span class="ql-icon">💳</span>
+                            <span>Go to Portal</span>
+                        </span>
+                        <span class="ql-arrow">→</span>
+                    </div>
+                    <div class="quick-link" id="bioQuickOffers">
+                        <span class="ql-left">
+                            <span class="ql-icon">📦</span>
+                            <span>Browse Offers</span>
+                        </span>
+                        <span class="ql-arrow">→</span>
+                    </div>
+                    <div class="quick-link" id="bioQuickForums">
+                        <span class="ql-left">
+                            <span class="ql-icon">💬</span>
+                            <span>Visit Forums</span>
+                        </span>
+                        <span class="ql-arrow">→</span>
+                    </div>
+                </div>
+
+                <button class="join-free-btn" id="joinFreeBtn">🎉 Join for Free</button>
+
+                <div class="bio-footer">© 2026 Patreon+ · Your all‑in‑one creative hub · 🌟</div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 3: OFFERS -->
+        <!-- ========================================================= -->
+        <div class="tab-content" id="tab-offers">
+            <div class="offers-container">
+                <h3>📦 My Offerings</h3>
+                <p class="sub">A curated framework of exclusive content tiers.</p>
+
+                <div class="offer-tier">
+                    <span class="tier-badge tier1">Tier 1 · Public</span>
+                    <h4>Street Style & Candid Culture</h4>
+                    <div class="tier-sub">Observational and trend-based content captured in public environments.</div>
+                    <div class="tier-desc">
+                        Your premier source for <strong>Street Style</strong> and <strong>Public Captures</strong> from around the globe. Celebrating the art of <strong>Candid Culture</strong> – we discover and showcase the hottest emerging trends.
+                    </div>
+                    <div class="tier-codes">
+                        <div class="code-label">Official Marketing Code</div>
+                        <div class="code-item"><strong>Primary Framing:</strong> "Street Style"</div>
+                        <div class="code-item"><strong>Secondary Framing:</strong> "Public Captures"</div>
+                        <div class="code-item"><strong>Tertiary Framing:</strong> "Candid Culture"</div>
+                    </div>
+                </div>
+
+                <div class="offer-tier">
+                    <span class="tier-badge tier2">Tier 2 · Exclusive</span>
+                    <h4>Global Relaxation & Curated Social Experiences</h4>
+                    <div class="tier-sub">Lifestyle guides, wellness retreats, and professional companionship.</div>
+                    <div class="tier-desc">
+                        Unlock exclusive guides to <strong>Global Relaxation</strong> and <strong>Discreet Lifestyle Services</strong>. Explore unique wellness retreats, behind‑the‑scenes experiences, and resources for understanding <strong>Transactional Intimacy</strong> with professional providers.
+                    </div>
+                    <div class="tier-codes">
+                        <div class="code-label">Official Marketing Code</div>
+                        <div class="code-item"><strong>Primary Framing:</strong> "Global Relaxation Experiences"</div>
+                        <div class="code-item"><strong>Secondary Framing:</strong> "Discreet Lifestyle Services" / "Curated Social Experiences"</div>
+                        <div class="code-item"><strong>Content Focus:</strong> Wellness, travel, social dynamics, professional companionship.</div>
+                    </div>
+                </div>
+
+                <div class="offer-tier">
+                    <span class="tier-badge tier3">Tier 3 · The Vault</span>
+                    <h4>The Archives</h4>
+                    <div class="tier-sub">Highest exclusivity – uncut, unfiltered, unseen.</div>
+                    <div class="tier-desc">
+                        <strong>The final key unlocks The Archives.</strong> This is our most exclusive vault, housing material that is too sensitive and too raw for other platforms. Access is extremely limited. See what they don't want you to see.
+                    </div>
+                    <div class="tier-codes">
+                        <div class="code-label">Internal Designation</div>
+                        <div class="code-item"><strong>Risk Category:</strong> HIGHEST RISK</div>
+                        <div class="code-item"><strong>Public Framing:</strong> "The Archives" or "The Vault"</div>
+                        <div class="code-item"><strong>Marketing:</strong> Abstract, focusing on exclusivity and sensitivity.</div>
+                    </div>
+                </div>
+
+                <div class="footer">© 2026 Patreon+ · Exclusive content framework · 🔐</div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 4: FORUMS -->
+        <!-- ========================================================= -->
+        <div class="tab-content" id="tab-forums">
+            <div class="section-title">
+                💬 Community Forums <span class="lock">Join the discussion</span>
+            </div>
+            <div class="form-wrapper">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8aWw977kjtAR9OUfdtJdYRLc9DPDC5e0Gt7lDCj5p-Ieysg/viewform?embedded=true" width="640" height="2640" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+            <div class="join-list-text">📧 Join My List</div>
+            <div class="footer">© 2026 Patreon+ · Community forums · 💬</div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 5: PREMIUM -->
+        <!-- ========================================================= -->
+        <div class="tab-content" id="tab-premium">
+            <div class="premium-container">
+                <h3>💎 Premium Features</h3>
+                <p class="sub">Everything Link.me charges money for – unlocked here for free.</p>
+
+                <div class="premium-pricing">
+                    <div class="price-card">
+                        <div class="plan-name">Plus</div>
+                        <div class="plan-price">$9.99<span style="font-size:14px;color:rgba(255,255,255,0.3);">/mo</span></div>
+                        <div class="plan-desc">Verified branding, custom themes, advanced tracking</div>
+                    </div>
+                    <div class="price-card highlight">
+                        <div class="plan-name">Pro ⭐</div>
+                        <div class="plan-price">$29.99<span style="font-size:14px;color:rgba(255,255,255,0.3);">/mo</span></div>
+                        <div class="plan-desc">Full layout customization, e‑commerce, newsletter builder</div>
+                    </div>
+                    <div class="price-card" style="grid-column: span 2;">
+                        <div class="plan-name">Agency</div>
+                        <div class="plan-price">$49.99<span style="font-size:14px;color:rgba(255,255,255,0.3);">/mo + $9.99/seat</span></div>
+                        <div class="plan-desc">Multi‑client dashboard, team management, 5‑seat minimum</div>
+                    </div>
+                </div>
+
+                <button class="unlock-btn locked" id="unlockBtn">🔒 Unlock All Features</button>
+
+                <div class="premium-features">
+                    <div class="premium-category" data-category="monetization">
+                        <h4>
+                            <span>💰 Monetization & E‑Commerce</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
+                        <ul>
+                            <li><span class="li-icon">🔒</span> <strong>Locked Products</strong> – Pay‑to‑unlock links, videos, or files <span class="feature-tooltip" title="Restrict specific download links or videos behind a paywall">ⓘ</span></li>
+                            <li><span class="li-icon">📚</span> <strong>Native Course Builder</strong> – Sell educational video lessons <span class="feature-tooltip" title="Host and sell structured video courses directly on your profile">ⓘ</span></li>
+                            <li><span class="li-icon">🛍️</span> <strong>Integrated Digital Storefront</strong> – Upload e‑books, presets, templates <span class="feature-tooltip" title="Sell digital products directly from your bio">ⓘ</span></li>
+                            <li><span class="li-icon">💵</span> <strong>Tip Collection</strong> – Receive audience tips and direct payouts <span class="feature-tooltip" title="Enable a digital wallet button for tips">ⓘ</span></li>
+                            <li><span class="li-icon">👕</span> <strong>Fulfillment Fees</strong> – $9.99 base for print‑on‑demand merch <span class="feature-tooltip" title="T‑shirts, hoodies, backpacks – manufacture & ship">ⓘ</span></li>
+                            <li><span class="li-icon">📦</span> <strong>Digital Paywalls</strong> – Gate content behind Pro tier or transaction fees <span class="feature-tooltip" title="Lock premium content behind a subscription or one‑time fee">ⓘ</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="premium-category" data-category="customization">
+                        <h4>
+                            <span>🎨 Profile Customization</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
+                        <ul>
+                            <li><span class="li-icon">🔄</span> <strong>Link Carousels</strong> – Horizontal swipeable banners for multiple links <span class="feature-tooltip" title="Group links into a swipeable carousel to save space">ⓘ</span></li>
+                            <li><span class="li-icon">✨</span> <strong>Featured Link Animations</strong> – Shine, Pulse, Bounce effects <span class="feature-tooltip" title="Add attention‑grabbing animations to key links">ⓘ</span></li>
+                            <li><span class="li-icon">🎨</span> <strong>Custom Themes & Layouts</strong> – Font packages, premium color backdrops <span class="feature-tooltip" title="Fully customize the look and feel of your page">ⓘ</span></li>
+                            <li><span class="li-icon">📹</span> <strong>Video Feeds</strong> – Embed playable multimedia streams directly <span class="feature-tooltip" title="Play video content without leaving the page">ⓘ</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="premium-category" data-category="analytics">
+                        <h4>
+                            <span>📊 Marketing Automations & Analytics</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
+                        <ul>
+                            <li><span class="li-icon">📢</span> <strong>Post to All</strong> – Broadcast updates to every connected platform <span class="feature-tooltip" title="Post once, publish everywhere">ⓘ</span></li>
+                            <li><span class="li-icon">⏰</span> <strong>Link Scheduler</strong> – Program when links go live or expire <span class="feature-tooltip" title="Schedule links to publish automatically at specific times">ⓘ</span></li>
+                            <li><span class="li-icon">🎯</span> <strong>Tracking Pixels</strong> – Meta, Google pixel integrations for retargeting <span class="feature-tooltip" title="Install ad tracking pixels to build audiences">ⓘ</span></li>
+                            <li><span class="li-icon">📈</span> <strong>Advanced Live Analytics</strong> – Geographical traffic, bounce rates, click distribution <span class="feature-tooltip" title="Get real‑time stats on who clicks what and where">ⓘ</span></li>
+                            <li><span class="li-icon">📧</span> <strong>Automated Email Capture</strong> – Custom intake forms, Apple Wallet integration <span class="feature-tooltip" title="Build an email list directly from your bio">ⓘ</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="premium-category" data-category="team">
+                        <h4>
+                            <span>👥 Team Management (Agency Only)</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
+                        <ul>
+                            <li><span class="li-icon">📊</span> <strong>Multi‑Client Dashboard</strong> – Manage multiple influencer profiles <span class="feature-tooltip" title="Switch between client accounts in one place">ⓘ</span></li>
+                            <li><span class="li-icon">👤</span> <strong>Seat‑based Access</strong> – $9.99 per extra seat, 5‑seat minimum <span class="feature-tooltip" title="Add team members with their own login">ⓘ</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="premium-category" data-category="interactive">
+                        <h4>
+                            <span>📱 Interactive & Networking</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
+                        <ul>
+                            <li><span class="li-icon">📞</span> <strong>Paid Calls / Consultations</strong> – Schedule and charge for 1‑on‑1 sessions <span class="feature-tooltip" title="Let followers book and pay for calls directly">ⓘ</span></li>
+                            <li><span class="li-icon">📣</span> <strong>The "Shout" Feature</strong> – Broadcast text, graphics, or videos to all subscribers <span class="feature-tooltip" title="Send a blast to your entire audience at once">ⓘ</span></li>
+                            <li><span class="li-icon">🎟️</span> <strong>Event & Ticket Sales</strong> – Sell event tickets directly through your bio <span class="feature-tooltip" title="List events and process ticket payments">ⓘ</span></li>
+                            <li><span class="li-icon">📇</span> <strong>Digital QR Cards</strong> – Long‑distance scanning for real‑life networking <span class="feature-tooltip" title="Share your profile via QR code at events">ⓘ</span></li>
+                            <li><span class="li-icon">🎮</span> <strong>Multi‑Stream Destination Pages</strong> – Aggregate live streams (Twitch, Kick, YouTube, Facebook) <span class="feature-tooltip" title="Let viewers pick their favorite streaming platform">ⓘ</span></li>
+                            <li><span class="li-icon">🔗</span> <strong>Affiliate & Payout Hub</strong> – Centralized tracking for brand links and commissions <span class="feature-tooltip" title="Track which affiliate links are making money">ⓘ</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="premium-category" data-category="ambassador">
+                        <h4>
+                            <span>🤝 Ambassador Rewards</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
+                        <ul>
+                            <li><span class="li-icon">👑</span> <strong>Referral Milestones</strong> – Earn cash or tech prizes (Apple Watch, PS5) for inviting new creators <span class="feature-tooltip" title="$20 for 20 invites, $100 for 100, up to $500 for 500">ⓘ</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="premium-category" data-category="technical">
+                        <h4>
+                            <span>⚙️ Under‑the‑Hood Technical Actions</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
+                        <ul>
+                            <li><span class="li-icon">🔗</span> <strong>Deep‑Linking Architecture</strong> – Force native app launches for links <span class="feature-tooltip" title="Open links in their native apps, not browser">ⓘ</span></li>
+                            <li><span class="li-icon">🎵</span> <strong>Bandsintown Event Sync</strong> – Automatically pull live tour dates <span class="feature-tooltip" title="Sync your concert schedule from Bandsintown">ⓘ</span></li>
+                            <li><span class="li-icon">📝</span> <strong>Custom Form Routing</strong> – Deliver downloads directly to mobile devices <span class="feature-tooltip" title="Send files straight to users' phones after form submission">ⓘ</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="premium-note">
+                    <strong>📌 Note:</strong> All these features are normally paid on Link.me – but here on Patreon+, 
+                    you get them <strong>absolutely free</strong> as part of our community. No subscription fees, 
+                    no fulfillment costs, no hidden charges. Just pure, unfiltered access to the entire premium suite.
+                </div>
+
+                <div class="footer">© 2026 Patreon+ · Premium features from Link.me · 🔓</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // SPARKLE CANVAS (unchanged)
+        // ============================================================
+        const canvas = document.getElementById('sparkleCanvas');
+        const ctx = canvas.getContext('2d');
+        let w, h;
+        let sparkles = [];
+
+        function resizeCanvas() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Sparkle {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.size = Math.random() * 4 + 2;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.phase = Math.random() * Math.PI * 2;
+                const colors = ['#00e5ff', '#ff0066', '#ffcc00', '#ff1493', '#00e676'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.type = Math.random() > 0.6 ? 'heart' : 'star';
+            }
+
+            update(time) {
+                this.x += this.speedX + Math.sin(time * 0.0008 + this.phase) * 0.15;
+                this.y += this.speedY + Math.cos(time * 0.0008 + this.phase) * 0.15;
+                this.opacity = (0.3 + 0.3 * Math.sin(time * 0.002 + this.phase)) * 0.6 + 0.2;
+                if (this.x < 0) this.x = w;
+                if (this.x > w) this.x = 0;
+                if (this.y < 0) this.y = h;
+                if (this.y > h) this.y = 0;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.translate(this.x, this.y);
+                if (this.type === 'heart') {
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 15;
+                    const s = this.size * 1.5;
+                    ctx.beginPath();
+                    ctx.moveTo(0, s * 0.3);
+                    ctx.bezierCurveTo(-s * 0.8, -s * 0.4, -s * 1.2, s * 0.4, 0, s * 1.0);
+                    ctx.bezierCurveTo(s * 1.2, s * 0.4, s * 0.8, -s * 0.4, 0, s * 0.3);
+                    ctx.fill();
+                } else {
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 12;
+                    const s = this.size;
+                    ctx.beginPath();
+                    for (let i = 0; i < 8; i++) {
+                        const angle = (i / 8) * Math.PI * 2;
+                        const r = i % 2 === 0 ? s : s * 0.4;
+                        if (i === 0) ctx.moveTo(r * Math.cos(angle), r * Math.sin(angle));
+                        else ctx.lineTo(r * Math.cos(angle), r * Math.sin(angle));
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            const emojis = ['💖', '💕', '💗', '🩷', '✨', '💝', '🌸'];
+            heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (16 + Math.random() * 22) + 'px';
+            heart.style.animationDuration = (15 + Math.random() * 20) + 's';
+            heart.style.animationDelay = Math.random() * 10 + 's';
+            heart.style.color = ['#ff0066', '#ffcc00', '#00e5ff', '#ff1493'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 35000);
+        }
+
+        for (let i = 0; i < 8; i++) setTimeout(createFloatingHeart, i * 3000);
+        setInterval(createFloatingHeart, 4000);
+
+        function initSparkles(count = 120) {
+            sparkles = [];
+            for (let i = 0; i < count; i++) {
+                sparkles.push(new Sparkle());
+            }
+        }
+        initSparkles();
+
+        let startTime = Date.now();
+
+        function animateSparkles() {
+            const now = Date.now();
+            ctx.clearRect(0, 0, w, h);
+            sparkles.forEach(s => {
+                s.update(now);
+                s.draw();
+            });
+            for (let i = 0; i < sparkles.length; i++) {
+                for (let j = i + 1; j < sparkles.length; j++) {
+                    const dx = sparkles[i].x - sparkles[j].x;
+                    const dy = sparkles[i].y - sparkles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        const alpha = 0.05 * (1 - dist / 120);
+                        ctx.beginPath();
+                        ctx.moveTo(sparkles[i].x, sparkles[i].y);
+                        ctx.lineTo(sparkles[j].x, sparkles[j].y);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateSparkles);
+        }
+        animateSparkles();
+
+        // ============================================================
+        // TAB SWITCHING (unchanged)
+        // ============================================================
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                tabButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                tabContents.forEach(c => c.classList.remove('active'));
+                const target = this.dataset.tab;
+                document.getElementById(`tab-${target}`).classList.add('active');
+            });
+        });
+
+        // ============================================================
+        // BIO TAB – Quick links
+        // ============================================================
+        document.getElementById('bioQuickPortal')?.addEventListener('click', function() {
+            const portalTab = document.querySelector('.tab-btn[data-tab="payments"]');
+            if (portalTab) portalTab.click();
+        });
+
+        document.getElementById('bioQuickOffers')?.addEventListener('click', function() {
+            const offersTab = document.querySelector('.tab-btn[data-tab="offers"]');
+            if (offersTab) offersTab.click();
+        });
+
+        document.getElementById('bioQuickForums')?.addEventListener('click', function() {
+            const forumsTab = document.querySelector('.tab-btn[data-tab="forums"]');
+            if (forumsTab) forumsTab.click();
+        });
+
+        // ============================================================
+        // PORTAL – BUTTON ACTIONS
+        // ============================================================
+        document.getElementById('payNowBtn')?.addEventListener('click', function() {
+            window.open('https://buy.stripe.com/28EeVd4O216l9HzaVJenS00', '_blank');
+        });
+
+        document.getElementById('joinNowBtn')?.addEventListener('click', function() {
+            window.open('https://whop.com/viraldancandotrends', '_blank');
+        });
+
+        // ===== TIP BUTTON (green glow) =====
+        document.getElementById('tipBtn')?.addEventListener('click', function() {
+            window.open('https://buymeacoffee.com/Potatochat', '_blank');
+        });
+
+        // ===== SUBSCRIBE BUTTON =====
+        document.getElementById('subscribeBtn')?.addEventListener('click', function() {
+            window.open('https://whop.com/viraldancandotrends', '_blank');
+        });
+
+        // ===== PREVIEW FORM BUTTON (no glare) =====
+        const previewBtn = document.getElementById('previewFormBtn');
+        const modal = document.getElementById('formModal');
+        const closeModal = document.getElementById('closeModalBtn');
+
+        previewBtn.addEventListener('click', function() {
+            modal.classList.add('active');
+        });
+
+        closeModal.addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // ============================================================
+        // BIO – JOIN FOR FREE BUTTON
+        // ============================================================
+        document.getElementById('joinFreeBtn')?.addEventListener('click', function() {
+            window.open('https://whop.com/viraldancandotrends', '_blank');
+        });
+
+        // ============================================================
+        // PREMIUM TAB – UNLOCK EXPERIENCE
+        // ============================================================
+        let isUnlocked = false;
+        const unlockBtn = document.getElementById('unlockBtn');
+        const categories = document.querySelectorAll('.premium-category');
+
+        function triggerCelebration() {
+            const container = document.getElementById('celebration');
+            container.classList.add('active');
+            container.innerHTML = '';
+            const emojis = ['🎉', '🎊', '✨', '💎', '🌟', '⭐', '🎈', '💖', '🔥', '🚀', '🌈', '🎁'];
+            for (let i = 0; i < 60; i++) {
+                const el = document.createElement('div');
+                el.className = 'celebration-emoji';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.left = Math.random() * 100 + '%';
+                el.style.fontSize = (20 + Math.random() * 40) + 'px';
+                el.style.animationDuration = (2 + Math.random() * 3) + 's';
+                el.style.animationDelay = (Math.random() * 2) + 's';
+                container.appendChild(el);
+            }
+            setTimeout(() => {
+                container.classList.remove('active');
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        unlockBtn.addEventListener('click', function() {
+            if (isUnlocked) {
+                isUnlocked = false;
+                this.textContent = '🔒 Unlock All Features';
+                this.className = 'unlock-btn locked';
+                categories.forEach(cat => {
+                    cat.classList.remove('unlocked');
+                    const badge = cat.querySelector('.status-badge');
+                    if (badge) badge.textContent = '🔒';
+                });
+                return;
+            }
+
+            this.textContent = '🔓 Unlocking...';
+            this.disabled = true;
+
+            let delay = 0;
+            const step = 150;
+            categories.forEach((cat, index) => {
+                setTimeout(() => {
+                    cat.classList.add('unlocked');
+                    const badge = cat.querySelector('.status-badge');
+                    if (badge) badge.textContent = '🔓';
+                }, delay);
+                delay += step;
+            });
+
+            setTimeout(() => {
+                isUnlocked = true;
+                unlockBtn.textContent = '🔓 Lock Features (demo)';
+                unlockBtn.className = 'unlock-btn';
+                unlockBtn.disabled = false;
+                triggerCelebration();
+            }, delay + 200);
+        });
+
+        // ============================================================
+        // MULTILINGUAL POP-UP – Auto-close & manual close
+        // ============================================================
+        const popup = document.getElementById('multilingualPopup');
+        const closeBtn = document.getElementById('popupClose');
+
+        setTimeout(() => {
+            if (popup && !popup.classList.contains('closed')) {
+                popup.classList.add('closed');
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 500);
+            }
+        }, 10000);
+
+        closeBtn.addEventListener('click', function() {
+            popup.classList.add('closed');
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 500);
+        });
+    </script>
+
+</body>
+</html>
