@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Patreon+ · Portal · Bio · Offers · Forums · Premium</title>
+    <title>Patreon+ · Portal · Offers · Bio · Forums · Premium</title>
     <style>
         /* ===== RESET & THEME ===== */
         * {
@@ -27,11 +27,21 @@
         }
 
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 100% 0%; }
-            50% { background-position: 100% 50%; }
-            75% { background-position: 0% 100%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 100% 0%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            75% {
+                background-position: 0% 100%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* ===== SPARKLE CANVAS ===== */
@@ -60,8 +70,12 @@
                 transform: translateY(100vh) scale(0.5) rotate(0deg);
                 opacity: 0.2;
             }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
             100% {
                 transform: translateY(-10vh) scale(1.1) rotate(720deg);
                 opacity: 0;
@@ -79,7 +93,7 @@
             padding: 28px 18px;
             border: 2px solid transparent;
             background-clip: padding-box;
-            box-shadow: 
+            box-shadow:
                 0 30px 60px rgba(0, 0, 0, 0.7),
                 0 0 0 1px rgba(255, 0, 102, 0.2) inset,
                 0 0 50px rgba(255, 0, 102, 0.1),
@@ -108,13 +122,19 @@
         }
 
         @keyframes shimmerBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .container:hover {
-            box-shadow: 
+            box-shadow:
                 0 40px 80px rgba(0, 0, 0, 0.8),
                 0 0 0 1px rgba(255, 0, 102, 0.4) inset,
                 0 0 70px rgba(255, 0, 102, 0.2),
@@ -122,8 +142,13 @@
         }
 
         @keyframes floatContainer {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-4px); }
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
         }
 
         /* ===== HEADER ===== */
@@ -153,13 +178,23 @@
         }
 
         @keyframes avatarGradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         @keyframes floatAvatar {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(3deg); }
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-8px) rotate(3deg);
+            }
         }
 
         .header h1 {
@@ -175,8 +210,13 @@
         }
 
         @keyframes shimmerText {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .header p {
@@ -187,9 +227,17 @@
             text-shadow: 0 0 20px rgba(255, 0, 102, 0.1);
         }
 
+        .header-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
         .badge {
             display: inline-block;
-            margin-top: 6px;
             padding: 3px 16px;
             background: rgba(255, 0, 102, 0.2);
             border: 1.5px solid rgba(255, 204, 0, 0.3);
@@ -210,7 +258,8 @@
         }
 
         @keyframes linkPulse {
-            0%, 100% {
+            0%,
+            100% {
                 transform: scale(1) rotate(0deg);
                 filter: drop-shadow(0 0 6px rgba(255, 204, 0, 0.4));
             }
@@ -225,10 +274,42 @@
         }
 
         @keyframes linkBounce {
-            0% { transform: scale(1) rotate(0deg); }
-            30% { transform: scale(1.4) rotate(-12deg); }
-            60% { transform: scale(0.9) rotate(8deg); }
-            100% { transform: scale(1) rotate(0deg); }
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            30% {
+                transform: scale(1.4) rotate(-12deg);
+            }
+            60% {
+                transform: scale(0.9) rotate(8deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .telegram-link {
+            display: inline-block;
+            padding: 3px 16px;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1.5px solid rgba(0, 229, 255, 0.2);
+            border-radius: 30px;
+            font-size: 12px;
+            color: #00e5ff;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.02);
+        }
+
+        .telegram-link:hover {
+            background: rgba(0, 229, 255, 0.15);
+            border-color: #00e5ff;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.15);
+            color: #fff;
         }
 
         /* ===== TABS ===== */
@@ -258,7 +339,7 @@
             min-width: 60px;
             position: relative;
             backdrop-filter: blur(4px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .tab-btn:hover {
@@ -288,8 +369,14 @@
         }
 
         @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(14px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(14px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         /* ============================================================ */
@@ -326,8 +413,12 @@
         }
 
         @keyframes scrollMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         /* ============================================================ */
@@ -433,13 +524,25 @@
         }
 
         @keyframes shimmerBtn {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         @keyframes sparkle {
-            0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
-            50% { opacity: 0.3; transform: translateY(-50%) scale(0.8); }
+            0%,
+            100% {
+                opacity: 1;
+                transform: translateY(-50%) scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: translateY(-50%) scale(0.8);
+            }
         }
 
         .join-top-btn:hover {
@@ -447,7 +550,7 @@
             box-shadow: 0 8px 50px rgba(255, 0, 102, 0.6), 0 0 100px rgba(255, 0, 102, 0.2);
         }
 
-        /* ===== EMAIL INPUT FIELD - single emoji ===== */
+        /* ===== EMAIL INPUT FIELD ===== */
         .email-input-field {
             width: 100%;
             max-width: 380px;
@@ -492,11 +595,15 @@
         }
 
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
         }
 
-        /* Single glowing email emoji */
         .email-input-field .email-glow {
             position: absolute;
             right: 14px;
@@ -509,7 +616,8 @@
         }
 
         @keyframes glowPulse {
-            0%, 100% {
+            0%,
+            100% {
                 transform: translateY(-50%) scale(1);
                 filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.6));
             }
@@ -614,7 +722,6 @@
             box-shadow: 0 4px 30px rgba(255, 0, 102, 0.3);
         }
 
-        /* ===== ADD EMAIL BUTTON ===== */
         .promo-section .add-email-btn {
             display: block;
             width: 100%;
@@ -638,7 +745,7 @@
             box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
         }
 
-        /* ===== PAYMENT PROCESSORS - with brand colors and shimmer ===== */
+        /* ===== PAYMENT PROCESSORS ===== */
         .processors-section {
             margin-bottom: 24px;
             text-align: center;
@@ -698,7 +805,7 @@
             font-size: 13px;
         }
 
-        /* ===== HIGHLIGHTED CHIPS - more colorful & eye-catching ===== */
+        /* ===== HIGHLIGHTED CHIPS ===== */
         .processor-chip.highlight {
             border-width: 2.5px;
             padding: 12px 24px;
@@ -719,7 +826,6 @@
             font-size: 24px;
         }
 
-        /* Shimmer overlay for all highlighted chips */
         .processor-chip.highlight::after {
             content: '';
             position: absolute;
@@ -727,14 +833,12 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(
-                135deg,
-                rgba(255,255,255,0) 0%,
-                rgba(255,255,255,0.1) 30%,
-                rgba(255,255,255,0.25) 50%,
-                rgba(255,255,255,0.1) 70%,
-                rgba(255,255,255,0) 100%
-            );
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.1) 30%,
+                    rgba(255, 255, 255, 0.25) 50%,
+                    rgba(255, 255, 255, 0.1) 70%,
+                    rgba(255, 255, 255, 0) 100%);
             opacity: 0;
             transition: opacity 0.5s ease;
             pointer-events: none;
@@ -747,8 +851,12 @@
         }
 
         @keyframes shimmerSlide {
-            0% { transform: rotate(25deg) translateX(-100%); }
-            100% { transform: rotate(25deg) translateX(100%); }
+            0% {
+                transform: rotate(25deg) translateX(-100%);
+            }
+            100% {
+                transform: rotate(25deg) translateX(100%);
+            }
         }
 
         .processor-chip.highlight:hover {
@@ -756,104 +864,120 @@
             box-shadow: 0 8px 40px rgba(255, 255, 255, 0.2);
         }
 
-        /* Individual brand colors with stronger gradients */
         .processor-chip.highlight[data-brand="stripe"] {
             background: linear-gradient(135deg, #635bff, #4a42d4);
             border-color: #7c73ff;
             box-shadow: 0 0 30px rgba(99, 91, 255, 0.4);
+            animation: stripePulse 2.2s ease-in-out infinite;
         }
         .processor-chip.highlight[data-brand="stripe"]:hover {
             box-shadow: 0 0 60px rgba(99, 91, 255, 0.6);
         }
         @keyframes stripePulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(99, 91, 255, 0.4); }
-            50% { box-shadow: 0 0 60px rgba(99, 91, 255, 0.7); }
-        }
-        .processor-chip.highlight[data-brand="stripe"] {
-            animation: stripePulse 2.2s ease-in-out infinite;
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(99, 91, 255, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(99, 91, 255, 0.7);
+            }
         }
 
         .processor-chip.highlight[data-brand="paypal"] {
             background: linear-gradient(135deg, #0070ba, #005ea6);
             border-color: #1a8cd8;
             box-shadow: 0 0 30px rgba(0, 112, 186, 0.4);
+            animation: paypalPulse 2.2s ease-in-out infinite;
         }
         .processor-chip.highlight[data-brand="paypal"]:hover {
             box-shadow: 0 0 60px rgba(0, 112, 186, 0.6);
         }
         @keyframes paypalPulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(0, 112, 186, 0.4); }
-            50% { box-shadow: 0 0 60px rgba(0, 112, 186, 0.7); }
-        }
-        .processor-chip.highlight[data-brand="paypal"] {
-            animation: paypalPulse 2.2s ease-in-out infinite;
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(0, 112, 186, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(0, 112, 186, 0.7);
+            }
         }
 
         .processor-chip.highlight[data-brand="patreon"] {
             background: linear-gradient(135deg, #ff424d, #e0323d);
             border-color: #ff6b7a;
             box-shadow: 0 0 30px rgba(255, 66, 77, 0.4);
+            animation: patreonPulse 2.2s ease-in-out infinite;
         }
         .processor-chip.highlight[data-brand="patreon"]:hover {
             box-shadow: 0 0 60px rgba(255, 66, 77, 0.6);
         }
         @keyframes patreonPulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(255, 66, 77, 0.4); }
-            50% { box-shadow: 0 0 60px rgba(255, 66, 77, 0.7); }
-        }
-        .processor-chip.highlight[data-brand="patreon"] {
-            animation: patreonPulse 2.2s ease-in-out infinite;
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(255, 66, 77, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(255, 66, 77, 0.7);
+            }
         }
 
         .processor-chip.highlight[data-brand="whop"] {
             background: linear-gradient(135deg, #00d4aa, #00b894);
             border-color: #33e6c4;
             box-shadow: 0 0 30px rgba(0, 212, 170, 0.4);
+            animation: whopPulse 2.2s ease-in-out infinite;
         }
         .processor-chip.highlight[data-brand="whop"]:hover {
             box-shadow: 0 0 60px rgba(0, 212, 170, 0.6);
         }
         @keyframes whopPulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(0, 212, 170, 0.4); }
-            50% { box-shadow: 0 0 60px rgba(0, 212, 170, 0.7); }
-        }
-        .processor-chip.highlight[data-brand="whop"] {
-            animation: whopPulse 2.2s ease-in-out infinite;
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(0, 212, 170, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(0, 212, 170, 0.7);
+            }
         }
 
         .processor-chip.highlight[data-brand="discord"] {
             background: linear-gradient(135deg, #5865f2, #4752c4);
             border-color: #7c8aff;
             box-shadow: 0 0 30px rgba(88, 101, 242, 0.4);
+            animation: discordPulse 2.2s ease-in-out infinite;
         }
         .processor-chip.highlight[data-brand="discord"]:hover {
             box-shadow: 0 0 60px rgba(88, 101, 242, 0.6);
         }
         @keyframes discordPulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(88, 101, 242, 0.4); }
-            50% { box-shadow: 0 0 60px rgba(88, 101, 242, 0.7); }
-        }
-        .processor-chip.highlight[data-brand="discord"] {
-            animation: discordPulse 2.2s ease-in-out infinite;
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(88, 101, 242, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(88, 101, 242, 0.7);
+            }
         }
 
         .processor-chip.highlight[data-brand="deviantart"] {
             background: linear-gradient(135deg, #05cc47, #04a83a);
             border-color: #33e66d;
             box-shadow: 0 0 30px rgba(5, 204, 71, 0.4);
+            animation: deviantartPulse 2.2s ease-in-out infinite;
         }
         .processor-chip.highlight[data-brand="deviantart"]:hover {
             box-shadow: 0 0 60px rgba(5, 204, 71, 0.6);
         }
         @keyframes deviantartPulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(5, 204, 71, 0.4); }
-            50% { box-shadow: 0 0 60px rgba(5, 204, 71, 0.7); }
-        }
-        .processor-chip.highlight[data-brand="deviantart"] {
-            animation: deviantartPulse 2.2s ease-in-out infinite;
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(5, 204, 71, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(5, 204, 71, 0.7);
+            }
         }
 
-        /* ===== SECURE BADGE ===== */
         .secure-badge {
             text-align: center;
             margin-top: 12px;
@@ -862,7 +986,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* ===== VIDEO ===== */
         .video-wrapper {
             margin-top: 24px;
             border-radius: 18px;
@@ -888,7 +1011,6 @@
             object-fit: cover;
         }
 
-        /* ===== PAY SECTION (bottom) ===== */
         .pay-section {
             margin-top: 24px;
             position: relative;
@@ -963,7 +1085,314 @@
         }
 
         /* ============================================================ */
-        /* TAB 2: BIO */
+        /* TAB 2: OFFERS (now second, with slideshow) */
+        /* ============================================================ */
+        .offers-container {
+            text-align: left;
+        }
+
+        .offers-container h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 3s ease-in-out infinite;
+        }
+
+        .offers-container .sub {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== SLIDESHOW ===== */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 20px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .slideshow-container .slide-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .slideshow-container .slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+
+        .slideshow-container .slide img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 350px;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .slideshow-container .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 14px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 22px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            line-height: 1;
+        }
+
+        .slideshow-container .slide-btn:hover {
+            background: rgba(255, 0, 102, 0.6);
+            border-color: rgba(255, 204, 0, 0.4);
+            color: #fff;
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 102, 0.3);
+        }
+
+        .slideshow-container .slide-btn.prev {
+            left: 12px;
+        }
+
+        .slideshow-container .slide-btn.next {
+            right: 12px;
+        }
+
+        .slideshow-container .dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 12px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+        }
+
+        .slideshow-container .dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .slideshow-container .dots .dot:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(1.15);
+        }
+
+        .slideshow-container .dots .dot.active {
+            background: #ffcc00;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+            width: 14px;
+            border-radius: 10px;
+        }
+
+        /* ===== SUBSCRIBE BUTTON (Offers tab) ===== */
+        .offers-subscribe-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #0070ba, #005ea6);
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(0, 112, 186, 0.4);
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .offers-subscribe-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 30px rgba(0, 112, 186, 0.6);
+            background: linear-gradient(135deg, #1a8cd8, #0070ba);
+        }
+
+        /* ===== OFFER TIERS (unchanged) ===== */
+        .offer-tier {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 16px 14px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .offer-tier:hover {
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.04);
+            transform: translateY(-2px);
+        }
+
+        .offer-tier .tier-badge {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .offer-tier .tier-badge.tier1 {
+            background: rgba(0, 229, 255, 0.2);
+            color: #00e5ff;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+        }
+
+        .offer-tier .tier-badge.tier2 {
+            background: rgba(255, 204, 0, 0.2);
+            color: #ffcc00;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+        }
+
+        .offer-tier .tier-badge.tier3 {
+            background: rgba(255, 0, 102, 0.2);
+            color: #ff0066;
+            border: 1px solid rgba(255, 0, 102, 0.3);
+        }
+
+        .offer-tier h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .offer-tier .tier-sub {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .offer-tier .tier-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .offer-tier .tier-codes {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .offer-tier .tier-codes .code-label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .offer-tier .tier-codes .code-item {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            padding: 2px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .offer-tier .tier-codes .code-item:last-child {
+            border-bottom: none;
+        }
+
+        .offer-tier .tier-codes .code-item strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .free-previews-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #ff6b9d, #ffcc00, #00e5ff);
+            background-size: 300% 300%;
+            border: none;
+            border-radius: 30px;
+            color: #0b0b1a;
+            font-weight: 800;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.3), 0 0 60px rgba(255, 0, 102, 0.15), 0 8px 30px rgba(0, 229, 255, 0.2);
+            text-align: center;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+            animation: glowPulse 2s ease-in-out infinite, shimmerBtn 3s ease-in-out infinite;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .free-previews-btn::before {
+            content: '🎬';
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 22px;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .free-previews-btn::after {
+            content: '✨';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 22px;
+            animation: sparkle 1.5s ease-in-out infinite 0.5s;
+        }
+
+        .free-previews-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 70px rgba(255, 204, 0, 0.8), 0 0 120px rgba(255, 0, 102, 0.4), 0 8px 60px rgba(0, 229, 255, 0.5);
+        }
+
+        /* ============================================================ */
+        /* TAB 3: BIO (now third) */
         /* ============================================================ */
         .bio-full {
             text-align: left;
@@ -1295,190 +1724,6 @@
         }
 
         /* ============================================================ */
-        /* TAB 3: OFFERS */
-        /* ============================================================ */
-        .offers-container {
-            text-align: left;
-        }
-
-        .offers-container h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            text-align: center;
-            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmerText 3s ease-in-out infinite;
-        }
-
-        .offers-container .sub {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
-            margin-bottom: 20px;
-            text-align: center;
-            letter-spacing: 0.3px;
-        }
-
-        .offer-tier {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 20px;
-            padding: 16px 14px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s ease;
-        }
-
-        .offer-tier:hover {
-            border-color: rgba(0, 229, 255, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.04);
-            transform: translateY(-2px);
-        }
-
-        .offer-tier .tier-badge {
-            display: inline-block;
-            padding: 3px 14px;
-            border-radius: 30px;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .offer-tier .tier-badge.tier1 {
-            background: rgba(0, 229, 255, 0.2);
-            color: #00e5ff;
-            border: 1px solid rgba(0, 229, 255, 0.3);
-        }
-
-        .offer-tier .tier-badge.tier2 {
-            background: rgba(255, 204, 0, 0.2);
-            color: #ffcc00;
-            border: 1px solid rgba(255, 204, 0, 0.3);
-        }
-
-        .offer-tier .tier-badge.tier3 {
-            background: rgba(255, 0, 102, 0.2);
-            color: #ff0066;
-            border: 1px solid rgba(255, 0, 102, 0.3);
-        }
-
-        .offer-tier h4 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .offer-tier .tier-sub {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
-            margin-bottom: 10px;
-            font-style: italic;
-        }
-
-        .offer-tier .tier-desc {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
-        .offer-tier .tier-codes {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 10px 14px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .offer-tier .tier-codes .code-label {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .offer-tier .tier-codes .code-item {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 12px;
-            padding: 2px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .offer-tier .tier-codes .code-item:last-child {
-            border-bottom: none;
-        }
-
-        .offer-tier .tier-codes .code-item strong {
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .free-previews-btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            margin-top: 20px;
-            background: linear-gradient(135deg, #ff6b9d, #ffcc00, #00e5ff);
-            background-size: 300% 300%;
-            border: none;
-            border-radius: 30px;
-            color: #0b0b1a;
-            font-weight: 800;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 30px rgba(255, 204, 0, 0.3), 0 0 60px rgba(255, 0, 102, 0.15), 0 8px 30px rgba(0, 229, 255, 0.2);
-            text-align: center;
-            max-width: 380px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            overflow: hidden;
-            animation: glowPulse 2s ease-in-out infinite, shimmerBtn 3s ease-in-out infinite;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% {
-                box-shadow: 0 0 30px rgba(255, 204, 0, 0.3), 0 0 60px rgba(255, 0, 102, 0.15), 0 8px 30px rgba(0, 229, 255, 0.2);
-            }
-            50% {
-                box-shadow: 0 0 60px rgba(255, 204, 0, 0.6), 0 0 100px rgba(255, 0, 102, 0.3), 0 8px 50px rgba(0, 229, 255, 0.4);
-            }
-        }
-
-        .free-previews-btn::before {
-            content: '🎬';
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 22px;
-            animation: sparkle 1.5s ease-in-out infinite;
-        }
-
-        .free-previews-btn::after {
-            content: '✨';
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 22px;
-            animation: sparkle 1.5s ease-in-out infinite 0.5s;
-        }
-
-        .free-previews-btn:hover {
-            transform: scale(1.04);
-            box-shadow: 0 0 70px rgba(255, 204, 0, 0.8), 0 0 120px rgba(255, 0, 102, 0.4), 0 8px 60px rgba(0, 229, 255, 0.5);
-        }
-
-        /* ============================================================ */
         /* TAB 4: FORUMS */
         /* ============================================================ */
         .section-title {
@@ -1802,8 +2047,14 @@
         }
 
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         .modal-content .close-modal {
@@ -1867,8 +2118,12 @@
                 transform: translateY(100vh) scale(0.5) rotate(0deg);
                 opacity: 0;
             }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
             100% {
                 transform: translateY(-10vh) scale(1.1) rotate(720deg);
                 opacity: 0;
@@ -2132,6 +2387,31 @@
             .email-input-field .email-glow {
                 font-size: 18px;
             }
+            .header-links {
+                gap: 8px;
+            }
+            .offers-subscribe-btn {
+                font-size: 16px;
+                padding: 12px;
+            }
+            .slideshow-container .slide-btn {
+                padding: 6px 10px;
+                font-size: 18px;
+            }
+            .slideshow-container .dots {
+                gap: 6px;
+                padding: 4px 10px;
+            }
+            .slideshow-container .dots .dot {
+                width: 8px;
+                height: 8px;
+            }
+            .slideshow-container .dots .dot.active {
+                width: 12px;
+            }
+            .slideshow-container .slide img {
+                max-height: 280px;
+            }
         }
 
         @media (max-width: 420px) {
@@ -2254,6 +2534,46 @@
             .email-input-field .email-glow {
                 font-size: 16px;
             }
+            .header-links {
+                gap: 6px;
+            }
+            .telegram-link {
+                font-size: 11px;
+                padding: 2px 12px;
+            }
+            .badge {
+                font-size: 11px;
+                padding: 2px 12px;
+            }
+            .offers-subscribe-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .slideshow-container .slide-btn {
+                padding: 4px 8px;
+                font-size: 16px;
+            }
+            .slideshow-container .slide-btn.prev {
+                left: 6px;
+            }
+            .slideshow-container .slide-btn.next {
+                right: 6px;
+            }
+            .slideshow-container .dots {
+                gap: 4px;
+                padding: 3px 8px;
+                bottom: 6px;
+            }
+            .slideshow-container .dots .dot {
+                width: 6px;
+                height: 6px;
+            }
+            .slideshow-container .dots .dot.active {
+                width: 10px;
+            }
+            .slideshow-container .slide img {
+                max-height: 220px;
+            }
         }
     </style>
 </head>
@@ -2261,8 +2581,6 @@
 
     <!-- ===== SPARKLE CANVAS ===== -->
     <canvas id="sparkleCanvas"></canvas>
-
-    <!-- ===== FLOATING HEARTS ===== -->
 
     <!-- ===== CELEBRATION OVERLAY ===== -->
     <div class="celebration" id="celebration"></div>
@@ -2310,17 +2628,21 @@
         <div class="header">
             <div class="avatar">🍕</div>
             <h1>Patreon+</h1>
-            <p>✨ Portal · Bio · Offers · Forums · Premium ✨</p>
-            <span class="badge"><span class="link-emoji">🔗</span> 750 Followers</span>
+            <p>✨ Portal · Offers · Bio · Forums · Premium ✨</p>
+
+            <div class="header-links">
+                <span class="badge"><span class="link-emoji">🔗</span> 750 Followers</span>
+                <a href="https://t.me/Superhelpful" target="_blank" class="telegram-link">💬 t.me/Superhelpful</a>
+            </div>
         </div>
 
         <!-- ========================================================= -->
-        <!-- TABS -->
+        <!-- TABS (Portal, Offers, Bio, Forums, Premium) -->
         <!-- ========================================================= -->
         <div class="tab-nav">
             <button class="tab-btn active" data-tab="payments">💳 Portal</button>
-            <button class="tab-btn" data-tab="bio">🌐 Bio</button>
             <button class="tab-btn" data-tab="offers">📦 Offers</button>
+            <button class="tab-btn" data-tab="bio">🌐 Bio</button>
             <button class="tab-btn" data-tab="forums">💬 Forums</button>
             <button class="tab-btn" data-tab="premium">💎 Premium</button>
         </div>
@@ -2442,7 +2764,6 @@
 
                 <button class="join-top-btn" id="joinNowBtn">🚀 Join Now</button>
 
-                <!-- ===== EMAIL INPUT FIELD - single emoji ===== -->
                 <div class="email-input-field" id="emailInputField">
                     <span class="typing-text" id="typingText">
                         <span class="cursor"></span>
@@ -2475,7 +2796,6 @@
                     <button class="add-email-btn" id="addEmailBtn">📧 Add Email</button>
                 </div>
 
-                <!-- ===== PAYMENT PROCESSORS ===== -->
                 <div class="processors-section">
                     <span class="section-label">💳 Payment Processors</span>
                     <div class="processor-grid">
@@ -2501,7 +2821,6 @@
                         <a href="https://github.com/sponsors/PokeLegend" target="_blank" class="processor-chip"><span class="emoji">💻</span> GitHub Sponsors</a>
                         <a href="https://ko-fi.com/fedjumpergaming" target="_blank" class="processor-chip"><span class="emoji">☕</span> Ko-fi</a>
                         <a href="https://buymeacoffee.com/Potatochat" target="_blank" class="processor-chip"><span class="emoji">🍵</span> Buy Me a Coffee</a>
-                        <!-- DeviantArt highlighted -->
                         <a href="https://www.deviantart.com/patreonnsfw" target="_blank" class="processor-chip highlight" data-brand="deviantart"><span class="emoji">🎨</span> DeviantArt</a>
                     </div>
 
@@ -2512,13 +2831,11 @@
                         <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🔗</span> Linktree</a>
                         <a href="https://tinyurl.com/mr4acvdn" target="_blank" class="processor-chip"><span class="emoji">🔄</span> Keet.io</a>
                         <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📊</span> Stoat</a>
-                        <!-- link.me added -->
                         <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🔗</span> link.me</a>
                     </div>
 
                     <span class="section-label">💬 Social & Community</span>
                     <div class="processor-grid">
-                        <!-- Discord highlighted -->
                         <a href="https://discord.gg/JBSE9wN2kA" target="_blank" class="processor-chip highlight" data-brand="discord"><span class="emoji">💬</span> Discord</a>
                         <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🚀</span> Launch Pass</a>
                         <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">💬</span> upgrade.chat</a>
@@ -2553,7 +2870,83 @@
         </div>
 
         <!-- ========================================================= -->
-        <!-- TAB 2: BIO -->
+        <!-- TAB 2: OFFERS (now second, with slideshow) -->
+        <!-- ========================================================= -->
+        <div class="tab-content" id="tab-offers">
+            <div class="offers-container">
+                <h3>📦 My Offerings</h3>
+                <p class="sub">A curated framework of exclusive content tiers.</p>
+
+                <!-- ===== SLIDESHOW ===== -->
+                <div class="slideshow-container" id="slideshowContainer">
+                    <div class="slide-track" id="slideTrack">
+                        <div class="slide"><img src="https://64.media.tumblr.com/b2e688cafd199cc0095ce826ae1311e2/96dadbb12967f31e-52/s500x750/a0a03286373dec2ae8fe070d3eb5ee2deca46536.jpg" alt="Slide 1" loading="lazy" /></div>
+                        <div class="slide"><img src="https://64.media.tumblr.com/d42d225e2204a4f4b7faf58a76970bec/b90619557a3ba810-64/s500x750/293199ec71b1a8e2930ee6abdcb13825d0225320.jpg" alt="Slide 2" loading="lazy" /></div>
+                        <div class="slide"><img src="https://64.media.tumblr.com/cf7c1e1b25666a1024ba0e4e1ca03cf8/c47918e1faf0577c-80/s500x750/88e1fb0a1e3b2e2a7e1ae2ad9a7feb648b08638c.pnj" alt="Slide 3" loading="lazy" /></div>
+                    </div>
+                    <button class="slide-btn prev" id="slidePrev">‹</button>
+                    <button class="slide-btn next" id="slideNext">›</button>
+                    <div class="dots" id="slideDots"></div>
+                </div>
+
+                <!-- ===== SUBSCRIBE BUTTON (PayPal) ===== -->
+                <button class="offers-subscribe-btn" id="offersSubscribeBtn">Subscribe</button>
+
+                <!-- ===== OFFER TIERS ===== -->
+                <div class="offer-tier">
+                    <span class="tier-badge tier1">Tier 1 · Public</span>
+                    <h4>Street Style & Candid Culture</h4>
+                    <div class="tier-sub">Observational and trend-based content captured in public environments.</div>
+                    <div class="tier-desc">
+                        Your premier source for <strong>Street Style</strong> and <strong>Public Captures</strong> from around the globe. Celebrating the art of <strong>Candid Culture</strong> – we discover and showcase the hottest emerging trends.
+                    </div>
+                    <div class="tier-codes">
+                        <div class="code-label">Official Marketing Code</div>
+                        <div class="code-item"><strong>Primary Framing:</strong> "Street Style"</div>
+                        <div class="code-item"><strong>Secondary Framing:</strong> "Public Captures"</div>
+                        <div class="code-item"><strong>Tertiary Framing:</strong> "Candid Culture"</div>
+                    </div>
+                </div>
+
+                <div class="offer-tier">
+                    <span class="tier-badge tier2">Tier 2 · Exclusive</span>
+                    <h4>Global Relaxation & Curated Social Experiences</h4>
+                    <div class="tier-sub">Lifestyle guides, wellness retreats, and professional companionship.</div>
+                    <div class="tier-desc">
+                        Unlock exclusive guides to <strong>Global Relaxation</strong> and <strong>Discreet Lifestyle Services</strong>. Explore unique wellness retreats, behind‑the‑scenes experiences, and resources for understanding <strong>Transactional Intimacy</strong> with professional providers.
+                    </div>
+                    <div class="tier-codes">
+                        <div class="code-label">Official Marketing Code</div>
+                        <div class="code-item"><strong>Primary Framing:</strong> "Global Relaxation Experiences"</div>
+                        <div class="code-item"><strong>Secondary Framing:</strong> "Discreet Lifestyle Services" / "Curated Social Experiences"</div>
+                        <div class="code-item"><strong>Content Focus:</strong> Wellness, travel, social dynamics, professional companionship.</div>
+                    </div>
+                </div>
+
+                <div class="offer-tier">
+                    <span class="tier-badge tier3">Tier 3 · The Vault</span>
+                    <h4>The Archives</h4>
+                    <div class="tier-sub">Highest exclusivity – uncut, unfiltered, unseen.</div>
+                    <div class="tier-desc">
+                        <strong>The final key unlocks The Archives.</strong> This is our most exclusive vault, housing material that is too sensitive and too raw for other platforms. Access is extremely limited. See what they don't want you to see.
+                    </div>
+                    <div class="tier-codes">
+                        <div class="code-label">Internal Designation</div>
+                        <div class="code-item"><strong>Risk Category:</strong> HIGHEST RISK</div>
+                        <div class="code-item"><strong>Public Framing:</strong> "The Archives" or "The Vault"</div>
+                        <div class="code-item"><strong>Marketing:</strong> Abstract, focusing on exclusivity and sensitivity.</div>
+                    </div>
+                </div>
+
+                <!-- ===== FREE PREVIEWS BUTTON ===== -->
+                <button class="free-previews-btn" id="freePreviewsBtn">🎬 Free Previews</button>
+
+                <div class="footer">© 2026 Patreon+ · Exclusive content framework · 🔐</div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 3: BIO (now third) -->
         <!-- ========================================================= -->
         <div class="tab-content" id="tab-bio">
             <div class="bio-full">
@@ -2561,14 +2954,14 @@
                 <div class="bio-intro">
                     <h2>👋 Welcome to Patreon+</h2>
                     <p>
-                        I'm <span class="highlight">Fed Jumper</span> – a creator, developer, and community builder. 
-                        This is your direct hub to everything I offer: <strong>premium content, exclusive services, 
+                        I'm <span class="highlight">Fed Jumper</span> – a creator, developer, and community builder.
+                        This is your direct hub to everything I offer: <strong>premium content, exclusive services,
                         and a vibrant community</strong> – all without middlemen or platform fees.
                     </p>
                     <p>
-                        Whether you're here for <span class="highlight">Street Style</span>, 
-                        <span class="highlight">Global Relaxation</span>, or the <span class="highlight">Vault</span>, 
-                        you've come to the right place. Everything is designed to give you the best experience, 
+                        Whether you're here for <span class="highlight">Street Style</span>,
+                        <span class="highlight">Global Relaxation</span>, or the <span class="highlight">Vault</span>,
+                        you've come to the right place. Everything is designed to give you the best experience,
                         and I'm always open to feedback.
                     </p>
                 </div>
@@ -2670,65 +3063,6 @@
                 <button class="join-free-btn" id="joinFreeBtn">🎉 Join for Free</button>
 
                 <div class="bio-footer">© 2026 Patreon+ · Your all‑in‑one creative hub · 🌟</div>
-            </div>
-        </div>
-
-        <!-- ========================================================= -->
-        <!-- TAB 3: OFFERS -->
-        <!-- ========================================================= -->
-        <div class="tab-content" id="tab-offers">
-            <div class="offers-container">
-                <h3>📦 My Offerings</h3>
-                <p class="sub">A curated framework of exclusive content tiers.</p>
-
-                <div class="offer-tier">
-                    <span class="tier-badge tier1">Tier 1 · Public</span>
-                    <h4>Street Style & Candid Culture</h4>
-                    <div class="tier-sub">Observational and trend-based content captured in public environments.</div>
-                    <div class="tier-desc">
-                        Your premier source for <strong>Street Style</strong> and <strong>Public Captures</strong> from around the globe. Celebrating the art of <strong>Candid Culture</strong> – we discover and showcase the hottest emerging trends.
-                    </div>
-                    <div class="tier-codes">
-                        <div class="code-label">Official Marketing Code</div>
-                        <div class="code-item"><strong>Primary Framing:</strong> "Street Style"</div>
-                        <div class="code-item"><strong>Secondary Framing:</strong> "Public Captures"</div>
-                        <div class="code-item"><strong>Tertiary Framing:</strong> "Candid Culture"</div>
-                    </div>
-                </div>
-
-                <div class="offer-tier">
-                    <span class="tier-badge tier2">Tier 2 · Exclusive</span>
-                    <h4>Global Relaxation & Curated Social Experiences</h4>
-                    <div class="tier-sub">Lifestyle guides, wellness retreats, and professional companionship.</div>
-                    <div class="tier-desc">
-                        Unlock exclusive guides to <strong>Global Relaxation</strong> and <strong>Discreet Lifestyle Services</strong>. Explore unique wellness retreats, behind‑the‑scenes experiences, and resources for understanding <strong>Transactional Intimacy</strong> with professional providers.
-                    </div>
-                    <div class="tier-codes">
-                        <div class="code-label">Official Marketing Code</div>
-                        <div class="code-item"><strong>Primary Framing:</strong> "Global Relaxation Experiences"</div>
-                        <div class="code-item"><strong>Secondary Framing:</strong> "Discreet Lifestyle Services" / "Curated Social Experiences"</div>
-                        <div class="code-item"><strong>Content Focus:</strong> Wellness, travel, social dynamics, professional companionship.</div>
-                    </div>
-                </div>
-
-                <div class="offer-tier">
-                    <span class="tier-badge tier3">Tier 3 · The Vault</span>
-                    <h4>The Archives</h4>
-                    <div class="tier-sub">Highest exclusivity – uncut, unfiltered, unseen.</div>
-                    <div class="tier-desc">
-                        <strong>The final key unlocks The Archives.</strong> This is our most exclusive vault, housing material that is too sensitive and too raw for other platforms. Access is extremely limited. See what they don't want you to see.
-                    </div>
-                    <div class="tier-codes">
-                        <div class="code-label">Internal Designation</div>
-                        <div class="code-item"><strong>Risk Category:</strong> HIGHEST RISK</div>
-                        <div class="code-item"><strong>Public Framing:</strong> "The Archives" or "The Vault"</div>
-                        <div class="code-item"><strong>Marketing:</strong> Abstract, focusing on exclusivity and sensitivity.</div>
-                    </div>
-                </div>
-
-                <button class="free-previews-btn" id="freePreviewsBtn">🎬 Free Previews</button>
-
-                <div class="footer">© 2026 Patreon+ · Exclusive content framework · 🔐</div>
             </div>
         </div>
 
@@ -2867,8 +3201,8 @@
                 </div>
 
                 <div class="premium-note">
-                    <strong>📌 Note:</strong> All these features are normally paid on Link trees – but here on Patreon+, 
-                    you get them <strong>absolutely free</strong> as part of our community. No subscription fees, 
+                    <strong>📌 Note:</strong> All these features are normally paid on Link trees – but here on Patreon+,
+                    you get them <strong>absolutely free</strong> as part of our community. No subscription fees,
                     no fulfillment costs, no hidden charges. Just pure, unfiltered access to the entire premium suite.
                 </div>
 
@@ -3006,7 +3340,7 @@
         animateSparkles();
 
         // ============================================================
-        // TAB SWITCHING (unchanged)
+        // TAB SWITCHING (updated order)
         // ============================================================
         const tabButtons = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
@@ -3022,7 +3356,7 @@
         });
 
         // ============================================================
-        // BIO TAB – Quick links
+        // BIO TAB – Quick links (updated to match new order)
         // ============================================================
         document.getElementById('bioQuickPortal')?.addEventListener('click', function() {
             const portalTab = document.querySelector('.tab-btn[data-tab="payments"]');
@@ -3111,6 +3445,13 @@
         });
 
         // ============================================================
+        // OFFERS – SUBSCRIBE BUTTON (PayPal)
+        // ============================================================
+        document.getElementById('offersSubscribeBtn')?.addEventListener('click', function() {
+            window.open('https://www.paypal.com/ncp/payment/232MAXP5VWDSC', '_blank');
+        });
+
+        // ============================================================
         // OFFERS – FREE PREVIEWS (Telegram)
         // ============================================================
         document.getElementById('freePreviewsBtn')?.addEventListener('click', function() {
@@ -3149,7 +3490,55 @@
         }
 
         // ============================================================
-        // TYPING EFFECT FOR EMAIL FIELD (unchanged)
+        // SLIDESHOW
+        // ============================================================
+        const slideTrack = document.getElementById('slideTrack');
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('slideDots');
+        const prevBtn = document.getElementById('slidePrev');
+        const nextBtn = document.getElementById('slideNext');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        // Create dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        });
+
+        function goToSlide(index) {
+            currentSlide = index;
+            slideTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            goToSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function prevSlide() {
+            goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        }
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Auto-advance every 5 seconds
+        let slideInterval = setInterval(nextSlide, 5000);
+
+        // Pause on hover
+        const slideshowContainer = document.getElementById('slideshowContainer');
+        slideshowContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        slideshowContainer.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(nextSlide, 5000);
+        });
+
+        // ============================================================
+        // TYPING EFFECT FOR EMAIL FIELD
         // ============================================================
         const phrases = [
             '📧 Type your email here...',
