@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patreon+ · Portal · Offers · Bio · Forums · Premium</title>
     <style>
-        /* ===== RESET & BASE (DARK THEME) ===== */
+        /* ===== RESET & THEME ===== */
         * {
             margin: 0;
             padding: 0;
@@ -13,66 +13,183 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #0f0f0f;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
             min-height: 100vh;
-            padding: 24px 16px;
+            padding: 16px;
+            background: linear-gradient(-45deg, #0a0a12, #1a0a2a, #0d0a1a, #1a0a1a);
+            background-size: 400% 400%;
+            animation: gradientShift 16s ease-in-out infinite;
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            overflow-x: hidden;
+            position: relative;
             color: #e0e0e0;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== SPARKLE CANVAS ===== */
+        #sparkleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== FLOATING HEARTS ===== */
+        .floating-heart {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatHeart linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 0.1;
+            }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% {
+                transform: translateY(-10vh) scale(1.1) rotate(720deg);
+                opacity: 0;
+            }
         }
 
         /* ===== CONTAINER ===== */
         .container {
             max-width: 500px;
             width: 100%;
-            background: #181818;
-            border-radius: 12px;
+            background: rgba(10, 5, 20, 0.85);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 28px;
             padding: 24px 16px;
-            border: 1px solid #2a2a2a;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background-clip: padding-box;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 0, 102, 0.08) inset,
+                0 0 30px rgba(255, 0, 102, 0.05);
+            margin-top: 16px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: floatContainer 6s ease-in-out infinite;
+            transition: box-shadow 0.4s ease;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            z-index: -1;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ff0066, #00e5ff, #ffcc00, #ff0066);
+            background-size: 300% 300%;
+            animation: shimmerBorder 4s ease-in-out infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 1.5px;
+        }
+
+        @keyframes shimmerBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container:hover {
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.7),
+                0 0 0 1px rgba(255, 0, 102, 0.15) inset,
+                0 0 40px rgba(255, 0, 102, 0.08);
+        }
+
+        @keyframes floatContainer {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
         }
 
         /* ===== HEADER ===== */
         .header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .avatar {
-            width: 64px;
-            height: 64px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
-            background: #2a2a2a;
-            margin: 0 auto 12px;
+            margin: 0 auto 10px;
+            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
+            background-size: 200% 200%;
+            animation: avatarGradient 4s ease-in-out infinite;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            font-weight: 600;
-            color: #f0f0f0;
-            border: 1px solid #3a3a3a;
+            font-size: 34px;
+            font-weight: 700;
+            color: #fff;
+            user-select: none;
+            box-shadow: 0 0 30px rgba(255, 0, 102, 0.25);
+            animation: avatarGradient 4s ease-in-out infinite, floatAvatar 5s ease-in-out infinite;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes avatarGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes floatAvatar {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
         }
 
         .header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #f0f0f0;
-            letter-spacing: -0.3px;
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff, #ffcc00);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 4s ease-in-out infinite;
+            letter-spacing: -0.5px;
+            filter: drop-shadow(0 2px 15px rgba(255, 0, 102, 0.1));
+        }
+
+        @keyframes shimmerText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .header p {
-            color: #aaaaaa;
-            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
             margin-top: 2px;
+            letter-spacing: 0.5px;
         }
 
         .header-links {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
             margin-top: 8px;
         }
@@ -80,124 +197,137 @@
         .badge {
             display: inline-block;
             padding: 2px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
+            background: rgba(255, 0, 102, 0.1);
+            border: 1px solid rgba(255, 204, 0, 0.15);
             border-radius: 30px;
-            font-size: 12px;
-            color: #cccccc;
-            font-weight: 500;
+            font-size: 11px;
+            color: #ffcc00;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .badge .link-emoji {
+            display: inline-block;
+            animation: linkPulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes linkPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(4deg); }
         }
 
         .telegram-link {
             display: inline-block;
             padding: 2px 12px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
+            background: rgba(0, 229, 255, 0.06);
+            border: 1px solid rgba(0, 229, 255, 0.12);
             border-radius: 30px;
-            font-size: 12px;
-            color: #3b82f6;
+            font-size: 11px;
+            color: #00e5ff;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
         }
 
         .telegram-link:hover {
-            background: #333333;
+            background: rgba(0, 229, 255, 0.12);
+            border-color: #00e5ff;
+            transform: scale(1.04);
+            color: #fff;
         }
 
         /* ===== TABS ===== */
         .tab-nav {
             display: flex;
             gap: 4px;
-            margin-bottom: 24px;
-            border-bottom: 1px solid #2a2a2a;
+            margin-bottom: 20px;
             padding-bottom: 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .tab-btn {
             background: transparent;
-            border: 1px solid transparent;
-            color: #888888;
-            padding: 6px 14px;
-            font-size: 13px;
+            border: none;
+            color: rgba(255, 255, 255, 0.35);
+            padding: 5px 12px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.2s ease;
+            border-radius: 30px;
+            transition: all 0.3s ease;
             flex: 1;
             text-align: center;
-            min-width: 60px;
+            min-width: 55px;
         }
 
         .tab-btn:hover {
-            background: #2a2a2a;
-            color: #f0f0f0;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .tab-btn.active {
-            background: #2a2a2a;
-            color: #f0f0f0;
-            border-color: #3a3a3a;
+            background: rgba(255, 204, 0, 0.08);
+            color: #ffcc00;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.03);
         }
 
         .tab-content {
             display: none;
-            animation: fade 0.25s ease;
+            animation: fadeSlide 0.3s ease;
+            text-align: left;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        @keyframes fade {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================================ */
-        /* GENERAL COMPONENTS */
-        /* ============================================================ */
-        .section-title {
-            color: #f0f0f0;
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0 0 14px 0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #2a2a2a;
+        /* ===== SOCIAL MARQUEE ===== */
+        .social-marquee {
+            overflow: hidden;
+            padding: 6px 0;
+            margin-bottom: 12px;
+            mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+        }
+
+        .marquee-wrapper {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
+            width: max-content;
+            animation: scrollMarquee 35s linear infinite;
         }
 
-        .section-title .lock {
-            font-size: 12px;
-            color: #aaaaaa;
-            background: #2a2a2a;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-weight: 500;
-            border: 1px solid #3a3a3a;
+        .marquee-item {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            text-transform: lowercase;
+            white-space: nowrap;
+            padding: 0 8px;
+            flex-shrink: 0;
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 28px;
-            font-size: 10px;
-            color: #555555;
+        .marquee-item.separator {
+            color: rgba(255, 255, 255, 0.05);
+            padding: 0 2px;
         }
 
-        /* ============================================================ */
-        /* TAB 1: PORTAL */
-        /* ============================================================ */
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== TAB 1: PORTAL ===== */
         .portal-container {
             text-align: center;
         }
@@ -206,7 +336,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
             margin-bottom: 4px;
         }
@@ -214,33 +344,96 @@
         .heading-wrapper h3 {
             font-size: 20px;
             font-weight: 700;
-            color: #f0f0f0;
+            margin: 0;
+            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 4s ease-in-out infinite;
         }
 
         .tip-btn {
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            color: #e0e0e0;
+            background: rgba(0, 255, 0, 0.06);
+            border: 1px solid rgba(0, 255, 0, 0.15);
+            color: #4ade80;
             padding: 2px 12px;
             border-radius: 30px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s ease;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
         }
 
         .tip-btn:hover {
-            background: #333333;
+            background: rgba(0, 255, 0, 0.12);
+            border-color: #4ade80;
+            transform: scale(1.04);
         }
 
         .portal-container .sub {
-            color: #aaaaaa;
-            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 12px;
             margin-bottom: 16px;
+            text-align: center;
         }
 
+        /* ===== BUTTONS (Reduced UI) ===== */
         .join-top-btn,
-        .pay-simple-btn,
+        .pay-simple-btn {
+            display: block;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto 10px auto;
+            padding: 13px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        .join-top-btn {
+            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
+            background-size: 200% 200%;
+            animation: shimmerBtn 4s ease-in-out infinite;
+            box-shadow: 0 4px 20px rgba(255, 0, 102, 0.2);
+        }
+
+        .join-top-btn::before { content: '🚀'; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; }
+        .join-top-btn::after { content: '✨'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; }
+
+        @keyframes shimmerBtn {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .join-top-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 30px rgba(255, 0, 102, 0.35);
+        }
+
+        .pay-simple-btn {
+            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
+            background-size: 200% 200%;
+            animation: shimmerBtn 4s ease-in-out infinite;
+            box-shadow: 0 4px 20px rgba(255, 0, 102, 0.2);
+        }
+
+        .pay-simple-btn::before { content: '⚡'; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 16px; }
+        .pay-simple-btn::after { content: '✨'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 16px; }
+
+        .pay-simple-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 30px rgba(255, 0, 102, 0.35);
+        }
+
         .subscribe-btn,
         .add-email-btn,
         .offers-subscribe-btn,
@@ -250,178 +443,193 @@
             display: block;
             width: 100%;
             max-width: 380px;
-            margin: 0 auto 10px auto;
-            padding: 12px;
+            margin: 0 auto 8px auto;
+            padding: 11px;
             border: none;
-            border-radius: 8px;
+            border-radius: 30px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
-            transition: background 0.2s ease, transform 0.1s ease;
+            transition: all 0.3s ease;
             text-align: center;
-            background: #3b82f6;
-            color: #ffffff;
-        }
-
-        .join-top-btn:hover,
-        .pay-simple-btn:hover,
-        .subscribe-btn:hover,
-        .add-email-btn:hover,
-        .offers-subscribe-btn:hover,
-        .free-previews-btn:hover,
-        .join-free-btn:hover,
-        .unlock-btn:hover {
-            background: #2563eb;
-            transform: scale(1.01);
-        }
-
-        .add-email-btn {
-            background: #444444;
-        }
-
-        .add-email-btn:hover {
-            background: #555555;
+            letter-spacing: 0.5px;
+            color: #fff;
         }
 
         .subscribe-btn {
-            background: #22c55e;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            box-shadow: 0 2px 12px rgba(34, 197, 94, 0.2);
         }
 
         .subscribe-btn:hover {
-            background: #16a34a;
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        .add-email-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            color: #00e5ff;
+            backdrop-filter: blur(4px);
+        }
+
+        .add-email-btn:hover {
+            background: rgba(0, 229, 255, 0.08);
+            border-color: #00e5ff;
+            transform: scale(1.02);
         }
 
         .offers-subscribe-btn {
-            background: #3b82f6;
+            background: linear-gradient(135deg, #0070ba, #005ea6);
+            box-shadow: 0 2px 12px rgba(0, 112, 186, 0.2);
+        }
+
+        .offers-subscribe-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(0, 112, 186, 0.3);
         }
 
         .free-previews-btn {
-            background: #8b5cf6;
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            box-shadow: 0 2px 12px rgba(139, 92, 246, 0.2);
         }
 
         .free-previews-btn:hover {
-            background: #7c3aed;
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
         }
 
         .join-free-btn {
-            background: #14b8a6;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            box-shadow: 0 2px 12px rgba(20, 184, 166, 0.2);
         }
 
         .join-free-btn:hover {
-            background: #0d9488;
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.3);
         }
 
         .unlock-btn {
-            background: #ef4444;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 2px 12px rgba(239, 68, 68, 0.2);
         }
 
         .unlock-btn:hover {
-            background: #dc2626;
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
         }
 
         .unlock-btn.locked {
-            background: #444444;
+            background: linear-gradient(135deg, #4a4a5a, #333344);
+            box-shadow: none;
             cursor: not-allowed;
         }
 
-        .unlock-btn.locked:hover {
-            background: #444444;
-            transform: none;
-        }
+        .unlock-btn.locked::before { content: '🔒'; margin-right: 8px; }
+        .unlock-btn.locked:hover { transform: none; box-shadow: none; }
 
+        /* ===== EMAIL FIELD ===== */
         .email-input-field {
             width: 100%;
             max-width: 380px;
-            margin: 0 auto 16px auto;
+            margin: 0 auto 14px auto;
             padding: 12px 16px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            border-radius: 8px;
-            color: #f0f0f0;
-            font-size: 14px;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 30px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s ease;
             text-align: left;
-            transition: border 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
         .email-input-field:hover {
-            border-color: #555555;
+            border-color: rgba(0, 229, 255, 0.3);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .email-input-field .typing-text {
-            color: #aaaaaa;
+            color: rgba(255, 255, 255, 0.35);
+            pointer-events: none;
             font-family: 'Courier New', monospace;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .email-input-field .typing-text .cursor {
             display: inline-block;
             width: 2px;
-            height: 16px;
-            background: #3b82f6;
+            height: 14px;
+            background: #00e5ff;
             margin-left: 2px;
             animation: blink 0.8s step-end infinite;
             vertical-align: middle;
         }
 
         @keyframes blink {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .email-input-field .email-glow {
-            float: right;
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
             font-size: 18px;
-            line-height: 1.4;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
+        /* ===== ORDER SUMMARY ===== */
         .order-summary {
-            background: #242424;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
             padding: 12px;
-            border: 1px solid #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             margin-bottom: 20px;
             text-align: center;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .order-summary:hover {
+            border-color: rgba(0, 229, 255, 0.12);
         }
 
         .order-summary .row {
             display: flex;
             justify-content: space-between;
-            padding: 4px 0;
-            color: #cccccc;
-            font-size: 13px;
-            border-bottom: 1px solid #2a2a2a;
-            max-width: 280px;
+            padding: 3px 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            max-width: 260px;
             margin: 0 auto;
         }
 
-        .order-summary .row:last-child {
-            border-bottom: none;
-        }
-
-        .order-summary .row .label {
-            color: #888888;
-        }
-        .order-summary .row .value {
-            color: #f0f0f0;
-            font-weight: 600;
-        }
+        .order-summary .row:last-child { border-bottom: none; }
+        .order-summary .row .label { color: rgba(255, 255, 255, 0.35); }
+        .order-summary .row .value { color: #fff; font-weight: 600; }
+        .order-summary .row.total { margin-top: 4px; font-size: 14px; }
         .order-summary .row.total .value {
-            color: #3b82f6;
-            font-size: 18px;
+            background: linear-gradient(135deg, #ffcc00, #ff0066);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 20px;
+            font-weight: 800;
         }
 
+        /* ===== PROMO ===== */
         .promo-section {
             margin-bottom: 20px;
-            border-radius: 8px;
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid #2a2a2a;
-            background: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: #000;
         }
 
         .promo-section img {
@@ -430,7 +638,7 @@
             height: auto;
             max-height: 300px;
             object-fit: contain;
-            background: #000000;
+            background: #000;
         }
 
         .promo-section .subscribe-btn {
@@ -452,14 +660,14 @@
         }
 
         .processors-section .section-label {
-            color: #888888;
-            font-size: 10px;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 9px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             margin: 12px 0 6px 0;
             display: block;
-            border-top: 1px solid #2a2a2a;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
             padding-top: 10px;
         }
 
@@ -477,52 +685,105 @@
         }
 
         .processor-chip {
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: 30px;
-            padding: 4px 12px;
-            font-size: 11px;
-            color: #cccccc;
-            transition: background 0.2s ease;
+            padding: 4px 10px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
             cursor: pointer;
             white-space: nowrap;
             display: inline-flex;
             align-items: center;
             gap: 4px;
             text-decoration: none;
+            backdrop-filter: blur(4px);
         }
 
         .processor-chip:hover {
-            background: #333333;
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 204, 0, 0.15);
+            color: #fff;
+            transform: scale(1.04);
         }
 
-        .processor-chip .emoji {
-            font-size: 13px;
-        }
+        .processor-chip .emoji { font-size: 12px; }
 
         .processor-chip.highlight {
-            background: #333333;
-            border-color: #4a4a4a;
+            border-width: 1.5px;
+            padding: 6px 14px;
+            gap: 6px;
             font-weight: 600;
+            color: #fff;
+            font-size: 13px;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .processor-chip.highlight .emoji { font-size: 16px; }
+
+        .processor-chip.highlight[data-brand="stripe"] {
+            background: linear-gradient(135deg, #635bff, #4a42d4);
+            border-color: #7c73ff;
+            box-shadow: 0 2px 12px rgba(99, 91, 255, 0.2);
+        }
+
+        .processor-chip.highlight[data-brand="paypal"] {
+            background: linear-gradient(135deg, #0070ba, #005ea6);
+            border-color: #1a8cd8;
+            box-shadow: 0 2px 12px rgba(0, 112, 186, 0.2);
+        }
+
+        .processor-chip.highlight[data-brand="patreon"] {
+            background: linear-gradient(135deg, #ff424d, #e0323d);
+            border-color: #ff6b7a;
+            box-shadow: 0 2px 12px rgba(255, 66, 77, 0.2);
+        }
+
+        .processor-chip.highlight[data-brand="whop"] {
+            background: linear-gradient(135deg, #00d4aa, #00b894);
+            border-color: #33e6c4;
+            box-shadow: 0 2px 12px rgba(0, 212, 170, 0.2);
+        }
+
+        .processor-chip.highlight[data-brand="discord"] {
+            background: linear-gradient(135deg, #5865f2, #4752c4);
+            border-color: #7c8aff;
+            box-shadow: 0 2px 12px rgba(88, 101, 242, 0.2);
+        }
+
+        .processor-chip.highlight[data-brand="deviantart"] {
+            background: linear-gradient(135deg, #05cc47, #04a83a);
+            border-color: #33e66d;
+            box-shadow: 0 2px 12px rgba(5, 204, 71, 0.2);
         }
 
         .processor-chip.highlight:hover {
-            background: #3a3a3a;
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
         }
 
         .secure-badge {
             text-align: center;
             margin-top: 10px;
-            color: #888888;
-            font-size: 11px;
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 10px;
+            letter-spacing: 0.3px;
         }
 
         .video-wrapper {
             margin-top: 20px;
-            border-radius: 8px;
+            border-radius: 16px;
             overflow: hidden;
-            background: #000000;
-            border: 1px solid #2a2a2a;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 20px rgba(255, 0, 102, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .video-wrapper:hover {
+            border-color: rgba(0, 229, 255, 0.12);
+            transform: scale(1.01);
         }
 
         .video-wrapper video {
@@ -542,34 +803,38 @@
             margin-top: 6px;
             font-size: 15px;
             font-weight: 600;
-            color: #cccccc;
-            background: #242424;
-            border: 1px solid #2a2a2a;
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: 30px;
             padding: 4px 16px;
+            backdrop-filter: blur(4px);
         }
 
         .subscriber-count strong {
-            color: #3b82f6;
+            color: #ffcc00;
+            font-size: 17px;
         }
 
         /* ============================================================ */
         /* TAB 2: OFFERS */
         /* ============================================================ */
-        .offers-container {
-            text-align: left;
-        }
+        .offers-container { text-align: left; }
 
         .offers-container h3 {
             font-size: 20px;
             font-weight: 700;
             text-align: center;
-            color: #f0f0f0;
+            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 4s ease-in-out infinite;
         }
 
         .offers-container .sub {
-            color: #aaaaaa;
-            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 12px;
             margin-bottom: 16px;
             text-align: center;
         }
@@ -580,16 +845,17 @@
             width: 100%;
             max-width: 400px;
             margin: 0 auto 16px;
-            border-radius: 8px;
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid #2a2a2a;
-            background: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: #000;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
             touch-action: pan-y;
         }
 
         .slideshow-container .slide-track {
             display: flex;
-            transition: transform 0.4s ease;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform;
             width: 100%;
         }
@@ -600,7 +866,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #000000;
+            background: #000;
         }
 
         .slideshow-container .slide img {
@@ -609,7 +875,7 @@
             height: auto;
             max-height: 300px;
             object-fit: contain;
-            background: #000000;
+            background: #000;
             user-select: none;
             -webkit-user-drag: none;
         }
@@ -618,28 +884,28 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: #ffffff;
-            border: none;
+            background: rgba(0, 0, 0, 0.4);
+            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             padding: 6px 12px;
             cursor: pointer;
             z-index: 10;
-            font-size: 20px;
-            border-radius: 4px;
-            transition: background 0.2s ease;
+            font-size: 18px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            line-height: 1;
         }
 
         .slideshow-container .slide-btn:hover {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(255, 0, 102, 0.3);
+            border-color: rgba(255, 204, 0, 0.2);
+            color: #fff;
+            transform: translateY(-50%) scale(1.04);
         }
 
-        .slideshow-container .slide-btn.prev {
-            left: 8px;
-        }
-
-        .slideshow-container .slide-btn.next {
-            right: 8px;
-        }
+        .slideshow-container .slide-btn.prev { left: 8px; }
+        .slideshow-container .slide-btn.next { right: 8px; }
 
         .slideshow-container .dots {
             position: absolute;
@@ -649,146 +915,157 @@
             display: flex;
             gap: 6px;
             z-index: 10;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.4);
             padding: 4px 10px;
             border-radius: 30px;
+            backdrop-filter: blur(4px);
         }
 
         .slideshow-container .dots .dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
             cursor: pointer;
-            transition: background 0.2s ease;
+            transition: all 0.3s ease;
             border: none;
             padding: 0;
         }
 
-        .slideshow-container .dots .dot:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
+        .slideshow-container .dots .dot:hover { background: rgba(255, 255, 255, 0.3); }
         .slideshow-container .dots .dot.active {
-            background: #ffffff;
-            width: 18px;
+            background: #ffcc00;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+            width: 16px;
             border-radius: 10px;
         }
 
         /* ===== OFFER TIERS ===== */
         .offer-tier {
-            background: #242424;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
             padding: 14px 12px;
             margin-bottom: 12px;
-            border: 1px solid #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .offer-tier:hover {
+            border-color: rgba(0, 229, 255, 0.08);
         }
 
         .offer-tier .tier-badge {
             display: inline-block;
             padding: 2px 12px;
             border-radius: 30px;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 700;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            margin-bottom: 6px;
-            background: #2a2a2a;
-            color: #cccccc;
-            border: 1px solid #3a3a3a;
+            margin-bottom: 8px;
+        }
+
+        .offer-tier .tier-badge.tier1 {
+            background: rgba(0, 229, 255, 0.08);
+            color: #00e5ff;
+            border: 1px solid rgba(0, 229, 255, 0.08);
+        }
+
+        .offer-tier .tier-badge.tier2 {
+            background: rgba(255, 204, 0, 0.08);
+            color: #ffcc00;
+            border: 1px solid rgba(255, 204, 0, 0.08);
+        }
+
+        .offer-tier .tier-badge.tier3 {
+            background: rgba(255, 0, 102, 0.08);
+            color: #ff0066;
+            border: 1px solid rgba(255, 0, 102, 0.08);
         }
 
         .offer-tier h4 {
             font-size: 17px;
             font-weight: 700;
-            color: #f0f0f0;
+            color: #fff;
             margin-bottom: 4px;
         }
 
         .offer-tier .tier-sub {
-            color: #aaaaaa;
-            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 12px;
             margin-bottom: 6px;
             font-style: italic;
         }
 
         .offer-tier .tier-desc {
-            color: #cccccc;
-            font-size: 13px;
-            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            line-height: 1.6;
             margin-bottom: 8px;
         }
 
         .offer-tier .tier-codes {
-            background: #1a1a1a;
-            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
             padding: 8px 12px;
-            border: 1px solid #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .offer-tier .tier-codes .code-label {
-            color: #888888;
-            font-size: 9px;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 8px;
             font-weight: 700;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
             margin-bottom: 2px;
         }
 
         .offer-tier .tier-codes .code-item {
-            color: #cccccc;
-            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
             padding: 2px 0;
-            border-bottom: 1px solid #2a2a2a;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
 
-        .offer-tier .tier-codes .code-item:last-child {
-            border-bottom: none;
-        }
-
-        .offer-tier .tier-codes .code-item strong {
-            color: #f0f0f0;
-        }
+        .offer-tier .tier-codes .code-item:last-child { border-bottom: none; }
+        .offer-tier .tier-codes .code-item strong { color: #fff; font-weight: 600; }
 
         /* ============================================================ */
         /* TAB 3: BIO */
         /* ============================================================ */
-        .bio-full {
-            text-align: left;
-        }
+        .bio-full { text-align: left; }
 
-        .bio-intro {
-            margin-bottom: 16px;
-        }
+        .bio-intro { margin-bottom: 16px; }
 
         .bio-intro h2 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            color: #f0f0f0;
+            color: #fff;
             margin-bottom: 4px;
         }
 
         .bio-intro p {
-            color: #cccccc;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 6px;
         }
 
-        .bio-intro .highlight {
-            color: #3b82f6;
-            font-weight: 600;
-        }
+        .bio-intro .highlight { color: #ffcc00; font-weight: 600; }
 
         .bio-stats {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            background: #242424;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
             padding: 12px 16px;
             margin-bottom: 16px;
-            border: 1px solid #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             flex-wrap: wrap;
+            backdrop-filter: blur(4px);
         }
 
         .bio-stats .stat-item {
@@ -798,54 +1075,64 @@
         }
 
         .bio-stats .stat-number {
-            font-size: 22px;
-            font-weight: 700;
-            color: #f0f0f0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
         }
 
         .bio-stats .stat-label {
-            font-size: 11px;
-            color: #888888;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
 
         .bio-stats .stat-link {
-            font-size: 11px;
-            color: #3b82f6;
+            font-size: 10px;
+            color: #00e5ff;
             text-decoration: none;
-            border-bottom: 1px dashed #3a3a3a;
+            border-bottom: 1px dashed rgba(0, 229, 255, 0.15);
+            transition: color 0.3s ease;
             margin-top: 2px;
         }
 
+        .bio-stats .stat-link:hover { color: #ffcc00; }
+
         .follow-btn {
             padding: 6px 16px;
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
-            color: #e0e0e0;
+            background: rgba(255, 0, 102, 0.08);
+            border: 1px solid rgba(255, 0, 102, 0.15);
+            color: #ff0066;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
+            transition: all 0.3s ease;
             border-radius: 30px;
-            transition: background 0.2s ease;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
         }
 
         .follow-btn:hover {
-            background: #333333;
+            background: rgba(255, 0, 102, 0.15);
+            border-color: #ff0066;
+            transform: scale(1.02);
         }
 
         .bio-features,
         .bio-instructions {
-            background: #242424;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
             padding: 14px 12px;
             margin-bottom: 16px;
-            border: 1px solid #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(4px);
         }
 
         .bio-features h3,
         .bio-instructions h3 {
-            color: #f0f0f0;
-            font-size: 16px;
+            color: #fff;
+            font-size: 15px;
             font-weight: 700;
             margin-bottom: 8px;
         }
@@ -855,54 +1142,46 @@
             align-items: center;
             gap: 8px;
             padding: 4px 0;
-            border-bottom: 1px solid #2a2a2a;
-            color: #cccccc;
-            font-size: 13px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
         }
 
-        .bio-features .feature-item:last-child {
-            border-bottom: none;
-        }
-
-        .bio-features .feature-item .feat-icon {
-            font-size: 16px;
-            width: 24px;
-            text-align: center;
-        }
-
+        .bio-features .feature-item:last-child { border-bottom: none; }
+        .bio-features .feature-item .feat-icon { font-size: 16px; width: 24px; text-align: center; }
         .bio-features .feature-item .feat-tag {
-            font-size: 9px;
-            background: #2a2a2a;
-            color: #cccccc;
+            font-size: 8px;
+            background: rgba(255, 204, 0, 0.06);
+            color: #ffcc00;
             padding: 2px 8px;
             border-radius: 30px;
             font-weight: 600;
-            border: 1px solid #3a3a3a;
+            border: 1px solid rgba(255, 204, 0, 0.06);
         }
 
         .bio-instructions .step {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
+            gap: 8px;
             padding: 4px 0;
-            color: #cccccc;
-            font-size: 13px;
-            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            line-height: 1.6;
         }
 
         .bio-instructions .step .step-num {
-            background: #2a2a2a;
-            color: #f0f0f0;
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
             font-weight: 700;
-            font-size: 11px;
-            width: 22px;
-            height: 22px;
+            font-size: 10px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            border: 1px solid #3a3a3a;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .bio-contact {
@@ -914,21 +1193,23 @@
         }
 
         .bio-contact .contact-item {
-            background: #2a2a2a;
-            border: 1px solid #3a3a3a;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: 30px;
             padding: 4px 12px;
-            color: #cccccc;
-            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
             text-decoration: none;
-            transition: background 0.2s ease;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 4px;
         }
 
         .bio-contact .contact-item:hover {
-            background: #333333;
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(0, 229, 255, 0.12);
+            color: #fff;
         }
 
         .bio-quick-links {
@@ -943,48 +1224,83 @@
             align-items: center;
             justify-content: space-between;
             padding: 10px 14px;
-            background: #242424;
-            border: 1px solid #2a2a2a;
-            border-radius: 8px;
-            color: #f0f0f0;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            color: #fff;
             text-decoration: none;
+            transition: all 0.3s ease;
             cursor: pointer;
             font-weight: 500;
-            font-size: 14px;
-            transition: background 0.2s ease;
+            font-size: 13px;
         }
 
         .bio-quick-links .quick-link:hover {
-            background: #2a2a2a;
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 204, 0, 0.08);
         }
 
-        .bio-quick-links .quick-link .ql-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .bio-quick-links .quick-link .ql-icon {
-            font-size: 16px;
-            width: 24px;
-            text-align: center;
-        }
-
+        .bio-quick-links .quick-link .ql-left { display: flex; align-items: center; gap: 8px; }
+        .bio-quick-links .quick-link .ql-icon { font-size: 16px; width: 24px; text-align: center; }
         .bio-quick-links .quick-link .ql-arrow {
-            color: #555555;
-            font-size: 13px;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .bio-quick-links .quick-link:hover .ql-arrow {
+            color: rgba(255, 255, 255, 0.3);
+            transform: translateX(3px);
+        }
+
+        .bio-footer {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.06);
+            letter-spacing: 0.3px;
         }
 
         /* ============================================================ */
         /* TAB 4: FORUMS */
         /* ============================================================ */
+        .section-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .section-title .lock {
+            font-size: 10px;
+            color: #ffcc00;
+            background: rgba(255, 204, 0, 0.04);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 204, 0, 0.04);
+        }
+
         .form-wrapper {
             width: 100%;
             margin: 0 auto;
-            border-radius: 8px;
+            border-radius: 16px;
             overflow: hidden;
-            background: #181818;
-            border: 1px solid #2a2a2a;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .form-wrapper:hover {
+            border-color: rgba(0, 229, 255, 0.08);
         }
 
         .form-wrapper iframe {
@@ -992,34 +1308,37 @@
             height: 700px;
             border: none;
             display: block;
-            background: #181818;
+            background: transparent;
         }
 
         .join-list-text {
             text-align: center;
             margin-top: 12px;
-            color: #aaaaaa;
-            font-size: 14px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+            letter-spacing: 0.3px;
             font-weight: 500;
         }
 
         /* ============================================================ */
         /* TAB 5: PREMIUM */
         /* ============================================================ */
-        .premium-container {
-            text-align: left;
-        }
+        .premium-container { text-align: left; }
 
         .premium-container h3 {
             font-size: 20px;
             font-weight: 700;
             text-align: center;
-            color: #f0f0f0;
+            background: linear-gradient(135deg, #ffcc00, #ff0066, #00e5ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 4s ease-in-out infinite;
         }
 
         .premium-container .sub {
-            color: #aaaaaa;
-            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 12px;
             margin-bottom: 16px;
             text-align: center;
         }
@@ -1032,62 +1351,65 @@
         }
 
         .premium-pricing .price-card {
-            background: #242424;
-            border-radius: 8px;
-            padding: 12px;
-            border: 1px solid #2a2a2a;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 12px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
         }
 
-        .premium-pricing .price-card .plan-name {
-            color: #f0f0f0;
-            font-weight: 700;
-            font-size: 14px;
+        .premium-pricing .price-card:hover {
+            border-color: rgba(0, 229, 255, 0.08);
         }
 
+        .premium-pricing .price-card .plan-name { color: #fff; font-weight: 700; font-size: 14px; }
         .premium-pricing .price-card .plan-price {
-            color: #3b82f6;
+            color: #ffcc00;
             font-size: 20px;
             font-weight: 700;
             margin: 2px 0;
         }
 
         .premium-pricing .price-card .plan-desc {
-            color: #aaaaaa;
-            font-size: 11px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 10px;
             line-height: 1.4;
         }
 
         .premium-pricing .price-card.highlight {
-            border-color: #3b82f6;
-            background: #1a2a4a;
+            border-color: rgba(255, 0, 102, 0.2);
+            background: rgba(255, 0, 102, 0.04);
         }
 
         .premium-features {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .premium-category {
-            background: #242424;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
             padding: 12px;
-            border: 1px solid #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
         }
 
         .premium-category h4 {
-            color: #f0f0f0;
+            color: #fff;
             font-size: 14px;
             font-weight: 700;
             margin-bottom: 4px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .premium-category .status-badge {
-            font-size: 12px;
+            font-size: 11px;
             margin-left: auto;
         }
 
@@ -1097,51 +1419,34 @@
         }
 
         .premium-category ul li {
-            color: #cccccc;
-            font-size: 12px;
-            padding: 4px 0;
-            border-bottom: 1px solid #2a2a2a;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            padding: 3px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .premium-category ul li:last-child {
-            border-bottom: none;
-        }
-
-        .premium-category ul li .li-icon {
-            font-size: 14px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .premium-category ul li .feature-tooltip {
-            font-size: 10px;
-            color: #555555;
-            margin-left: 2px;
-            cursor: help;
-        }
+        .premium-category ul li:last-child { border-bottom: none; }
+        .premium-category ul li .li-icon { font-size: 13px; width: 20px; text-align: center; }
+        .premium-category ul li strong { color: #fff; }
 
         .premium-note {
             margin-top: 14px;
             padding: 12px;
-            background: #242424;
-            border: 1px solid #2a2a2a;
-            border-radius: 8px;
-            color: #cccccc;
-            font-size: 12px;
+            background: rgba(255, 204, 0, 0.02);
+            border: 1px solid rgba(255, 204, 0, 0.04);
+            border-radius: 16px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
             line-height: 1.6;
             text-align: center;
         }
 
-        .premium-note strong {
-            color: #f0f0f0;
-        }
+        .premium-note strong { color: #ffcc00; }
 
-        /* ============================================================ */
-        /* MODAL OVERLAY */
-        /* ============================================================ */
+        /* ===== MODAL OVERLAY ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1149,28 +1454,34 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
             z-index: 10000;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         .modal-content {
-            background: #181818;
-            border-radius: 12px;
+            background: rgba(10, 5, 20, 0.9);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
             max-width: 700px;
             width: 100%;
             padding: 20px;
-            border: 1px solid #2a2a2a;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             position: relative;
+            animation: modalFadeIn 0.3s ease;
             max-height: 90vh;
             overflow: hidden;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .modal-content .close-modal {
@@ -1179,48 +1490,74 @@
             right: 14px;
             background: none;
             border: none;
-            color: #888888;
-            font-size: 28px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 24px;
             cursor: pointer;
-            transition: color 0.2s ease;
+            transition: color 0.3s ease;
             z-index: 10;
             line-height: 1;
         }
 
-        .modal-content .close-modal:hover {
-            color: #f0f0f0;
-        }
+        .modal-content .close-modal:hover { color: #fff; }
 
         .modal-content iframe {
             width: 100%;
             height: 400px;
             border: none;
-            border-radius: 8px;
-            background: #181818;
+            border-radius: 12px;
+            background: transparent;
         }
 
-        /* ============================================================ */
-        /* MULTILINGUAL POPUP */
-        /* ============================================================ */
+        /* ===== CELEBRATION OVERLAY ===== */
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .celebration.active { display: block; pointer-events: none; }
+
+        .celebration-emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: celebFloat linear forwards;
+            opacity: 0;
+        }
+
+        @keyframes celebFloat {
+            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.1) rotate(720deg); opacity: 0; }
+        }
+
+        /* ===== MULTILINGUAL POPUP ===== */
         .multilingual-popup {
             position: fixed;
             bottom: 20px;
             right: 16px;
-            max-width: 280px;
-            background: #242424;
-            border: 1px solid #2a2a2a;
-            border-radius: 12px;
-            padding: 14px 16px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+            max-width: 260px;
+            background: rgba(10, 5, 20, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 204, 0, 0.08);
+            border-radius: 16px;
+            padding: 12px 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
             z-index: 9998;
-            color: #e0e0e0;
-            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 11px;
             line-height: 1.5;
             text-align: left;
             transition: transform 0.4s ease, opacity 0.3s ease;
             transform: translateX(120%);
             opacity: 0;
-            animation: slideIn 0.4s ease 1.5s forwards;
+            animation: slideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s forwards;
         }
 
         .multilingual-popup.closed {
@@ -1230,14 +1567,8 @@
         }
 
         @keyframes slideIn {
-            0% {
-                transform: translateX(120%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            0% { transform: translateX(120%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
         }
 
         .multilingual-popup .popup-close {
@@ -1246,174 +1577,152 @@
             right: 8px;
             background: none;
             border: none;
-            color: #888888;
+            color: rgba(255, 255, 255, 0.2);
             font-size: 14px;
             cursor: pointer;
-            transition: color 0.2s ease;
+            transition: color 0.3s ease;
             line-height: 1;
             padding: 0 4px;
         }
 
-        .multilingual-popup .popup-close:hover {
-            color: #f0f0f0;
-        }
+        .multilingual-popup .popup-close:hover { color: #fff; }
 
-        .multilingual-popup .popup-message {
-            margin-right: 16px;
-        }
+        .multilingual-popup .popup-message { margin-right: 14px; }
 
         .multilingual-popup .popup-message .lang {
             display: flex;
             align-items: flex-start;
             gap: 4px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             padding: 2px 0;
         }
 
-        .multilingual-popup .popup-message .lang:last-child {
-            margin-bottom: 0;
-        }
-
-        .multilingual-popup .popup-message .lang .flag {
-            font-size: 14px;
-            flex-shrink: 0;
-            line-height: 1.4;
-        }
-
+        .multilingual-popup .popup-message .lang:last-child { margin-bottom: 0; }
+        .multilingual-popup .popup-message .lang .flag { font-size: 13px; flex-shrink: 0; line-height: 1.4; }
         .multilingual-popup .popup-message .lang .text {
             word-break: break-word;
-            font-size: 11px;
-            color: #cccccc;
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .multilingual-popup .popup-message .lang .text a {
-            color: #3b82f6;
+            color: #ffcc00;
             text-decoration: none;
             font-weight: 600;
         }
 
-        .multilingual-popup .popup-message .lang .text a:hover {
-            text-decoration: underline;
+        .multilingual-popup .popup-message .lang .text a:hover { text-decoration: underline; }
+
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.05);
+            letter-spacing: 0.3px;
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 550px) {
-            .container {
-                padding: 16px 12px;
-            }
-            .tab-btn {
-                font-size: 11px;
-                padding: 4px 8px;
-                min-width: 50px;
-            }
-            .header h1 {
-                font-size: 20px;
-            }
-            .avatar {
-                width: 56px;
-                height: 56px;
-                font-size: 24px;
-            }
-            .premium-pricing {
-                grid-template-columns: 1fr;
-            }
-            .form-wrapper iframe {
-                height: 500px;
-            }
-            .modal-content iframe {
-                height: 300px;
-            }
-            .processor-chip {
-                font-size: 10px;
-                padding: 3px 10px;
-            }
-            .bio-stats {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .bio-stats .stat-item {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-            .follow-btn {
-                width: 100%;
-                text-align: center;
-            }
-            .multilingual-popup {
-                max-width: 220px;
-                right: 8px;
-                bottom: 12px;
-                padding: 10px 12px;
-                font-size: 10px;
-            }
-            .multilingual-popup .popup-message .lang .text {
-                font-size: 10px;
-            }
+            .container { padding: 18px 12px; }
+            .tab-btn { font-size: 10px; padding: 4px 8px; min-width: 50px; }
+            .processor-chip { font-size: 9px; padding: 3px 8px; }
+            .processor-chip.highlight { font-size: 12px; padding: 5px 12px; }
+            .processor-chip.highlight .emoji { font-size: 14px; }
+            .form-wrapper iframe { height: 550px; }
+            .header h1 { font-size: 22px; }
+            .avatar { width: 60px; height: 60px; font-size: 28px; }
+            .join-top-btn { font-size: 15px; padding: 12px; }
+            .join-top-btn::before, .join-top-btn::after { font-size: 15px; }
+            .pay-simple-btn::before, .pay-simple-btn::after { display: none; }
+            .free-previews-btn::before, .free-previews-btn::after { display: none; }
+            .offer-tier h4 { font-size: 16px; }
+            .bio-contact .contact-item { font-size: 10px; padding: 4px 10px; }
+            .premium-pricing { grid-template-columns: 1fr; }
+            .unlock-btn { font-size: 14px; padding: 10px; }
+            .unlock-btn::before, .unlock-btn::after { font-size: 15px; }
+            .multilingual-popup { max-width: 220px; right: 6px; bottom: 12px; padding: 10px 12px; font-size: 10px; }
+            .multilingual-popup .popup-message .lang .text { font-size: 10px; }
+            .marquee-item { font-size: 10px; padding: 0 6px; }
+            .promo-section .subscribe-btn { font-size: 14px; padding: 10px; }
+            .promo-section .add-email-btn { font-size: 13px; padding: 8px; }
+            .heading-wrapper h3 { font-size: 18px; }
+            .tip-btn { font-size: 11px; padding: 2px 10px; }
+            .promo-section img { max-height: 250px; }
+            .order-summary .row { font-size: 11px; max-width: 220px; }
+            .order-summary .row.total .value { font-size: 18px; }
+            .modal-content iframe { height: 300px; }
+            .modal-content { padding: 16px; }
+            .bio-stats { flex-direction: column; align-items: stretch; gap: 8px; }
+            .bio-stats .stat-item { flex-direction: row; justify-content: space-between; gap: 8px; }
+            .follow-btn { width: 100%; text-align: center; }
+            .subscriber-count { font-size: 14px; padding: 4px 12px; }
+            .subscriber-count strong { font-size: 16px; }
+            .free-previews-btn { font-size: 15px; padding: 12px; }
+            .email-input-field { font-size: 12px; padding: 10px 14px; }
+            .email-input-field .typing-text { font-size: 12px; }
+            .email-input-field .email-glow { font-size: 16px; }
+            .header-links { gap: 6px; }
+            .offers-subscribe-btn { font-size: 14px; padding: 10px; }
+            .slideshow-container .slide-btn { padding: 5px 10px; font-size: 16px; }
+            .slideshow-container .dots { gap: 4px; padding: 4px 8px; }
+            .slideshow-container .dots .dot { width: 7px; height: 7px; }
+            .slideshow-container .dots .dot.active { width: 12px; }
+            .slideshow-container .slide img { max-height: 250px; }
         }
 
         @media (max-width: 420px) {
-            .tab-btn {
-                font-size: 10px;
-                padding: 3px 6px;
-                min-width: 44px;
-            }
-            .join-top-btn,
-            .pay-simple-btn,
-            .subscribe-btn,
-            .add-email-btn,
-            .offers-subscribe-btn,
-            .free-previews-btn,
-            .join-free-btn,
-            .unlock-btn {
-                font-size: 14px;
-                padding: 10px;
-            }
-            .form-wrapper iframe {
-                height: 400px;
-            }
-            .modal-content iframe {
-                height: 250px;
-            }
-            .modal-content {
-                padding: 12px;
-            }
-            .multilingual-popup {
-                max-width: 180px;
-                padding: 8px 10px;
-                font-size: 9px;
-            }
-            .multilingual-popup .popup-message .lang .text {
-                font-size: 9px;
-            }
-            .slideshow-container .slide-btn {
-                padding: 4px 8px;
-                font-size: 16px;
-            }
-            .slideshow-container .slide-btn.prev {
-                left: 4px;
-            }
-            .slideshow-container .slide-btn.next {
-                right: 4px;
-            }
-            .slideshow-container .dots {
-                gap: 4px;
-                padding: 3px 8px;
-                bottom: 4px;
-            }
-            .slideshow-container .dots .dot {
-                width: 6px;
-                height: 6px;
-            }
-            .slideshow-container .dots .dot.active {
-                width: 14px;
-            }
-            .slideshow-container .slide img {
-                max-height: 200px;
-            }
+            .tab-nav { gap: 2px; }
+            .tab-btn { font-size: 9px; padding: 3px 5px; min-width: 44px; }
+            .processor-chip.highlight { font-size: 11px; padding: 4px 10px; }
+            .processor-chip.highlight .emoji { font-size: 12px; }
+            .form-wrapper iframe { height: 450px; }
+            .join-top-btn { font-size: 14px; padding: 10px; }
+            .join-top-btn::before, .join-top-btn::after { display: none; }
+            .free-previews-btn::before, .free-previews-btn::after { display: none; }
+            .offer-tier { padding: 12px 10px; }
+            .unlock-btn { font-size: 13px; padding: 8px; }
+            .unlock-btn::before, .unlock-btn::after { display: none; }
+            .multilingual-popup { max-width: 180px; padding: 8px 10px; font-size: 9px; }
+            .multilingual-popup .popup-message .lang .text { font-size: 9px; }
+            .multilingual-popup .popup-close { font-size: 12px; }
+            .marquee-item { font-size: 9px; padding: 0 4px; }
+            .promo-section .subscribe-btn { font-size: 13px; padding: 8px; }
+            .promo-section .add-email-btn { font-size: 12px; padding: 6px; }
+            .heading-wrapper h3 { font-size: 16px; }
+            .tip-btn { font-size: 10px; padding: 2px 8px; }
+            .promo-section img { max-height: 200px; }
+            .order-summary .row { font-size: 10px; max-width: 180px; }
+            .order-summary .row.total .value { font-size: 16px; }
+            .order-summary { padding: 10px; }
+            .modal-content iframe { height: 250px; }
+            .modal-content { padding: 12px; }
+            .subscriber-count { font-size: 12px; padding: 3px 10px; }
+            .subscriber-count strong { font-size: 14px; }
+            .free-previews-btn { font-size: 14px; padding: 10px; }
+            .email-input-field { font-size: 11px; padding: 8px 12px; }
+            .email-input-field .typing-text { font-size: 11px; }
+            .email-input-field .email-glow { font-size: 14px; }
+            .header-links { gap: 4px; }
+            .telegram-link { font-size: 10px; padding: 2px 10px; }
+            .badge { font-size: 10px; padding: 2px 10px; }
+            .offers-subscribe-btn { font-size: 13px; padding: 8px; }
+            .slideshow-container .slide-btn { padding: 4px 8px; font-size: 14px; }
+            .slideshow-container .slide-btn.prev { left: 4px; }
+            .slideshow-container .slide-btn.next { right: 4px; }
+            .slideshow-container .dots { gap: 3px; padding: 3px 6px; bottom: 4px; }
+            .slideshow-container .dots .dot { width: 6px; height: 6px; }
+            .slideshow-container .dots .dot.active { width: 10px; }
+            .slideshow-container .slide img { max-height: 200px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- ===== SPARKLE CANVAS ===== -->
+    <canvas id="sparkleCanvas"></canvas>
+
+    <!-- ===== CELEBRATION OVERLAY ===== -->
+    <div class="celebration" id="celebration"></div>
 
     <!-- ===== MULTILINGUAL POP-UP ===== -->
     <div class="multilingual-popup" id="multilingualPopup">
@@ -1458,9 +1767,9 @@
         <div class="header">
             <div class="avatar">🍕</div>
             <h1>Patreon+</h1>
-            <p>Portal · Offers · Bio · Forums · Premium</p>
+            <p>✨ Portal · Offers · Bio · Forums · Premium ✨</p>
             <div class="header-links">
-                <span class="badge">🔗 750 Followers</span>
+                <span class="badge"><span class="link-emoji">🔗</span> 750 Followers</span>
                 <a href="https://t.me/Superhelpful" target="_blank" class="telegram-link">💬 t.me/Superhelpful</a>
             </div>
         </div>
@@ -1469,11 +1778,11 @@
         <!-- TABS -->
         <!-- ========================================================= -->
         <div class="tab-nav">
-            <button class="tab-btn active" data-tab="payments">Portal</button>
-            <button class="tab-btn" data-tab="offers">Offers</button>
-            <button class="tab-btn" data-tab="bio">Bio</button>
-            <button class="tab-btn" data-tab="forums">Forums</button>
-            <button class="tab-btn" data-tab="premium">Premium</button>
+            <button class="tab-btn active" data-tab="payments">💳 Portal</button>
+            <button class="tab-btn" data-tab="offers">📦 Offers</button>
+            <button class="tab-btn" data-tab="bio">🌐 Bio</button>
+            <button class="tab-btn" data-tab="forums">💬 Forums</button>
+            <button class="tab-btn" data-tab="premium">💎 Premium</button>
         </div>
 
         <!-- ========================================================= -->
@@ -1482,25 +1791,117 @@
         <div class="tab-content active" id="tab-payments">
             <div class="portal-container">
 
-                <div class="social-marquee" style="overflow:hidden; padding:4px 0; margin-bottom:12px; border-bottom:1px solid #2a2a2a;">
-                    <div style="display:flex; width:max-content; animation: scrollMarquee 30s linear infinite; gap:4px;">
-                        <span style="color:#888888; font-size:11px; white-space:nowrap;">bluesky • twitter • keet.io • wordpress • patreon • github • telegram • fanvue • deviant art • tumblr • tiktok • gumroad • substack • whop • stoat • buymeacoffee • ko fi • vimeo • jabburr • eachoed • element • matrix.io • discord • facebook • instagram</span>
+                <div class="social-marquee">
+                    <div class="marquee-wrapper">
+                        <span class="marquee-item">bluesky</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">twitter</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">keet.io</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">wordpress</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">patreon</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">github</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">telegram</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">fanvue</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">deviant art</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">tumblr</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">tiktok</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">gumroad</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">substack</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">whop</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">stoat</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">buymeacoffee</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">ko fi</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">vimeo</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">jabburr</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">eachoed</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">element</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">matrix.io</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">discord</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">facebook</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">instagram</span>
+                        <!-- duplicate for seamless loop -->
+                        <span class="marquee-item">bluesky</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">twitter</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">keet.io</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">wordpress</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">patreon</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">github</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">telegram</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">fanvue</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">deviant art</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">tumblr</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">tiktok</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">gumroad</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">substack</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">whop</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">stoat</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">buymeacoffee</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">ko fi</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">vimeo</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">jabburr</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">eachoed</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">element</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">matrix.io</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">discord</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">facebook</span>
+                        <span class="marquee-item separator">•</span>
+                        <span class="marquee-item">instagram</span>
                     </div>
                 </div>
-                <style>
-                    @keyframes scrollMarquee {
-                        0% { transform: translateX(0); }
-                        100% { transform: translateX(-50%); }
-                    }
-                </style>
 
                 <div class="heading-wrapper">
                     <h3>Direct Checkout</h3>
                     <button class="tip-btn" id="tipBtn">💵 Tip</button>
                 </div>
-                <p class="sub">Pay me directly – no platform fees.</p>
+                <p class="sub">Pay me directly – no platform fees, 100% goes to me.</p>
 
-                <button class="join-top-btn" id="joinNowBtn">Join Now</button>
+                <button class="join-top-btn" id="joinNowBtn">🚀 Join Now</button>
 
                 <div class="email-input-field" id="emailInputField">
                     <span class="typing-text" id="typingText">
@@ -1510,10 +1911,22 @@
                 </div>
 
                 <div class="order-summary">
-                    <div class="row"><span class="label">📦 Plan</span><span class="value">Pro ⭐ (Monthly)</span></div>
-                    <div class="row"><span class="label">🔄 Billing</span><span class="value">Recurring</span></div>
-                    <div class="row"><span class="label">👥 Members</span><span class="value">18</span></div>
-                    <div class="row total"><span class="label">Total</span><span class="value">$5.99</span></div>
+                    <div class="row">
+                        <span class="label">📦 Plan</span>
+                        <span class="value">Pro ⭐ (Monthly)</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">🔄 Billing</span>
+                        <span class="value">Recurring</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">👥 Members</span>
+                        <span class="value">18</span>
+                    </div>
+                    <div class="row total">
+                        <span class="label">Total</span>
+                        <span class="value">$5.99</span>
+                    </div>
                 </div>
 
                 <div class="promo-section">
@@ -1525,52 +1938,59 @@
                 <div class="processors-section">
                     <span class="section-label">💳 Payment Processors</span>
                     <div class="processor-grid">
-                        <a href="https://buy.stripe.com/28EeVd4O216l9HzaVJenS00" target="_blank" class="processor-chip highlight">⚡ Stripe</a>
-                        <a href="https://www.paypal.com/ncp/payment/232MAXP5VWDSC" target="_blank" class="processor-chip highlight">💸 PayPal</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">📱 Venmo</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">🏦 Zelle</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">📲 Cash App</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">💳 Helcim</a>
+                        <a href="https://buy.stripe.com/28EeVd4O216l9HzaVJenS00" target="_blank" class="processor-chip highlight" data-brand="stripe"><span class="emoji">⚡</span> Stripe</a>
+                        <a href="https://www.paypal.com/ncp/payment/232MAXP5VWDSC" target="_blank" class="processor-chip highlight" data-brand="paypal"><span class="emoji">💸</span> PayPal</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📱</span> Venmo</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🏦</span> Zelle</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📲</span> Cash App</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">💳</span> Helcim</a>
                     </div>
-                    <span class="section-label">📱 Digital Wallets</span>
+
+                    <span class="section-label">📱 Digital Wallets & Mobile</span>
                     <div class="processor-grid">
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">📲 Google Pay</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">📱 Apple Pay</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">💰 Cash</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📲</span> Google Pay</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📱</span> Apple Pay</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">💰</span> Cash</a>
                     </div>
-                    <span class="section-label">🛒 Creator Platforms</span>
+
+                    <span class="section-label">🛒 Subscription & Creator Platforms</span>
                     <div class="processor-grid">
-                        <a href="https://www.fedpromptly.com" target="_blank" class="processor-chip">📰 Substack</a>
-                        <a href="https://www.patreon.com/c/Viraldancandofunk/membership" target="_blank" class="processor-chip highlight">❤️ Patreon</a>
-                        <a href="https://github.com/sponsors/PokeLegend" target="_blank" class="processor-chip">💻 GitHub</a>
-                        <a href="https://ko-fi.com/fedjumpergaming" target="_blank" class="processor-chip">☕ Ko-fi</a>
-                        <a href="https://buymeacoffee.com/Potatochat" target="_blank" class="processor-chip">🍵 Buy Me a Coffee</a>
-                        <a href="https://www.deviantart.com/patreonnsfw" target="_blank" class="processor-chip highlight">🎨 DeviantArt</a>
+                        <a href="https://www.fedpromptly.com" target="_blank" class="processor-chip"><span class="emoji">📰</span> Substack</a>
+                        <a href="https://www.patreon.com/c/Viraldancandofunk/membership" target="_blank" class="processor-chip highlight" data-brand="patreon"><span class="emoji">❤️</span> Patreon</a>
+                        <a href="https://github.com/sponsors/PokeLegend" target="_blank" class="processor-chip"><span class="emoji">💻</span> GitHub Sponsors</a>
+                        <a href="https://ko-fi.com/fedjumpergaming" target="_blank" class="processor-chip"><span class="emoji">☕</span> Ko-fi</a>
+                        <a href="https://buymeacoffee.com/Potatochat" target="_blank" class="processor-chip"><span class="emoji">🍵</span> Buy Me a Coffee</a>
+                        <a href="https://www.deviantart.com/patreonnsfw" target="_blank" class="processor-chip highlight" data-brand="deviantart"><span class="emoji">🎨</span> DeviantArt</a>
                     </div>
-                    <span class="section-label">🛍️ Storefronts</span>
+
+                    <span class="section-label">🛍️ E‑Commerce & Storefronts</span>
                     <div class="processor-grid">
-                        <a href="https://whop.com/viraldancandotrends" target="_blank" class="processor-chip highlight">🛍️ Whop</a>
-                        <a href="https://theworldtrade.gumroad.com" target="_blank" class="processor-chip">🎨 Gumroad</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">🔗 Linktree</a>
-                        <a href="https://tinyurl.com/mr4acvdn" target="_blank" class="processor-chip">🔄 Keet.io</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">📊 Stoat</a>
+                        <a href="https://whop.com/viraldancandotrends" target="_blank" class="processor-chip highlight" data-brand="whop"><span class="emoji">🛍️</span> Whop</a>
+                        <a href="https://theworldtrade.gumroad.com" target="_blank" class="processor-chip"><span class="emoji">🎨</span> Gumroad</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🔗</span> Linktree</a>
+                        <a href="https://tinyurl.com/mr4acvdn" target="_blank" class="processor-chip"><span class="emoji">🔄</span> Keet.io</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📊</span> Stoat</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🔗</span> link.me</a>
                     </div>
+
                     <span class="section-label">💬 Social & Community</span>
                     <div class="processor-grid">
-                        <a href="https://discord.gg/JBSE9wN2kA" target="_blank" class="processor-chip highlight">💬 Discord</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">🚀 Launch Pass</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">💬 upgrade.chat</a>
-                        <a href="https://t.me/viraldancandotrends" target="_blank" class="processor-chip">⭐ Telegram Stars</a>
+                        <a href="https://discord.gg/JBSE9wN2kA" target="_blank" class="processor-chip highlight" data-brand="discord"><span class="emoji">💬</span> Discord</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🚀</span> Launch Pass</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">💬</span> upgrade.chat</a>
+                        <a href="https://t.me/viraldancandotrends" target="_blank" class="processor-chip"><span class="emoji">⭐</span> Telegram Stars</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🎥</span> Streamlabs Tips</a>
                     </div>
+
                     <span class="section-label">₿ Crypto & Banking</span>
                     <div class="processor-grid">
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">₿ All Crypto</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">🏦 Direct Wire</a>
-                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip">🛒 Klarna</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">₿</span> All Crypto</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🏦</span> Direct Wire</a>
+                        <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🛒</span> Klarna</a>
                     </div>
                 </div>
 
-                <div class="secure-badge">🔒 Secured · No third-party fees</div>
+                <div class="secure-badge">🔒 Secured by me · No third-party fees</div>
 
                 <div class="video-wrapper">
                     <video autoplay muted loop playsinline>
@@ -1585,7 +2005,7 @@
                 </div>
 
             </div>
-            <div class="footer">© 2026 Patreon+ · Direct payments</div>
+            <div class="footer">© 2026 Patreon+ · Direct payments · ⚡</div>
         </div>
 
         <!-- ========================================================= -->
@@ -1596,6 +2016,7 @@
                 <h3>📦 My Offerings</h3>
                 <p class="sub">A curated framework of exclusive content tiers.</p>
 
+                <!-- ===== SLIDESHOW ===== -->
                 <div class="slideshow-container" id="slideshowContainer">
                     <div class="slide-track" id="slideTrack">
                         <div class="slide"><img src="https://64.media.tumblr.com/b2e688cafd199cc0095ce826ae1311e2/96dadbb12967f31e-52/s500x750/a0a03286373dec2ae8fe070d3eb5ee2deca46536.jpg" alt="Slide 1" loading="lazy" /></div>
@@ -1610,7 +2031,7 @@
                 <button class="offers-subscribe-btn" id="offersSubscribeBtn">Subscribe</button>
 
                 <div class="offer-tier">
-                    <span class="tier-badge">Tier 1 · Public</span>
+                    <span class="tier-badge tier1">Tier 1 · Public</span>
                     <h4>Street Style & Candid Culture</h4>
                     <div class="tier-sub">Observational and trend-based content captured in public environments.</div>
                     <div class="tier-desc">
@@ -1625,7 +2046,7 @@
                 </div>
 
                 <div class="offer-tier">
-                    <span class="tier-badge">Tier 2 · Exclusive</span>
+                    <span class="tier-badge tier2">Tier 2 · Exclusive</span>
                     <h4>Global Relaxation & Curated Social Experiences</h4>
                     <div class="tier-sub">Lifestyle guides, wellness retreats, and professional companionship.</div>
                     <div class="tier-desc">
@@ -1640,7 +2061,7 @@
                 </div>
 
                 <div class="offer-tier">
-                    <span class="tier-badge">Tier 3 · The Vault</span>
+                    <span class="tier-badge tier3">Tier 3 · The Vault</span>
                     <h4>The Archives</h4>
                     <div class="tier-sub">Highest exclusivity – uncut, unfiltered, unseen.</div>
                     <div class="tier-desc">
@@ -1656,7 +2077,7 @@
 
                 <button class="free-previews-btn" id="freePreviewsBtn">🎬 Free Previews</button>
 
-                <div class="footer">© 2026 Patreon+ · Exclusive content framework</div>
+                <div class="footer">© 2026 Patreon+ · Exclusive content framework · 🔐</div>
             </div>
         </div>
 
@@ -1675,7 +2096,8 @@
                     <p>
                         Whether you're here for <span class="highlight">Street Style</span>,
                         <span class="highlight">Global Relaxation</span>, or the <span class="highlight">Vault</span>,
-                        you've come to the right place.
+                        you've come to the right place. Everything is designed to give you the best experience,
+                        and I'm always open to feedback.
                     </p>
                 </div>
 
@@ -1690,23 +2112,55 @@
 
                 <div class="bio-features">
                     <h3>🎁 Free Premium Features</h3>
-                    <div class="feature-item"><span class="feat-icon">🔓</span> Unlock exclusive content from all three tiers <span class="feat-tag">Free</span></div>
-                    <div class="feature-item"><span class="feat-icon">🎥</span> Early access to videos and guides <span class="feat-tag">Free</span></div>
-                    <div class="feature-item"><span class="feat-icon">💬</span> Private community chat (Discord & Telegram) <span class="feat-tag">Free</span></div>
-                    <div class="feature-item"><span class="feat-icon">📅</span> 1‑on‑1 consultation sessions (limited) <span class="feat-tag">Free</span></div>
-                    <div class="feature-item"><span class="feat-icon">📈</span> Real‑time analytics and insights <span class="feat-tag">Free</span></div>
+                    <div class="feature-item">
+                        <span class="feat-icon">🔓</span>
+                        <span class="feat-label">Unlock exclusive content from all three tiers</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feat-icon">🎥</span>
+                        <span class="feat-label">Early access to videos and guides</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feat-icon">💬</span>
+                        <span class="feat-label">Private community chat (Discord & Telegram)</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feat-icon">📅</span>
+                        <span class="feat-label">1‑on‑1 consultation sessions (limited)</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feat-icon">📈</span>
+                        <span class="feat-label">Real‑time analytics and insights</span>
+                        <span class="feat-tag">Free</span>
+                    </div>
                 </div>
 
                 <div class="bio-instructions">
                     <h3>📋 How to get started</h3>
-                    <div class="step"><span class="step-num">1</span> <span><strong>Join the community</strong> – Click "Join Now" on the Portal tab.</span></div>
-                    <div class="step"><span class="step-num">2</span> <span><strong>Explore the Offers</strong> – Check out the Offers tab for curated tiers.</span></div>
-                    <div class="step"><span class="step-num">3</span> <span><strong>Visit the Forums</strong> – Ask questions and share feedback.</span></div>
-                    <div class="step"><span class="step-num">4</span> <span><strong>Stay updated</strong> – Join my email list or follow me on social media.</span></div>
+                    <div class="step">
+                        <span class="step-num">1</span>
+                        <span><strong>Join the community</strong> – Click the "Join Now" button on the Portal tab to get instant access.</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">2</span>
+                        <span><strong>Explore the Offers</strong> – Check out the <strong>Offers</strong> tab to see all my curated content tiers.</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">3</span>
+                        <span><strong>Visit the Forums</strong> – Head to the <strong>Forums</strong> tab to ask questions, share feedback, and connect with others.</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">4</span>
+                        <span><strong>Stay updated</strong> – Join my email list below or follow me on social media for the latest news.</span>
+                    </div>
                 </div>
 
-                <div style="margin-bottom:12px;">
-                    <h3 style="color:#f0f0f0; font-size:16px; font-weight:700; margin-bottom:8px;">📬 Contact & Social</h3>
+                <div style="margin-bottom: 14px;">
+                    <h3 style="color:#fff; font-size:15px; font-weight:700; margin-bottom:8px;">📬 Contact & Social</h3>
                     <div class="bio-contact">
                         <a href="mailto:viraldancandotrends@proton.me" class="contact-item">✉️ Email</a>
                         <a href="https://t.me/viraldancandotrends" target="_blank" class="contact-item">📱 Telegram</a>
@@ -1719,22 +2173,31 @@
 
                 <div class="bio-quick-links">
                     <div class="quick-link" id="bioQuickPortal">
-                        <span class="ql-left"><span class="ql-icon">💳</span> Go to Portal</span>
+                        <span class="ql-left">
+                            <span class="ql-icon">💳</span>
+                            <span>Go to Portal</span>
+                        </span>
                         <span class="ql-arrow">→</span>
                     </div>
                     <div class="quick-link" id="bioQuickOffers">
-                        <span class="ql-left"><span class="ql-icon">📦</span> Browse Offers</span>
+                        <span class="ql-left">
+                            <span class="ql-icon">📦</span>
+                            <span>Browse Offers</span>
+                        </span>
                         <span class="ql-arrow">→</span>
                     </div>
                     <div class="quick-link" id="bioQuickForums">
-                        <span class="ql-left"><span class="ql-icon">💬</span> Visit Forums</span>
+                        <span class="ql-left">
+                            <span class="ql-icon">💬</span>
+                            <span>Visit Forums</span>
+                        </span>
                         <span class="ql-arrow">→</span>
                     </div>
                 </div>
 
                 <button class="join-free-btn" id="joinFreeBtn">🎉 Join for Free</button>
 
-                <div class="bio-footer">© 2026 Patreon+ · Your all‑in‑one creative hub</div>
+                <div class="bio-footer">© 2026 Patreon+ · Your all‑in‑one creative hub · 🌟</div>
             </div>
         </div>
 
@@ -1749,7 +2212,7 @@
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8aWw977kjtAR9OUfdtJdYRLc9DPDC5e0Gt7lDCj5p-Ieysg/viewform?embedded=true" width="640" height="2640" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
             </div>
             <div class="join-list-text">📧 Join My List</div>
-            <div class="footer">© 2026 Patreon+ · Community forums</div>
+            <div class="footer">© 2026 Patreon+ · Community forums · 💬</div>
         </div>
 
         <!-- ========================================================= -->
@@ -1763,17 +2226,17 @@
                 <div class="premium-pricing">
                     <div class="price-card">
                         <div class="plan-name">Plus</div>
-                        <div class="plan-price">$9.99<span style="font-size:14px;color:#888888;">/mo</span></div>
+                        <div class="plan-price">$9.99<span style="font-size:13px;color:rgba(255,255,255,0.15);">/mo</span></div>
                         <div class="plan-desc">Verified branding, custom themes, advanced tracking</div>
                     </div>
                     <div class="price-card highlight">
                         <div class="plan-name">Pro ⭐</div>
-                        <div class="plan-price">$29.99<span style="font-size:14px;color:#888888;">/mo</span></div>
+                        <div class="plan-price">$29.99<span style="font-size:13px;color:rgba(255,255,255,0.15);">/mo</span></div>
                         <div class="plan-desc">Full layout customization, e‑commerce, newsletter builder</div>
                     </div>
                     <div class="price-card" style="grid-column: span 2;">
                         <div class="plan-name">Agency</div>
-                        <div class="plan-price">$49.99<span style="font-size:14px;color:#888888;">/mo + $9.99/seat</span></div>
+                        <div class="plan-price">$49.99<span style="font-size:13px;color:rgba(255,255,255,0.15);">/mo + $9.99/seat</span></div>
                         <div class="plan-desc">Multi‑client dashboard, team management, 5‑seat minimum</div>
                     </div>
                 </div>
@@ -1781,88 +2244,236 @@
                 <button class="unlock-btn locked" id="unlockBtn">🔒 Unlock All Features</button>
 
                 <div class="premium-features">
-                    <div class="premium-category">
-                        <h4><span>💰 Monetization & E‑Commerce</span><span class="status-badge">🔒</span></h4>
+                    <div class="premium-category" data-category="monetization">
+                        <h4>
+                            <span>💰 Monetization & E‑Commerce</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
                         <ul>
                             <li><span class="li-icon">🔒</span> <strong>Locked Products</strong> – Pay‑to‑unlock links, videos, or files</li>
                             <li><span class="li-icon">📚</span> <strong>Native Course Builder</strong> – Sell educational video lessons</li>
                             <li><span class="li-icon">🛍️</span> <strong>Integrated Digital Storefront</strong> – Upload e‑books, presets, templates</li>
                             <li><span class="li-icon">💵</span> <strong>Tip Collection</strong> – Receive audience tips and direct payouts</li>
                             <li><span class="li-icon">👕</span> <strong>Fulfillment Fees</strong> – $9.99 base for print‑on‑demand merch</li>
-                            <li><span class="li-icon">📦</span> <strong>Digital Paywalls</strong> – Gate content behind Pro tier</li>
+                            <li><span class="li-icon">📦</span> <strong>Digital Paywalls</strong> – Gate content behind Pro tier or transaction fees</li>
                         </ul>
                     </div>
 
-                    <div class="premium-category">
-                        <h4><span>🎨 Profile Customization</span><span class="status-badge">🔒</span></h4>
+                    <div class="premium-category" data-category="customization">
+                        <h4>
+                            <span>🎨 Profile Customization</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
                         <ul>
-                            <li><span class="li-icon">🔄</span> <strong>Link Carousels</strong> – Swipeable banners for multiple links</li>
+                            <li><span class="li-icon">🔄</span> <strong>Link Carousels</strong> – Horizontal swipeable banners for multiple links</li>
                             <li><span class="li-icon">✨</span> <strong>Featured Link Animations</strong> – Shine, Pulse, Bounce effects</li>
-                            <li><span class="li-icon">🎨</span> <strong>Custom Themes & Layouts</strong> – Font packages, premium backdrops</li>
-                            <li><span class="li-icon">📹</span> <strong>Video Feeds</strong> – Embed playable multimedia streams</li>
+                            <li><span class="li-icon">🎨</span> <strong>Custom Themes & Layouts</strong> – Font packages, premium color backdrops</li>
+                            <li><span class="li-icon">📹</span> <strong>Video Feeds</strong> – Embed playable multimedia streams directly</li>
                         </ul>
                     </div>
 
-                    <div class="premium-category">
-                        <h4><span>📊 Marketing Automations & Analytics</span><span class="status-badge">🔒</span></h4>
+                    <div class="premium-category" data-category="analytics">
+                        <h4>
+                            <span>📊 Marketing Automations & Analytics</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
                         <ul>
                             <li><span class="li-icon">📢</span> <strong>Post to All</strong> – Broadcast updates to every connected platform</li>
-                            <li><span class="li-icon">⏰</span> <strong>Link Scheduler</strong> – Schedule when links go live or expire</li>
-                            <li><span class="li-icon">🎯</span> <strong>Tracking Pixels</strong> – Meta, Google pixel integrations</li>
-                            <li><span class="li-icon">📈</span> <strong>Advanced Live Analytics</strong> – Geographic traffic, bounce rates</li>
-                            <li><span class="li-icon">📧</span> <strong>Automated Email Capture</strong> – Custom intake forms</li>
+                            <li><span class="li-icon">⏰</span> <strong>Link Scheduler</strong> – Program when links go live or expire</li>
+                            <li><span class="li-icon">🎯</span> <strong>Tracking Pixels</strong> – Meta, Google pixel integrations for retargeting</li>
+                            <li><span class="li-icon">📈</span> <strong>Advanced Live Analytics</strong> – Geographical traffic, bounce rates, click distribution</li>
+                            <li><span class="li-icon">📧</span> <strong>Automated Email Capture</strong> – Custom intake forms, Apple Wallet integration</li>
                         </ul>
                     </div>
 
-                    <div class="premium-category">
-                        <h4><span>👥 Team Management (Agency Only)</span><span class="status-badge">🔒</span></h4>
+                    <div class="premium-category" data-category="team">
+                        <h4>
+                            <span>👥 Team Management (Agency Only)</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
                         <ul>
-                            <li><span class="li-icon">📊</span> <strong>Multi‑Client Dashboard</strong> – Manage multiple profiles</li>
+                            <li><span class="li-icon">📊</span> <strong>Multi‑Client Dashboard</strong> – Manage multiple influencer profiles</li>
                             <li><span class="li-icon">👤</span> <strong>Seat‑based Access</strong> – $9.99 per extra seat, 5‑seat minimum</li>
                         </ul>
                     </div>
 
-                    <div class="premium-category">
-                        <h4><span>📱 Interactive & Networking</span><span class="status-badge">🔒</span></h4>
+                    <div class="premium-category" data-category="interactive">
+                        <h4>
+                            <span>📱 Interactive & Networking</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
                         <ul>
-                            <li><span class="li-icon">📞</span> <strong>Paid Calls / Consultations</strong> – Schedule and charge for sessions</li>
-                            <li><span class="li-icon">📣</span> <strong>The "Shout" Feature</strong> – Broadcast to all subscribers</li>
-                            <li><span class="li-icon">🎟️</span> <strong>Event & Ticket Sales</strong> – Sell event tickets directly</li>
-                            <li><span class="li-icon">📇</span> <strong>Digital QR Cards</strong> – Real‑life networking scanning</li>
-                            <li><span class="li-icon">🎮</span> <strong>Multi‑Stream Destination Pages</strong> – Aggregate live streams</li>
-                            <li><span class="li-icon">🔗</span> <strong>Affiliate & Payout Hub</strong> – Centralized tracking</li>
+                            <li><span class="li-icon">📞</span> <strong>Paid Calls / Consultations</strong> – Schedule and charge for 1‑on‑1 sessions</li>
+                            <li><span class="li-icon">📣</span> <strong>The "Shout" Feature</strong> – Broadcast text, graphics, or videos to all subscribers</li>
+                            <li><span class="li-icon">🎟️</span> <strong>Event & Ticket Sales</strong> – Sell event tickets directly through your bio</li>
+                            <li><span class="li-icon">📇</span> <strong>Digital QR Cards</strong> – Long‑distance scanning for real‑life networking</li>
+                            <li><span class="li-icon">🎮</span> <strong>Multi‑Stream Destination Pages</strong> – Aggregate live streams (Twitch, Kick, YouTube, Facebook)</li>
+                            <li><span class="li-icon">🔗</span> <strong>Affiliate & Payout Hub</strong> – Centralized tracking for brand links and commissions</li>
                         </ul>
                     </div>
 
-                    <div class="premium-category">
-                        <h4><span>🤝 Ambassador Rewards</span><span class="status-badge">🔒</span></h4>
+                    <div class="premium-category" data-category="ambassador">
+                        <h4>
+                            <span>🤝 Ambassador Rewards</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
                         <ul>
-                            <li><span class="li-icon">👑</span> <strong>Referral Milestones</strong> – Earn cash or tech prizes</li>
+                            <li><span class="li-icon">👑</span> <strong>Referral Milestones</strong> – Earn cash or tech prizes (Apple Watch, PS5) for inviting new creators</li>
                         </ul>
                     </div>
 
-                    <div class="premium-category">
-                        <h4><span>⚙️ Technical Actions</span><span class="status-badge">🔒</span></h4>
+                    <div class="premium-category" data-category="technical">
+                        <h4>
+                            <span>⚙️ Under‑the‑Hood Technical Actions</span>
+                            <span class="status-badge">🔒</span>
+                        </h4>
                         <ul>
-                            <li><span class="li-icon">🔗</span> <strong>Deep‑Linking Architecture</strong> – Force native app launches</li>
-                            <li><span class="li-icon">🎵</span> <strong>Bandsintown Event Sync</strong> – Automatically pull tour dates</li>
-                            <li><span class="li-icon">📝</span> <strong>Custom Form Routing</strong> – Deliver downloads to mobile devices</li>
+                            <li><span class="li-icon">🔗</span> <strong>Deep‑Linking Architecture</strong> – Force native app launches for links</li>
+                            <li><span class="li-icon">🎵</span> <strong>Bandsintown Event Sync</strong> – Automatically pull live tour dates</li>
+                            <li><span class="li-icon">📝</span> <strong>Custom Form Routing</strong> – Deliver downloads directly to mobile devices</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="premium-note">
                     <strong>📌 Note:</strong> All these features are normally paid on Link trees – but here on Patreon+,
-                    you get them <strong>absolutely free</strong> as part of our community.
+                    you get them <strong>absolutely free</strong> as part of our community. No subscription fees,
+                    no fulfillment costs, no hidden charges. Just pure, unfiltered access to the entire premium suite.
                 </div>
 
-                <div class="footer">© 2026 Patreon+ · Premium features from Link trees</div>
+                <div class="footer">© 2026 Patreon+ · Premium features from Link trees · 🔓</div>
             </div>
         </div>
 
     </div>
 
     <script>
+        // ============================================================
+        // SPARKLE CANVAS (Reduced density)
+        // ============================================================
+        const canvas = document.getElementById('sparkleCanvas');
+        const ctx = canvas.getContext('2d');
+        let w, h;
+        let sparkles = [];
+
+        function resizeCanvas() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Sparkle {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.size = Math.random() * 3 + 1.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.4 + 0.1;
+                this.phase = Math.random() * Math.PI * 2;
+                const colors = ['#00e5ff', '#ff0066', '#ffcc00', '#ff1493', '#00e676'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.type = Math.random() > 0.7 ? 'heart' : 'star';
+            }
+
+            update(time) {
+                this.x += this.speedX + Math.sin(time * 0.0006 + this.phase) * 0.1;
+                this.y += this.speedY + Math.cos(time * 0.0006 + this.phase) * 0.1;
+                this.opacity = (0.2 + 0.2 * Math.sin(time * 0.0015 + this.phase)) * 0.5 + 0.1;
+                if (this.x < 0) this.x = w;
+                if (this.x > w) this.x = 0;
+                if (this.y < 0) this.y = h;
+                if (this.y > h) this.y = 0;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.translate(this.x, this.y);
+                if (this.type === 'heart') {
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 8;
+                    const s = this.size * 1.2;
+                    ctx.beginPath();
+                    ctx.moveTo(0, s * 0.3);
+                    ctx.bezierCurveTo(-s * 0.8, -s * 0.4, -s * 1.2, s * 0.4, 0, s * 1.0);
+                    ctx.bezierCurveTo(s * 1.2, s * 0.4, s * 0.8, -s * 0.4, 0, s * 0.3);
+                    ctx.fill();
+                } else {
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 6;
+                    const s = this.size;
+                    ctx.beginPath();
+                    for (let i = 0; i < 8; i++) {
+                        const angle = (i / 8) * Math.PI * 2;
+                        const r = i % 2 === 0 ? s : s * 0.4;
+                        if (i === 0) ctx.moveTo(r * Math.cos(angle), r * Math.sin(angle));
+                        else ctx.lineTo(r * Math.cos(angle), r * Math.sin(angle));
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            const emojis = ['💖', '💕', '💗', '✨', '💝'];
+            heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (14 + Math.random() * 16) + 'px';
+            heart.style.animationDuration = (18 + Math.random() * 20) + 's';
+            heart.style.animationDelay = Math.random() * 8 + 's';
+            heart.style.color = ['#ff0066', '#ffcc00', '#00e5ff', '#ff1493'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 40000);
+        }
+
+        for (let i = 0; i < 4; i++) setTimeout(createFloatingHeart, i * 4000);
+        setInterval(createFloatingHeart, 6000);
+
+        function initSparkles(count = 80) {
+            sparkles = [];
+            for (let i = 0; i < count; i++) {
+                sparkles.push(new Sparkle());
+            }
+        }
+        initSparkles();
+
+        let startTime = Date.now();
+
+        function animateSparkles() {
+            const now = Date.now();
+            ctx.clearRect(0, 0, w, h);
+            sparkles.forEach(s => {
+                s.update(now);
+                s.draw();
+            });
+            for (let i = 0; i < sparkles.length; i++) {
+                for (let j = i + 1; j < sparkles.length; j++) {
+                    const dx = sparkles[i].x - sparkles[j].x;
+                    const dy = sparkles[i].y - sparkles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 100) {
+                        const alpha = 0.03 * (1 - dist / 100);
+                        ctx.beginPath();
+                        ctx.moveTo(sparkles[i].x, sparkles[i].y);
+                        ctx.lineTo(sparkles[j].x, sparkles[j].y);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+                        ctx.lineWidth = 0.3;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateSparkles);
+        }
+        animateSparkles();
+
         // ============================================================
         // TAB SWITCHING
         // ============================================================
@@ -1880,7 +2491,7 @@
         });
 
         // ============================================================
-        // BIO TAB – Quick links
+        // BIO QUICK LINKS
         // ============================================================
         document.getElementById('bioQuickPortal')?.addEventListener('click', function() {
             document.querySelector('.tab-btn[data-tab="payments"]')?.click();
@@ -1893,7 +2504,7 @@
         });
 
         // ============================================================
-        // PORTAL – BUTTON ACTIONS
+        // PORTAL BUTTONS
         // ============================================================
         document.getElementById('payNowBtn')?.addEventListener('click', function() {
             window.open('https://buy.stripe.com/28EeVd4O216l9HzaVJenS00', '_blank');
@@ -1908,7 +2519,7 @@
             window.open('https://www.paypal.com/ncp/payment/232MAXP5VWDSC', '_blank');
         });
 
-        // ===== EMAIL INPUT – opens form modal =====
+        // EMAIL INPUT
         document.getElementById('emailInputField')?.addEventListener('click', function() {
             document.getElementById('formModal').classList.add('active');
         });
@@ -1916,7 +2527,7 @@
             document.getElementById('formModal').classList.add('active');
         });
 
-        // ===== FORM MODAL close =====
+        // FORM MODAL
         const formModal = document.getElementById('formModal');
         document.getElementById('closeModalBtn')?.addEventListener('click', function() {
             formModal.classList.remove('active');
@@ -1925,9 +2536,7 @@
             if (e.target === formModal) formModal.classList.remove('active');
         });
 
-        // ============================================================
-        // FOLLOW BUTTON (Linktree modal)
-        // ============================================================
+        // FOLLOW MODAL
         const followBtn = document.getElementById('followBtn');
         const followModal = document.getElementById('followModal');
         document.getElementById('closeFollowModal')?.addEventListener('click', function() {
@@ -1940,16 +2549,12 @@
             if (e.target === followModal) followModal.classList.remove('active');
         });
 
-        // ============================================================
-        // BIO – JOIN FOR FREE
-        // ============================================================
+        // JOIN FREE
         document.getElementById('joinFreeBtn')?.addEventListener('click', function() {
             window.open('https://www.patreon.com/c/Viraldancandofunk/membership', '_blank');
         });
 
-        // ============================================================
-        // OFFERS – SUBSCRIBE & FREE PREVIEWS
-        // ============================================================
+        // OFFERS
         document.getElementById('offersSubscribeBtn')?.addEventListener('click', function() {
             window.open('https://www.paypal.com/ncp/payment/232MAXP5VWDSC', '_blank');
         });
@@ -1957,15 +2562,35 @@
             window.open('https://t.me/Planetdanca', '_blank');
         });
 
-        // ============================================================
-        // PREMIUM – UNLOCK (Discord)
-        // ============================================================
+        // PREMIUM UNLOCK
         document.getElementById('unlockBtn')?.addEventListener('click', function() {
             window.open('https://discord.gg/JBSE9wN2kA', '_blank');
+            triggerCelebration();
         });
 
+        function triggerCelebration() {
+            const container = document.getElementById('celebration');
+            container.classList.add('active');
+            container.innerHTML = '';
+            const emojis = ['🎉', '🎊', '✨', '💎', '🌟', '⭐', '🎈', '💖', '🔥', '🚀', '🌈', '🎁'];
+            for (let i = 0; i < 40; i++) {
+                const el = document.createElement('div');
+                el.className = 'celebration-emoji';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.left = Math.random() * 100 + '%';
+                el.style.fontSize = (18 + Math.random() * 32) + 'px';
+                el.style.animationDuration = (2 + Math.random() * 3) + 's';
+                el.style.animationDelay = (Math.random() * 1.5) + 's';
+                container.appendChild(el);
+            }
+            setTimeout(() => {
+                container.classList.remove('active');
+                container.innerHTML = '';
+            }, 4000);
+        }
+
         // ============================================================
-        // SLIDESHOW
+        // SLIDESHOW (FIXED)
         // ============================================================
         const slideTrack = document.getElementById('slideTrack');
         const slides = document.querySelectorAll('.slide');
@@ -1980,6 +2605,7 @@
         slides.forEach((_, i) => {
             const dot = document.createElement('button');
             dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('data-index', i);
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
         });
@@ -1994,7 +2620,7 @@
             document.querySelectorAll('.dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentSlide);
             });
-            setTimeout(() => { isTransitioning = false; }, 400);
+            setTimeout(() => { isTransitioning = false; }, 500);
         }
 
         prevBtn?.addEventListener('click', () => goToSlide(currentSlide - 1));
@@ -2004,6 +2630,7 @@
         container?.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
+
         container?.addEventListener('touchend', (e) => {
             const diff = touchStartX - e.changedTouches[0].screenX;
             if (Math.abs(diff) > 50) {
@@ -2052,7 +2679,7 @@
         typeEffect();
 
         // ============================================================
-        // MULTILINGUAL POP-UP
+        // MULTILINGUAL POPUP
         // ============================================================
         const popup = document.getElementById('multilingualPopup');
         document.getElementById('popupClose')?.addEventListener('click', function() {
