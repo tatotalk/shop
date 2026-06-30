@@ -6,6 +6,12 @@
     <title>Patreon+ · Portal · Offers · Bio · Forums · Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Stripe Buy Button SDK -->
+    <script async src="https://js.stripe.com/v3/buy-button.js">
+    </script>
+
+    <!-- PayPal JS SDK (loaded on demand) -->
     <style>
         /* ===== RESET & THEME ===== */
         * {
@@ -68,14 +74,16 @@
             box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.06);
             background: #000;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: block;
             text-decoration: none;
             cursor: pointer;
+            position: relative;
         }
 
         .opening-grid .img-wrap:hover {
             transform: scale(1.02);
+            box-shadow: 0 16px 56px rgba(255, 0, 102, 0.15);
         }
 
         .opening-grid .img-wrap img {
@@ -88,6 +96,64 @@
             pointer-events: none;
             user-select: none;
             -webkit-user-drag: none;
+        }
+
+        .opening-grid .img-wrap .overlay-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        /* ===== STRIPE CARD (moved inside grid) ===== */
+        .stripe-under-enter {
+            flex: 1 1 280px;
+            max-width: 400px;
+            min-width: 200px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: #0a0a12;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+            text-align: center;
+        }
+
+        .stripe-under-enter:hover {
+            transform: scale(1.02);
+            box-shadow: 0 16px 56px rgba(255, 0, 102, 0.15);
+        }
+
+        .stripe-under-enter .stripe-label {
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+
+        .stripe-under-enter stripe-buy-button {
+            width: 100%;
+            display: block;
+            min-height: 45px;
         }
 
         /* ===== ENTER BUTTON ===== */
@@ -143,7 +209,7 @@
             transform: scale(0.97);
         }
 
-        /* ===== CAROUSEL (inserted under Enter) ===== */
+        /* ===== CAROUSEL ===== */
         .carousel-universe {
             max-width: 900px;
             width: 100%;
@@ -315,7 +381,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* ===== FREE WALLPAPERS BUTTON (inside overlay) ===== */
+        /* ===== FREE WALLPAPERS BUTTON ===== */
         .free-wallpapers-btn {
             display: inline-block;
             padding: 14px 32px;
@@ -355,6 +421,131 @@
 
         .skip-hint:hover {
             color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== PAYMENT MODALS ===== */
+        .payment-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .payment-modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .payment-modal-content {
+            background: #14141f;
+            border-radius: 24px;
+            max-width: 520px;
+            width: 100%;
+            padding: 28px 24px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .payment-modal-content .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 26px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            line-height: 1;
+            padding: 4px 8px;
+            border-radius: 50%;
+        }
+
+        .payment-modal-content .modal-close:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .payment-modal-content .modal-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 18px;
+            letter-spacing: -0.3px;
+        }
+
+        .payment-modal-content .modal-title .sub {
+            display: block;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .payment-modal-content .modal-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.04);
+            margin: 14px 0 18px;
+        }
+
+        .payment-modal-content stripe-buy-button {
+            display: block;
+            width: 100%;
+        }
+
+        #paypal-button-container {
+            width: 100%;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #paypal-button-container .paypal-loading {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 13px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        #result-message {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #4ade80;
+            font-weight: 600;
         }
 
         /* ===== MAIN CONTENT (hidden until Enter) ===== */
@@ -1653,7 +1844,7 @@
             color: #ffcc00;
         }
 
-        /* ===== MODAL OVERLAY ===== */
+        /* ===== MODAL OVERLAY (legacy form) ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1822,6 +2013,11 @@
             .opening-grid .img-wrap img {
                 max-height: 45vh;
             }
+            .stripe-under-enter {
+                flex: 1 1 100%;
+                max-width: 100%;
+                padding: 24px 16px;
+            }
             .enter-btn {
                 padding: 18px 20px;
                 font-size: 20px;
@@ -1988,7 +2184,6 @@
             .slideshow-container .slide img {
                 max-height: 250px;
             }
-            /* carousel responsive */
             .carousel-universe .header-section h1 {
                 font-size: 1.1rem;
             }
@@ -2018,11 +2213,17 @@
                 font-size: 15px;
                 padding: 12px 24px;
             }
+            .payment-modal-content {
+                padding: 20px 16px 24px;
+            }
         }
 
         @media (max-width: 420px) {
             .opening-grid .img-wrap img {
                 max-height: 35vh;
+            }
+            .stripe-under-enter {
+                padding: 20px 12px;
             }
             .enter-btn {
                 padding: 14px 16px;
@@ -2183,7 +2384,6 @@
             .slideshow-container .slide img {
                 max-height: 200px;
             }
-            /* carousel responsive */
             .carousel-universe .header-section h1 {
                 font-size: 0.95rem;
             }
@@ -2224,9 +2424,11 @@
                 font-size: 14px;
                 padding: 10px 20px;
             }
+            .payment-modal-content {
+                padding: 16px 12px 20px;
+            }
         }
 
-        /* Fix for small carousel on very narrow screens */
         @media (max-width: 360px) {
             .payment-card {
                 flex: 0 0 95px;
@@ -2258,18 +2460,28 @@
     <div class="opening-overlay" id="openingOverlay">
         <div class="opening-grid">
             <!-- Stripe Image (Clickable) -->
-            <a href="https://buy.stripe.com/28EeVd4O216l9HzaVJenS00" target="_blank" class="img-wrap">
+            <div class="img-wrap" id="stripeImageTrigger">
                 <img src="https://64.media.tumblr.com/6f6bbfbab448dbd65470fc9e4129648a/67813ecedd3dabee-2a/s1280x1920/472f5d792ae7d8ddfbafc8614d28faa5b4f8b922.pnj" alt="Pay with Stripe" loading="lazy" />
-            </a>
+                <span class="overlay-badge">⚡ Click to pay with Stripe</span>
+            </div>
+
+            <!-- MOVED STRIPE PAY CARD HERE -->
+            <div class="stripe-under-enter">
+                <div class="stripe-label">⚡ or pay with Stripe directly</div>
+                <stripe-buy-button buy-button-id="buy_btn_1To1ABFRbDEWBIuImlKSGB0L" publishable-key="pk_live_51Tb3oKFRbDEWBIuIdJxw3zJmH9u75HuAMcC8wVf5umYIRcauPcVEpFqmQhTMWH9ETfyPEgN3LpYl5kQwrTUn0fKf00hRARMgRc">
+                </stripe-buy-button>
+            </div>
+
             <!-- PayPal Image (Clickable) -->
-            <a href="https://www.paypal.com/ncp/payment/232MAXP5VWDSC" target="_blank" class="img-wrap">
+            <div class="img-wrap" id="paypalImageTrigger">
                 <img src="https://64.media.tumblr.com/5308a43789b5c577b8bcbc9573687bd1/67813ecedd3dabee-f1/s1280x1920/d14b21e06febda19ea2693731951429d89cb7c6a.webp" alt="Pay with PayPal" loading="lazy" />
-            </a>
+                <span class="overlay-badge">💸 Click to pay with PayPal</span>
+            </div>
         </div>
 
         <button class="enter-btn" id="enterBtn">✦ Enter Patreon+ ✦</button>
 
-        <!-- ===== CAROUSEL (inserted under Enter) ===== -->
+        <!-- ===== CAROUSEL ===== -->
         <div class="carousel-universe">
             <div class="header-section">
                 <h1><i class="fas fa-check-double"></i> 26 payment processors — each with a symbol</h1>
@@ -2286,7 +2498,6 @@
             </div>
             <div class="carousel-footer-hint"><i class="fas fa-infinity"></i> infinite scroll • hover to pause | drag to slide • every card = symbol + name</div>
 
-            <!-- ===== FREE WALLPAPERS BUTTON (now under the carousel) ===== -->
             <div style="text-align:center; margin-top: 8px;">
                 <a href="https://www.mediafire.com/folder/1l1p3c0gsdcub/Patreon%2B" target="_blank" class="free-wallpapers-btn">
                     🖼️ Free Wallpapers
@@ -2295,6 +2506,36 @@
         </div>
 
         <div class="skip-hint" id="skipHint">click anywhere to skip</div>
+    </div>
+
+    <!-- ===== STRIPE PAYMENT MODAL ===== -->
+    <div class="payment-modal-overlay" id="stripeModal">
+        <div class="payment-modal-content">
+            <button class="modal-close" id="stripeModalClose">✕</button>
+            <div class="modal-title">
+                💳 Pay with Stripe
+                <span class="sub">Secure checkout · card, Apple Pay, Google Pay</span>
+            </div>
+            <div class="modal-divider"></div>
+            <stripe-buy-button buy-button-id="buy_btn_1To1ABFRbDEWBIuImlKSGB0L" publishable-key="pk_live_51Tb3oKFRbDEWBIuIdJxw3zJmH9u75HuAMcC8wVf5umYIRcauPcVEpFqmQhTMWH9ETfyPEgN3LpYl5kQwrTUn0fKf00hRARMgRc">
+            </stripe-buy-button>
+        </div>
+    </div>
+
+    <!-- ===== PAYPAL PAYMENT MODAL ===== -->
+    <div class="payment-modal-overlay" id="paypalModal">
+        <div class="payment-modal-content">
+            <button class="modal-close" id="paypalModalClose">✕</button>
+            <div class="modal-title">
+                💸 Pay with PayPal
+                <span class="sub">Secure checkout · PayPal, Venmo, credit cards</span>
+            </div>
+            <div class="modal-divider"></div>
+            <div id="paypal-button-container">
+                <div class="paypal-loading"><i class="fas fa-spinner fa-pulse"></i> Loading PayPal…</div>
+            </div>
+            <p id="result-message"></p>
+        </div>
     </div>
 
     <!-- ===== MAIN CONTENT ===== -->
@@ -2514,8 +2755,8 @@
                     <div class="processors-section">
                         <span class="section-label">💳 Payment Processors</span>
                         <div class="processor-grid">
-                            <a href="https://buy.stripe.com/28EeVd4O216l9HzaVJenS00" target="_blank" class="processor-chip highlight" data-brand="stripe"><span class="emoji">⚡</span> Stripe</a>
-                            <a href="https://www.paypal.com/ncp/payment/232MAXP5VWDSC" target="_blank" class="processor-chip highlight" data-brand="paypal"><span class="emoji">💸</span> PayPal</a>
+                            <a href="javascript:void(0)" class="processor-chip highlight" data-brand="stripe" id="stripeChip"><span class="emoji">⚡</span> Stripe</a>
+                            <a href="javascript:void(0)" class="processor-chip highlight" data-brand="paypal" id="paypalChip"><span class="emoji">💸</span> PayPal</a>
                             <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📱</span> Venmo</a>
                             <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">🏦</span> Zelle</a>
                             <a href="https://link.me/dancaplanet" target="_blank" class="processor-chip"><span class="emoji">📲</span> Cash App</a>
@@ -2961,6 +3202,148 @@
         })();
 
         // ============================================================
+        // PAYMENT MODALS (Stripe & PayPal)
+        // ============================================================
+        (function() {
+            const stripeModal = document.getElementById('stripeModal');
+            const paypalModal = document.getElementById('paypalModal');
+            const stripeTriggers = [
+                document.getElementById('stripeImageTrigger'),
+                document.getElementById('stripeChip')
+            ].filter(Boolean);
+            const paypalTriggers = [
+                document.getElementById('paypalImageTrigger'),
+                document.getElementById('paypalChip')
+            ].filter(Boolean);
+
+            // --- Stripe ---
+            function openStripeModal(e) {
+                if (e) e.preventDefault();
+                stripeModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeStripeModal() {
+                stripeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            stripeTriggers.forEach(el => {
+                el.addEventListener('click', openStripeModal);
+            });
+
+            document.getElementById('stripeModalClose').addEventListener('click', closeStripeModal);
+            stripeModal.addEventListener('click', function(e) {
+                if (e.target === stripeModal) closeStripeModal();
+            });
+
+            // --- PayPal ---
+            let paypalLoaded = false;
+            let paypalRendered = false;
+
+            function loadPayPalSDK() {
+                if (paypalLoaded) return Promise.resolve();
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src =
+                        'https://www.paypal.com/sdk/js?client-id=AaZIURGHfoVL0seNGmKhkm3_piU1UERhw7N4TaWhA8DIRRfxZ383l5QqVbyBHfsrB1Hz3H589vd1ZcpI&buyer-country=US&currency=USD&components=buttons&enable-funding=venmo,paylater,card';
+                    script.setAttribute('data-sdk-integration-source', 'developer-studio');
+                    script.onload = function() {
+                        paypalLoaded = true;
+                        resolve();
+                    };
+                    script.onerror = function() {
+                        reject(new Error('Failed to load PayPal SDK'));
+                    };
+                    document.head.appendChild(script);
+                });
+            }
+
+            function renderPayPalButtons() {
+                if (paypalRendered) return;
+                const container = document.getElementById('paypal-button-container');
+                if (!container || typeof paypal === 'undefined') return;
+
+                container.innerHTML = '';
+
+                paypal.Buttons({
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: '5.99',
+                                    currency_code: 'USD'
+                                },
+                                description: 'Patreon+ Pro ⭐ Monthly'
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            const msg = document.getElementById('result-message');
+                            msg.textContent = '✅ Payment completed! Thank you, ' + details.payer.name
+                                .given_name + '!';
+                            msg.style.color = '#4ade80';
+                        });
+                    },
+                    onError: function(err) {
+                        const msg = document.getElementById('result-message');
+                        msg.textContent = '❌ Payment error. Please try again.';
+                        msg.style.color = '#ef4444';
+                        console.error('PayPal error:', err);
+                    },
+                    onCancel: function() {
+                        const msg = document.getElementById('result-message');
+                        msg.textContent = '⏹️ Payment cancelled.';
+                        msg.style.color = '#f59e0b';
+                    }
+                }).render(container).then(() => {
+                    paypalRendered = true;
+                });
+            }
+
+            function openPaypalModal(e) {
+                if (e) e.preventDefault();
+                paypalModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                if (!paypalLoaded) {
+                    const container = document.getElementById('paypal-button-container');
+                    container.innerHTML = '<div class="paypal-loading"><i class="fas fa-spinner fa-pulse"></i> Loading PayPal…</div>';
+                    loadPayPalSDK().then(() => {
+                        renderPayPalButtons();
+                    }).catch(() => {
+                        container.innerHTML =
+                            '<div style="color:#ef4444;font-size:13px;">❌ Failed to load PayPal. Please try again.</div>';
+                    });
+                } else {
+                    renderPayPalButtons();
+                }
+            }
+
+            function closePaypalModal() {
+                paypalModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            paypalTriggers.forEach(el => {
+                el.addEventListener('click', openPaypalModal);
+            });
+
+            document.getElementById('paypalModalClose').addEventListener('click', closePaypalModal);
+            paypalModal.addEventListener('click', function(e) {
+                if (e.target === paypalModal) closePaypalModal();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (stripeModal.classList.contains('active')) closeStripeModal();
+                    if (paypalModal.classList.contains('active')) closePaypalModal();
+                }
+            });
+        })();
+
+        // ============================================================
         // TAB SWITCHING
         // ============================================================
         const tabButtons = document.querySelectorAll('.tab-btn');
@@ -2993,7 +3376,8 @@
         // PORTAL BUTTONS
         // ============================================================
         document.getElementById('payNowBtn')?.addEventListener('click', function() {
-            window.open('https://buy.stripe.com/28EeVd4O216l9HzaVJenS00', '_blank');
+            document.getElementById('stripeModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
         document.getElementById('joinNowBtn')?.addEventListener('click', function() {
             window.open('https://whop.com/viraldancandotrends', '_blank');
@@ -3002,7 +3386,8 @@
             window.open('https://buymeacoffee.com/Potatochat', '_blank');
         });
         document.getElementById('subscribeBtn')?.addEventListener('click', function() {
-            window.open('https://www.paypal.com/ncp/payment/232MAXP5VWDSC', '_blank');
+            document.getElementById('paypalModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
 
         // EMAIL INPUT
@@ -3042,7 +3427,8 @@
 
         // OFFERS
         document.getElementById('offersSubscribeBtn')?.addEventListener('click', function() {
-            window.open('https://www.paypal.com/ncp/payment/232MAXP5VWDSC', '_blank');
+            document.getElementById('paypalModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
         document.getElementById('freePreviewsBtn')?.addEventListener('click', function() {
             window.open('https://t.me/Planetdanca', '_blank');
@@ -3385,5 +3771,6 @@
             build();
         })();
     </script>
+
 </body>
 </html>
