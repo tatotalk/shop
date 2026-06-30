@@ -11,7 +11,6 @@
     <script async src="https://js.stripe.com/v3/buy-button.js">
     </script>
 
-    <!-- PayPal JS SDK (loaded on demand) -->
     <style>
         /* ===== RESET & THEME ===== */
         * {
@@ -54,21 +53,23 @@
             pointer-events: none;
         }
 
-        .opening-grid {
+        /* ===== VERTICAL STACK ===== */
+        .opening-stack {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
             gap: 20px;
-            max-width: 900px;
             width: 100%;
-            justify-content: center;
-            align-items: stretch;
-            flex-shrink: 0;
+            max-width: 900px; /* match button and grid */
         }
 
-        .opening-grid .img-wrap {
-            flex: 1 1 280px;
-            max-width: 400px;
-            min-width: 200px;
+        .opening-stack .img-wrap,
+        .opening-stack .stripe-under-enter {
+            width: 100%;
+            flex: none;
+        }
+
+        .opening-stack .img-wrap {
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
@@ -81,24 +82,24 @@
             position: relative;
         }
 
-        .opening-grid .img-wrap:hover {
+        .opening-stack .img-wrap:hover {
             transform: scale(1.02);
             box-shadow: 0 16px 56px rgba(255, 0, 102, 0.15);
         }
 
-        .opening-grid .img-wrap img {
+        .opening-stack .img-wrap img {
             display: block;
             width: 100%;
-            height: 100%;
-            max-height: 70vh;
-            object-fit: contain; /* changed from cover to contain to prevent cropping */
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
             background: #000;
             pointer-events: none;
             user-select: none;
             -webkit-user-drag: none;
         }
 
-        .opening-grid .img-wrap .overlay-badge {
+        .opening-stack .img-wrap .overlay-badge {
             position: absolute;
             bottom: 12px;
             left: 50%;
@@ -116,11 +117,7 @@
             white-space: nowrap;
         }
 
-        /* ===== STRIPE CARD (moved inside grid) ===== */
-        .stripe-under-enter {
-            flex: 1 1 280px;
-            max-width: 400px;
-            min-width: 200px;
+        .opening-stack .stripe-under-enter {
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
@@ -136,12 +133,12 @@
             text-align: center;
         }
 
-        .stripe-under-enter:hover {
+        .opening-stack .stripe-under-enter:hover {
             transform: scale(1.02);
             box-shadow: 0 16px 56px rgba(255, 0, 102, 0.15);
         }
 
-        .stripe-under-enter .stripe-label {
+        .opening-stack .stripe-under-enter .stripe-label {
             color: rgba(255, 255, 255, 0.25);
             font-size: 10px;
             letter-spacing: 1px;
@@ -150,7 +147,7 @@
             font-weight: 700;
         }
 
-        .stripe-under-enter stripe-buy-button {
+        .opening-stack .stripe-under-enter stripe-buy-button {
             width: 100%;
             display: block;
             min-height: 45px;
@@ -209,106 +206,47 @@
             transform: scale(0.97);
         }
 
-        /* ===== CAROUSEL ===== */
-        .carousel-universe {
+        /* ===== PROCESSOR GRID (opening screen) ===== */
+        .processor-grid-open {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
             max-width: 900px;
             width: 100%;
-            background: transparent;
-            padding: 1.2rem 0.4rem 0.6rem;
-            flex-shrink: 0;
-            margin-top: 8px;
+            margin-top: 24px;
         }
 
-        .carousel-universe .header-section {
-            text-align: center;
-            margin-bottom: 0.8rem;
-        }
-
-        .carousel-universe .header-section h1 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            background: linear-gradient(125deg, #E0F2FE, #C084FC, #60A5FA);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .carousel-universe .header-section p {
-            color: #94a3b8;
-            margin-top: 0.2rem;
-            font-size: 0.85rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .carousel-universe .badge-total {
-            display: inline-block;
-            background: #111827aa;
-            backdrop-filter: blur(4px);
-            padding: 0.2rem 0.8rem;
-            border-radius: 60px;
-            font-size: 0.6rem;
-            color: #b9c7db;
-            margin-top: 0.4rem;
-            font-family: 'Inter', sans-serif;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .carousel-stage {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 1.2rem;
-            cursor: grab;
-            background: rgba(0, 0, 0, 0.15);
-            padding: 4px 0;
-        }
-
-        .carousel-stage:active {
-            cursor: grabbing;
-        }
-
-        .carousel-track {
-            display: flex;
-            gap: 0.8rem;
-            will-change: transform;
-            padding: 6px 2px;
-        }
-
-        .payment-card {
-            flex: 0 0 160px;
+        .processor-grid-open .payment-card {
             background: rgba(18, 25, 45, 0.65);
             backdrop-filter: blur(12px);
             border-radius: 1.4rem;
-            padding: 0.8rem 0.5rem 0.7rem;
+            padding: 0.8rem 0.4rem 0.6rem;
             text-align: center;
             transition: all 0.2s ease;
             box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.4);
             border: none;
+            cursor: default;
         }
 
-        .payment-card:hover {
+        .processor-grid-open .payment-card:hover {
             background: rgba(30, 41, 70, 0.85);
             transform: translateY(-4px);
         }
 
-        .payment-card .card-icon {
+        .processor-grid-open .payment-card .card-icon {
             font-size: 1.8rem;
             margin-bottom: 0.2rem;
             color: #cbdff2;
         }
 
-        .payment-card .emoji-symbol {
+        .processor-grid-open .payment-card .emoji-symbol {
             font-size: 1.2rem;
             display: inline-block;
             margin-left: 4px;
             vertical-align: middle;
         }
 
-        .payment-card .payment-name {
+        .processor-grid-open .payment-card .payment-name {
             font-weight: 700;
             font-size: 0.85rem;
             color: #f1f5f9;
@@ -316,7 +254,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .payment-card .venom-note {
+        .processor-grid-open .payment-card .venom-note {
             font-size: 0.55rem;
             background: #1e2a3e;
             display: inline-block;
@@ -327,7 +265,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .payment-card .multi-crypto {
+        .processor-grid-open .payment-card .multi-crypto {
             display: flex;
             justify-content: center;
             gap: 4px;
@@ -335,50 +273,34 @@
             margin-bottom: 0.1rem;
         }
 
-        .carousel-controls {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-top: 0.8rem;
-            flex-wrap: wrap;
+        /* ===== GOOGLE FORM IFRAME ===== */
+        .google-form-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 16px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+            background: #0a0a12;
         }
 
-        .carousel-controls .ctrl-btn {
-            background: rgba(20, 30, 50, 0.75);
-            backdrop-filter: blur(8px);
+        .google-form-wrapper iframe {
+            display: block;
+            width: 100%;
+            height: 430px;
             border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 60px;
-            font-size: 1rem;
-            color: #e2e8f0;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            background: transparent;
         }
 
-        .carousel-controls .ctrl-btn:hover {
-            background: #2d3b57;
-            color: white;
-            transform: scale(1.02);
-        }
-
-        .carousel-controls .toggle-btn {
-            width: auto;
-            padding: 0 1rem;
-            gap: 6px;
-            font-size: 0.8rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .carousel-footer-hint {
+        .google-form-wrapper .form-label {
             text-align: center;
-            margin-top: 0.6rem;
-            font-size: 0.6rem;
-            color: #5f6e8c;
-            font-family: 'Inter', sans-serif;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 12px 0 4px;
+            font-weight: 700;
         }
 
         /* ===== FREE WALLPAPERS BUTTON ===== */
@@ -1023,7 +945,7 @@
             width: 100%;
             height: auto;
             max-height: 300px;
-            object-fit: contain; /* also prevent cropping */
+            object-fit: contain;
             background: #000;
         }
 
@@ -1244,7 +1166,7 @@
             width: 100%;
             height: auto;
             max-height: 300px;
-            object-fit: contain; /* prevent cropping */
+            object-fit: contain;
             background: #000;
             user-select: none;
             -webkit-user-drag: none;
@@ -2006,17 +1928,12 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 550px) {
-            .opening-grid .img-wrap {
-                flex: 1 1 100%;
+            .opening-stack .img-wrap,
+            .opening-stack .stripe-under-enter {
                 max-width: 100%;
             }
-            .opening-grid .img-wrap img {
-                max-height: 45vh;
-            }
-            .stripe-under-enter {
-                flex: 1 1 100%;
-                max-width: 100%;
-                padding: 24px 16px;
+            .opening-stack .img-wrap img {
+                aspect-ratio: 16 / 9;
             }
             .enter-btn {
                 padding: 18px 20px;
@@ -2184,30 +2101,24 @@
             .slideshow-container .slide img {
                 max-height: 250px;
             }
-            .carousel-universe .header-section h1 {
-                font-size: 1.1rem;
+            .processor-grid-open {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 8px;
             }
-            .payment-card {
-                flex: 0 0 130px;
-                padding: 0.6rem 0.4rem;
+            .processor-grid-open .payment-card {
+                padding: 0.6rem 0.2rem;
             }
-            .payment-card .card-icon {
+            .processor-grid-open .payment-card .card-icon {
                 font-size: 1.4rem;
             }
-            .payment-card .payment-name {
+            .processor-grid-open .payment-card .payment-name {
                 font-size: 0.7rem;
             }
-            .payment-card .emoji-symbol {
+            .processor-grid-open .payment-card .emoji-symbol {
                 font-size: 1rem;
             }
-            .carousel-controls .ctrl-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 0.8rem;
-            }
-            .carousel-controls .toggle-btn {
-                font-size: 0.7rem;
-                padding: 0 0.7rem;
+            .google-form-wrapper iframe {
+                height: 350px;
             }
             .free-wallpapers-btn {
                 font-size: 15px;
@@ -2219,11 +2130,8 @@
         }
 
         @media (max-width: 420px) {
-            .opening-grid .img-wrap img {
-                max-height: 35vh;
-            }
-            .stripe-under-enter {
-                padding: 20px 12px;
+            .opening-stack .img-wrap img {
+                aspect-ratio: 16 / 9;
             }
             .enter-btn {
                 padding: 14px 16px;
@@ -2384,41 +2292,28 @@
             .slideshow-container .slide img {
                 max-height: 200px;
             }
-            .carousel-universe .header-section h1 {
-                font-size: 0.95rem;
+            .processor-grid-open {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 6px;
             }
-            .carousel-universe .header-section p {
-                font-size: 0.7rem;
+            .processor-grid-open .payment-card {
+                padding: 0.5rem 0.2rem;
             }
-            .payment-card {
-                flex: 0 0 110px;
-                padding: 0.5rem 0.3rem;
-            }
-            .payment-card .card-icon {
+            .processor-grid-open .payment-card .card-icon {
                 font-size: 1.2rem;
             }
-            .payment-card .payment-name {
+            .processor-grid-open .payment-card .payment-name {
                 font-size: 0.65rem;
             }
-            .payment-card .emoji-symbol {
+            .processor-grid-open .payment-card .emoji-symbol {
                 font-size: 0.85rem;
             }
-            .payment-card .venom-note {
+            .processor-grid-open .payment-card .venom-note {
                 font-size: 0.45rem;
                 padding: 0.05rem 0.4rem;
             }
-            .carousel-controls .ctrl-btn {
-                width: 28px;
-                height: 28px;
-                font-size: 0.7rem;
-            }
-            .carousel-controls .toggle-btn {
-                font-size: 0.6rem;
-                padding: 0 0.5rem;
-            }
-            .carousel-universe .badge-total {
-                font-size: 0.5rem;
-                padding: 0.1rem 0.5rem;
+            .google-form-wrapper iframe {
+                height: 300px;
             }
             .free-wallpapers-btn {
                 font-size: 14px;
@@ -2430,22 +2325,21 @@
         }
 
         @media (max-width: 360px) {
-            .payment-card {
-                flex: 0 0 95px;
-                padding: 0.4rem 0.2rem;
-                border-radius: 1rem;
+            .processor-grid-open {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 4px;
             }
-            .payment-card .card-icon {
+            .processor-grid-open .payment-card .card-icon {
                 font-size: 1rem;
             }
-            .payment-card .payment-name {
+            .processor-grid-open .payment-card .payment-name {
                 font-size: 0.55rem;
             }
-            .payment-card .emoji-symbol {
+            .processor-grid-open .payment-card .emoji-symbol {
                 font-size: 0.7rem;
             }
-            .carousel-track {
-                gap: 0.4rem;
+            .google-form-wrapper iframe {
+                height: 250px;
             }
             .free-wallpapers-btn {
                 font-size: 12px;
@@ -2458,51 +2352,45 @@
 
     <!-- ===== OPENING OVERLAY ===== -->
     <div class="opening-overlay" id="openingOverlay">
-        <div class="opening-grid">
-            <!-- Stripe Image (Clickable) -->
+        <!-- Vertical Stack -->
+        <div class="opening-stack">
+            <!-- Stripe Image -->
             <div class="img-wrap" id="stripeImageTrigger">
                 <img src="https://64.media.tumblr.com/6f6bbfbab448dbd65470fc9e4129648a/67813ecedd3dabee-2a/s1280x1920/472f5d792ae7d8ddfbafc8614d28faa5b4f8b922.pnj" alt="Pay with Stripe" loading="lazy" />
                 <span class="overlay-badge">⚡ Click to pay with Stripe</span>
             </div>
 
-            <!-- STRIPE PAY CARD -->
+            <!-- PayPal Image -->
+            <div class="img-wrap" id="paypalImageTrigger">
+                <img src="https://64.media.tumblr.com/5308a43789b5c577b8bcbc9573687bd1/67813ecedd3dabee-f1/s1280x1920/d14b21e06febda19ea2693731951429d89cb7c6a.webp" alt="Pay with PayPal" loading="lazy" />
+                <span class="overlay-badge">💸 Click to pay with PayPal</span>
+            </div>
+
+            <!-- Stripe Card -->
             <div class="stripe-under-enter">
                 <div class="stripe-label">⚡ or pay with Stripe directly</div>
                 <stripe-buy-button buy-button-id="buy_btn_1To1ABFRbDEWBIuImlKSGB0L" publishable-key="pk_live_51Tb3oKFRbDEWBIuIdJxw3zJmH9u75HuAMcC8wVf5umYIRcauPcVEpFqmQhTMWH9ETfyPEgN3LpYl5kQwrTUn0fKf00hRARMgRc">
                 </stripe-buy-button>
             </div>
-
-            <!-- PayPal Image (Clickable) -->
-            <div class="img-wrap" id="paypalImageTrigger">
-                <img src="https://64.media.tumblr.com/5308a43789b5c577b8bcbc9573687bd1/67813ecedd3dabee-f1/s1280x1920/d14b21e06febda19ea2693731951429d89cb7c6a.webp" alt="Pay with PayPal" loading="lazy" />
-                <span class="overlay-badge">💸 Click to pay with PayPal</span>
-            </div>
         </div>
 
+        <!-- Enter Button -->
         <button class="enter-btn" id="enterBtn">✦ Enter Patreon+ ✦</button>
 
-        <!-- ===== CAROUSEL ===== -->
-        <div class="carousel-universe">
-            <div class="header-section">
-                <h1><i class="fas fa-check-double"></i> 26 payment processors — each with a symbol</h1>
-                <p>non‑stop borderless carousel • including Twitter, HubSpot, Tron Network</p>
-                <div class="badge-total"><i class="fas fa-icons"></i> Substack · Patreon · Stripe · PayPal · Venmo · Zelle · Google Pay · Apple Pay · All Crypto · Cash · Klarna · GitHub Sponsors · Cash App · Helcim · Whop · Gumroad · Keet.io · Stoat · Linktree · Direct Wire · Ko‑fi · Buy Me a Coffee · Discord · Twitter · HubSpot · Tron</div>
-            </div>
-            <div class="carousel-stage" id="carouselStage">
-                <div class="carousel-track" id="carouselTrack"></div>
-            </div>
-            <div class="carousel-controls">
-                <button class="ctrl-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                <button class="ctrl-btn toggle-btn" id="playPauseBtn"><i class="fas fa-pause" id="playPauseIcon"></i> <span id="playPauseText">Pause</span></button>
-                <button class="ctrl-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            <div class="carousel-footer-hint"><i class="fas fa-infinity"></i> infinite scroll • hover to pause | drag to slide • every card = symbol + name</div>
+        <!-- Processor Grid (reordered by popularity) -->
+        <div class="processor-grid-open" id="processorGridOpen"></div>
 
-            <div style="text-align:center; margin-top: 8px;">
-                <a href="https://www.mediafire.com/folder/1l1p3c0gsdcub/Patreon%2B" target="_blank" class="free-wallpapers-btn">
-                    🖼️ Free Wallpapers
-                </a>
-            </div>
+        <!-- Free Wallpapers (NOW BEFORE THE FORM) -->
+        <div style="text-align:center; margin-top: 8px;">
+            <a href="https://www.mediafire.com/folder/1l1p3c0gsdcub/Patreon%2B" target="_blank" class="free-wallpapers-btn">
+                🖼️ Free Wallpapers
+            </a>
+        </div>
+
+        <!-- Google Form (UNDER Free Wallpapers) -->
+        <div class="google-form-wrapper">
+            <div class="form-label">📋 Get in touch</div>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScRhmXdZ5pu8fxPM9b7X9XqI-JaiWb1JnXt-g6DgkdJ6L9yrg/viewform?embedded=true" width="640" height="430" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         </div>
 
         <div class="skip-hint" id="skipHint">click anywhere to skip</div>
@@ -2822,6 +2710,7 @@
                     </div>
 
                 </div>
+                <!-- footer inside portal -->
                 <div class="footer">© 2026 Patreon+ · Direct payments · ⚡</div>
             </div>
 
@@ -3162,6 +3051,16 @@
                 </div>
             </div>
 
+            <!-- ========================================================= -->
+            <!-- GLOBAL GOOGLE FORM (appears no matter what tab you're on) -->
+            <!-- ========================================================= -->
+            <div class="google-form-wrapper" style="margin-top: 24px;">
+                <div class="form-label">📋 Get in touch</div>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScRhmXdZ5pu8fxPM9b7X9XqI-JaiWb1JnXt-g6DgkdJ6L9yrg/viewform?embedded=true" width="640" height="430" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+
+            <div class="footer">© 2026 Patreon+ · Direct payments · ⚡</div>
+
         </div> <!-- end container -->
 
     </div> <!-- end main-content -->
@@ -3340,6 +3239,101 @@
                     if (stripeModal.classList.contains('active')) closeStripeModal();
                     if (paypalModal.classList.contains('active')) closePaypalModal();
                 }
+            });
+        })();
+
+        // ============================================================
+        // GENERATE PROCESSOR GRID (Opening Screen) – REORDERED BY POPULARITY
+        // ============================================================
+        (function() {
+            // Full list of processors
+            const allProcessors = [
+                { name: "Stripe", icon: "fab fa-stripe-s", emoji: "💳" },
+                { name: "Patreon", icon: "fab fa-patreon", emoji: "🎭" },
+                { name: "PayPal", icon: "fab fa-paypal", emoji: "💰" },
+                { name: "Whop", icon: "fas fa-crown", emoji: "👑", badge: "digital goods" },
+                { name: "Discord", icon: "fab fa-discord", emoji: "🎮" },
+                // remaining in alphabetical order
+                { name: "All Crypto", icon: "multi", multiCrypto: true, emoji: "₿" },
+                { name: "Apple Pay", icon: "fab fa-cc-apple-pay", emoji: "🍎" },
+                { name: "Buy Me a Coffee", icon: "fas fa-mug-hot", emoji: "☕", badge: "support" },
+                { name: "Cash", icon: "fas fa-money-bill-wave", emoji: "💵", badge: "physical" },
+                { name: "Cash App", icon: "fab fa-cash-app", emoji: "💸" },
+                { name: "Direct Wire", icon: "fas fa-exchange-alt", emoji: "⚡", badge: "wire transfer" },
+                { name: "GitHub Sponsors", icon: "fab fa-github", emoji: "🐙" },
+                { name: "Google Pay", icon: "fab fa-google-pay", emoji: "📱" },
+                { name: "Gumroad", icon: "fab fa-gumroad", emoji: "📚" },
+                { name: "Helcim", icon: "fas fa-credit-card", emoji: "💳", badge: "gateway" },
+                { name: "HubSpot", icon: "fab fa-hubspot", emoji: "📈", badge: "CRM payments" },
+                { name: "Keet.io", icon: "fas fa-globe", emoji: "🌐", badge: "decentralized" },
+                { name: "Klarna", icon: "fab fa-klarna", emoji: "🛍️" },
+                { name: "Ko-fi", icon: "fab fa-kofi", emoji: "☕" },
+                { name: "Linktree", icon: "fas fa-link", emoji: "🔗", badge: "bio link" },
+                { name: "Stoat", icon: "fas fa-leaf", emoji: "🌿", badge: "emerging" },
+                { name: "Substack", icon: "fab fa-substack", emoji: "📰" },
+                { name: "Tron Network", icon: "fab fa-tron", emoji: "⚡", badge: "TRX crypto" },
+                { name: "Twitter", icon: "fab fa-twitter", emoji: "🐦", badge: "tipping" },
+                { name: "Venmo", icon: "fab fa-venmo", emoji: "🦂", badge: "venom style" },
+                { name: "Zelle", icon: "fas fa-university", emoji: "🏦", badge: "instant" }
+            ];
+
+            // Define popularity order: we want Stripe, Patreon, PayPal, Whop, Discord first
+            const popularNames = ['Stripe', 'Patreon', 'PayPal', 'Whop', 'Discord'];
+            const popular = [];
+            const rest = [];
+
+            allProcessors.forEach(p => {
+                if (popularNames.includes(p.name)) {
+                    popular.push(p);
+                } else {
+                    rest.push(p);
+                }
+            });
+
+            // Sort popular by the order in popularNames
+            popular.sort((a, b) => popularNames.indexOf(a.name) - popularNames.indexOf(b.name));
+
+            // Combine: popular first, then rest sorted alphabetically
+            const sorted = [...popular, ...rest.sort((a, b) => a.name.localeCompare(b.name))];
+
+            const grid = document.getElementById('processorGridOpen');
+            if (!grid) return;
+
+            sorted.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'payment-card';
+
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'card-icon';
+
+                if (p.multiCrypto) {
+                    iconDiv.innerHTML =
+                        `<div class="multi-crypto"><i class="fab fa-bitcoin"></i><i class="fab fa-ethereum"></i><i class="fas fa-coins"></i></div>`;
+                } else {
+                    const faIcon = document.createElement('i');
+                    faIcon.className = p.icon;
+                    iconDiv.appendChild(faIcon);
+                }
+                const emojiSpan = document.createElement('span');
+                emojiSpan.className = 'emoji-symbol';
+                emojiSpan.innerText = p.emoji;
+                iconDiv.appendChild(emojiSpan);
+                card.appendChild(iconDiv);
+
+                const nameSpan = document.createElement('div');
+                nameSpan.className = 'payment-name';
+                nameSpan.innerText = p.name;
+                card.appendChild(nameSpan);
+
+                if (p.badge) {
+                    const badge = document.createElement('div');
+                    badge.className = 'venom-note';
+                    if (p.badge === 'venom style') badge.innerHTML = '<i class="fas fa-skull"></i> venom style';
+                    else badge.innerText = p.badge;
+                    card.appendChild(badge);
+                }
+
+                grid.appendChild(card);
             });
         })();
 
@@ -3542,234 +3536,6 @@
                 setTimeout(() => { popup.style.display = 'none'; }, 400);
             }
         }, 10000);
-
-        // ============================================================
-        // CAROUSEL – FIXED INFINITE LOOP
-        // ============================================================
-        (function() {
-            const processors = [
-                { name: "Substack", icon: "fab fa-substack", emoji: "📰" },
-                { name: "Patreon", icon: "fab fa-patreon", emoji: "🎭" },
-                { name: "Stripe", icon: "fab fa-stripe-s", emoji: "💳" },
-                { name: "PayPal", icon: "fab fa-paypal", emoji: "💰" },
-                { name: "Venmo", icon: "fab fa-venmo", emoji: "🦂", badge: "venom style" },
-                { name: "Zelle", icon: "fas fa-university", emoji: "🏦", badge: "instant" },
-                { name: "Google Pay", icon: "fab fa-google-pay", emoji: "📱" },
-                { name: "Apple Pay", icon: "fab fa-cc-apple-pay", emoji: "🍎" },
-                { name: "All Crypto", icon: "multi", multiCrypto: true, emoji: "₿" },
-                { name: "Cash", icon: "fas fa-money-bill-wave", emoji: "💵", badge: "physical" },
-                { name: "Klarna", icon: "fab fa-klarna", emoji: "🛍️" },
-                { name: "GitHub Sponsors", icon: "fab fa-github", emoji: "🐙" },
-                { name: "Cash App", icon: "fab fa-cash-app", emoji: "💸" },
-                { name: "Helcim", icon: "fas fa-credit-card", emoji: "💳", badge: "gateway" },
-                { name: "Whop", icon: "fas fa-crown", emoji: "👑", badge: "digital goods" },
-                { name: "Gumroad", icon: "fab fa-gumroad", emoji: "📚" },
-                { name: "Keet.io", icon: "fas fa-globe", emoji: "🌐", badge: "decentralized" },
-                { name: "Stoat", icon: "fas fa-leaf", emoji: "🌿", badge: "emerging" },
-                { name: "Linktree", icon: "fas fa-link", emoji: "🔗", badge: "bio link" },
-                { name: "Direct Wire", icon: "fas fa-exchange-alt", emoji: "⚡", badge: "wire transfer" },
-                { name: "Ko-fi", icon: "fab fa-kofi", emoji: "☕" },
-                { name: "Buy Me a Coffee", icon: "fas fa-mug-hot", emoji: "☕", badge: "support" },
-                { name: "discord", icon: "fab fa-discord", emoji: "🎮" },
-                { name: "Twitter", icon: "fab fa-twitter", emoji: "🐦", badge: "tipping" },
-                { name: "HubSpot", icon: "fab fa-hubspot", emoji: "📈", badge: "CRM payments" },
-                { name: "Tron Network", icon: "fab fa-tron", emoji: "⚡", badge: "TRX crypto" }
-            ];
-
-            function createCard(p) {
-                const card = document.createElement('div');
-                card.className = 'payment-card';
-
-                const iconDiv = document.createElement('div');
-                iconDiv.className = 'card-icon';
-
-                if (p.multiCrypto) {
-                    iconDiv.innerHTML =
-                        `<div class="multi-crypto"><i class="fab fa-bitcoin"></i><i class="fab fa-ethereum"></i><i class="fas fa-coins"></i></div>`;
-                } else {
-                    const faIcon = document.createElement('i');
-                    faIcon.className = p.icon;
-                    iconDiv.appendChild(faIcon);
-                }
-                const emojiSpan = document.createElement('span');
-                emojiSpan.className = 'emoji-symbol';
-                emojiSpan.innerText = p.emoji;
-                iconDiv.appendChild(emojiSpan);
-
-                card.appendChild(iconDiv);
-
-                const nameSpan = document.createElement('div');
-                nameSpan.className = 'payment-name';
-                nameSpan.innerText = p.name;
-                card.appendChild(nameSpan);
-
-                if (p.badge) {
-                    const badge = document.createElement('div');
-                    badge.className = 'venom-note';
-                    if (p.badge === 'venom style') badge.innerHTML = '<i class="fas fa-skull"></i> venom style';
-                    else badge.innerText = p.badge;
-                    card.appendChild(badge);
-                }
-                return card;
-            }
-
-            const track = document.getElementById('carouselTrack');
-            const stage = document.getElementById('carouselStage');
-            let animId = null,
-                isPlaying = true,
-                pos = 0,
-                speed = 0.55,
-                originalWidth = 0;
-
-            function build() {
-                track.innerHTML = '';
-                const originals = processors.map(p => createCard(p));
-                for (let i = 0; i < 3; i++) originals.forEach(c => track.appendChild(c.cloneNode(true)));
-                updateWidth();
-                pos = 0;
-                track.style.transform = 'translateX(0px)';
-                if (isPlaying) startScroll();
-            }
-
-            function updateWidth() {
-                const children = Array.from(track.children);
-                if (!children.length) return;
-                let total = 0;
-                const gap = parseFloat(getComputedStyle(track).gap) || 0;
-                for (let i = 0; i < processors.length; i++) {
-                    total += children[i].getBoundingClientRect().width + (i < processors.length - 1 ? gap : 0);
-                }
-                originalWidth = total;
-            }
-
-            function animate() {
-                if (!isPlaying) return;
-                pos -= speed;
-
-                if (pos < -originalWidth) {
-                    pos += originalWidth;
-                } else if (pos > 0) {
-                    pos -= originalWidth;
-                }
-
-                track.style.transform = `translateX(${pos}px)`;
-                animId = requestAnimationFrame(animate);
-            }
-
-            function startScroll() {
-                if (animId) cancelAnimationFrame(animId);
-                isPlaying = true;
-                animId = requestAnimationFrame(animate);
-            }
-
-            function stopScroll() {
-                if (animId) cancelAnimationFrame(animId);
-                isPlaying = false;
-            }
-
-            function shift(direction) {
-                const first = track.children[0];
-                if (!first || !originalWidth) return;
-                const step = first.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).gap) || 0);
-                let delta = direction === 'left' ? -step : step;
-                let newPos = pos + delta;
-                if (newPos < -originalWidth) newPos += originalWidth;
-                else if (newPos > 0) newPos -= originalWidth;
-                pos = newPos;
-                track.style.transform = `translateX(${pos}px)`;
-            }
-
-            let drag = false,
-                startX = 0,
-                startPos = 0,
-                pauseDrag = false,
-                globalPlay = true;
-
-            function onDown(e) {
-                drag = true;
-                startX = e.clientX;
-                startPos = pos;
-                stage.style.cursor = 'grabbing';
-                if (globalPlay && isPlaying) { pauseDrag = true;
-                    stopScroll(); }
-                e.preventDefault();
-            }
-
-            function onMove(e) {
-                if (!drag) return;
-                const dx = e.clientX - startX;
-                let newPos = startPos + dx;
-                if (newPos < -originalWidth) newPos += originalWidth;
-                else if (newPos > 0) newPos -= originalWidth;
-                pos = newPos;
-                track.style.transform = `translateX(${pos}px)`;
-            }
-
-            function onUp() {
-                if (!drag) return;
-                drag = false;
-                stage.style.cursor = 'grab';
-                if (pauseDrag && globalPlay) { startScroll();
-                    pauseDrag = false; }
-            }
-
-            stage.addEventListener('mousedown', onDown);
-            window.addEventListener('mousemove', onMove);
-            window.addEventListener('mouseup', onUp);
-            stage.addEventListener('touchstart', e => { e.preventDefault();
-                onDown({ clientX: e.touches[0].clientX }); }, { passive: false });
-            window.addEventListener('touchmove', e => { if (drag) onMove({ clientX: e.touches[0].clientX }); }, { passive: true });
-            window.addEventListener('touchend', onUp);
-
-            const playBtn = document.getElementById('playPauseBtn'),
-                icon = document.getElementById('playPauseIcon'),
-                txt = document.getElementById('playPauseText');
-
-            function togglePlay() {
-                if (isPlaying) {
-                    stopScroll();
-                    globalPlay = false;
-                    icon.className = 'fas fa-play';
-                    txt.innerText = 'Play';
-                } else {
-                    startScroll();
-                    globalPlay = true;
-                    icon.className = 'fas fa-pause';
-                    txt.innerText = 'Pause';
-                }
-            }
-            playBtn.addEventListener('click', togglePlay);
-            document.getElementById('prevBtn').addEventListener('click', () => shift('left'));
-            document.getElementById('nextBtn').addEventListener('click', () => shift('right'));
-
-            stage.addEventListener('mouseenter', () => { if (globalPlay && isPlaying) stopScroll(); });
-            stage.addEventListener('mouseleave', () => { if (globalPlay && !isPlaying) startScroll(); });
-
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    const wasPlaying = isPlaying;
-                    if (wasPlaying) stopScroll();
-                    updateWidth();
-                    if (pos < -originalWidth) pos += originalWidth;
-                    else if (pos > 0) pos -= originalWidth;
-                    track.style.transform = `translateX(${pos}px)`;
-                    if (wasPlaying && globalPlay) startScroll();
-                }, 150);
-            });
-
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    updateWidth();
-                    pos = 0;
-                    track.style.transform = 'translateX(0px)';
-                    if (globalPlay) startScroll();
-                }, 100);
-            });
-
-            build();
-        })();
     </script>
 
 </body>
