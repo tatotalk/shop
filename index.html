@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Patreon+ · Payment Hub</title>
-    <!-- Font Awesome -->
+    <title>Patreon+ · Portal · Offers · Bio · Forums · Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet" />
-    <!-- Stripe Buy Button SDK -->
     <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <style>
         /* ===== RESET & THEME ===== */
@@ -52,6 +49,7 @@
             pointer-events: none;
         }
 
+        /* ===== VERTICAL STACK ===== */
         .opening-stack {
             display: flex;
             flex-direction: column;
@@ -88,13 +86,19 @@
         .opening-stack .img-wrap img {
             display: block;
             width: 100%;
-            height: auto;
+            height: 100%;
             aspect-ratio: 16 / 9;
             object-fit: contain;
             background: #000;
             pointer-events: none;
             user-select: none;
             -webkit-user-drag: none;
+        }
+
+        /* PayPal image fill */
+        .paypal-img-fill {
+            object-fit: cover !important;
+            aspect-ratio: 16 / 9 !important;
         }
 
         .opening-stack .img-wrap .overlay-badge {
@@ -115,6 +119,7 @@
             white-space: nowrap;
         }
 
+        /* ===== STRIPE CARD (larger) ===== */
         .opening-stack .stripe-under-enter {
             border-radius: 20px;
             overflow: hidden;
@@ -125,7 +130,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 30px 20px;
+            padding: 40px 20px; /* increased padding for larger look */
+            min-height: 200px; /* larger height */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: default;
             text-align: center;
@@ -138,20 +144,120 @@
 
         .opening-stack .stripe-under-enter .stripe-label {
             color: rgba(255, 255, 255, 0.25);
-            font-size: 10px;
+            font-size: 12px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            margin-bottom: 14px;
+            margin-bottom: 18px;
             font-weight: 700;
         }
 
         .opening-stack .stripe-under-enter stripe-buy-button {
             width: 100%;
             display: block;
-            min-height: 45px;
+            min-height: 55px;
         }
 
-        /* ===== PROCESSOR GRID ===== */
+        /* ===== BUTTON ROW (above grid) ===== */
+        .action-row {
+            display: flex;
+            gap: 12px;
+            max-width: 900px;
+            width: 100%;
+            margin-top: 24px;
+        }
+
+        .action-row .btn-half {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .action-row .btn-half .free-wallpapers-btn,
+        .action-row .btn-half .enter-btn {
+            width: 100%;
+            display: block;
+            text-align: center;
+            padding: 16px 20px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .action-row .btn-half .free-wallpapers-btn {
+            background: linear-gradient(135deg, #ff0066, #ffcc00);
+            box-shadow: 0 4px 20px rgba(255, 0, 102, 0.35);
+        }
+
+        .action-row .btn-half .free-wallpapers-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 35px rgba(255, 0, 102, 0.55);
+        }
+
+        .action-row .btn-half .enter-btn {
+            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
+            background-size: 200% 200%;
+            animation: gradientPulse 3s ease-in-out infinite, softGlow 2s ease-in-out infinite alternate;
+            box-shadow: 0 0 30px rgba(255, 0, 102, 0.3), 0 0 60px rgba(255, 0, 102, 0.1);
+        }
+
+        .action-row .btn-half .enter-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 60px rgba(255, 0, 102, 0.6), 0 0 120px rgba(255, 0, 102, 0.2);
+        }
+
+        .action-row .btn-half .enter-btn:active {
+            transform: scale(0.97);
+        }
+
+        @keyframes gradientPulse {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes softGlow {
+            0% { box-shadow: 0 0 30px rgba(255,0,102,0.3), 0 0 60px rgba(255,0,102,0.1); }
+            100% { box-shadow: 0 0 50px rgba(255,0,102,0.6), 0 0 100px rgba(255,0,102,0.2); }
+        }
+
+        /* ===== JOIN FREE GROUPS (full width) ===== */
+        .join-free-groups-btn {
+            width: 100%;
+            max-width: 900px;
+            padding: 16px 20px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+            text-align: center;
+            color: #fff;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
+            background-size: 200% 200%;
+            animation: gradientPulse 3s ease-in-out infinite, softGlow 2s ease-in-out infinite alternate;
+            box-shadow: 0 0 30px rgba(255, 0, 102, 0.3), 0 0 60px rgba(255, 0, 102, 0.1);
+            margin-top: 12px;
+            flex-shrink: 0;
+        }
+
+        .join-free-groups-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 60px rgba(255, 0, 102, 0.6), 0 0 120px rgba(255, 0, 102, 0.2);
+        }
+
+        .join-free-groups-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* ===== PROCESSOR GRID (opening screen) ===== */
         .processor-grid-open {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -218,120 +324,7 @@
             margin-bottom: 0.1rem;
         }
 
-        /* ===== ACTION ROW ===== */
-        .action-row {
-            display: flex;
-            gap: 12px;
-            max-width: 900px;
-            width: 100%;
-            margin-top: 8px;
-        }
-
-        .action-row .btn-half {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .action-row .btn-half .free-wallpapers-btn,
-        .action-row .btn-half .enter-btn {
-            width: 100%;
-            display: block;
-            text-align: center;
-            padding: 16px 20px;
-            font-size: 18px;
-            font-weight: 700;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.25s, box-shadow 0.25s;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            color: #fff;
-            box-sizing: border-box;
-        }
-
-        .action-row .btn-half .free-wallpapers-btn {
-            background: linear-gradient(135deg, #ff0066, #ffcc00);
-            box-shadow: 0 4px 20px rgba(255, 0, 102, 0.35);
-        }
-
-        .action-row .btn-half .free-wallpapers-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 35px rgba(255, 0, 102, 0.55);
-        }
-
-        .action-row .btn-half .enter-btn {
-            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
-            background-size: 200% 200%;
-            animation: gradientPulse 3s ease-in-out infinite, softGlow 2s ease-in-out infinite alternate;
-            box-shadow: 0 0 30px rgba(255, 0, 102, 0.3), 0 0 60px rgba(255, 0, 102, 0.1);
-        }
-
-        .action-row .btn-half .enter-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 60px rgba(255, 0, 102, 0.6), 0 0 120px rgba(255, 0, 102, 0.2);
-        }
-
-        .action-row .btn-half .enter-btn:active {
-            transform: scale(0.97);
-        }
-
-        @keyframes gradientPulse {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes softGlow {
-            0% { box-shadow: 0 0 30px rgba(255, 0, 102, 0.3), 0 0 60px rgba(255, 0, 102, 0.1); }
-            100% { box-shadow: 0 0 50px rgba(255, 0, 102, 0.6), 0 0 100px rgba(255, 0, 102, 0.2); }
-        }
-
-        .join-free-groups-btn {
-            width: 100%;
-            max-width: 900px;
-            padding: 16px 20px;
-            font-size: 18px;
-            font-weight: 700;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.25s, box-shadow 0.25s;
-            text-align: center;
-            color: #fff;
-            letter-spacing: 0.5px;
-            background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
-            background-size: 200% 200%;
-            animation: gradientPulse 3s ease-in-out infinite, softGlow 2s ease-in-out infinite alternate;
-            box-shadow: 0 0 30px rgba(255, 0, 102, 0.3), 0 0 60px rgba(255, 0, 102, 0.1);
-            margin-top: 12px;
-            flex-shrink: 0;
-        }
-
-        .join-free-groups-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 60px rgba(255, 0, 102, 0.6), 0 0 120px rgba(255, 0, 102, 0.2);
-        }
-
-        .join-free-groups-btn:active {
-            transform: scale(0.97);
-        }
-
-        .skip-hint {
-            margin-top: 12px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.25);
-            letter-spacing: 0.3px;
-            cursor: pointer;
-            transition: color 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .skip-hint:hover {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* ===== MODALS ===== */
+        /* ===== FORM MODAL ===== */
         .form-modal-overlay {
             display: none;
             position: fixed;
@@ -345,7 +338,10 @@
             padding: 20px;
             animation: fadeIn 0.3s ease;
         }
-        .form-modal-overlay.active { display: flex; }
+
+        .form-modal-overlay.active {
+            display: flex;
+        }
 
         .form-modal-content {
             background: #14141f;
@@ -374,7 +370,11 @@
             padding: 4px 8px;
             border-radius: 50%;
         }
-        .form-modal-content .form-modal-close:hover { color: #fff; }
+
+        .form-modal-content .form-modal-close:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
 
         .form-modal-content .form-modal-title {
             text-align: center;
@@ -382,6 +382,7 @@
             font-weight: 700;
             color: #fff;
             margin-bottom: 16px;
+            letter-spacing: -0.3px;
         }
 
         .form-modal-content iframe {
@@ -393,6 +394,21 @@
             border-radius: 12px;
         }
 
+        .skip-hint {
+            margin-top: 12px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .skip-hint:hover {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== PAYMENT MODALS ===== */
         .payment-modal-overlay {
             display: none;
             position: fixed;
@@ -406,7 +422,10 @@
             padding: 20px;
             animation: fadeIn 0.3s ease;
         }
-        .payment-modal-overlay.active { display: flex; }
+
+        .payment-modal-overlay.active {
+            display: flex;
+        }
 
         @keyframes fadeIn {
             0% { opacity: 0; transform: scale(0.96); }
@@ -440,7 +459,11 @@
             padding: 4px 8px;
             border-radius: 50%;
         }
-        .payment-modal-content .modal-close:hover { color: #fff; }
+
+        .payment-modal-content .modal-close:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
 
         .payment-modal-content .modal-title {
             text-align: center;
@@ -448,13 +471,16 @@
             font-weight: 700;
             color: #fff;
             margin-bottom: 18px;
+            letter-spacing: -0.3px;
         }
+
         .payment-modal-content .modal-title .sub {
             display: block;
             font-size: 13px;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.3);
             margin-top: 4px;
+            letter-spacing: 0.3px;
         }
 
         .payment-modal-content .modal-divider {
@@ -482,7 +508,11 @@
             font-size: 13px;
             animation: pulse 1.5s ease-in-out infinite;
         }
-        @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
 
         #result-message {
             text-align: center;
@@ -492,13 +522,16 @@
             font-weight: 600;
         }
 
-        /* ===== MAIN CONTENT ===== */
+        /* ===== MAIN CONTENT (hidden until Enter) ===== */
         .main-content {
             display: none;
             width: 100%;
             max-width: 500px;
         }
-        .main-content.visible { display: block; }
+
+        .main-content.visible {
+            display: block;
+        }
 
         .container {
             width: 100%;
@@ -516,6 +549,7 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
         .avatar {
             width: 72px;
             height: 72px;
@@ -531,17 +565,21 @@
             user-select: none;
             border: 2px solid rgba(255, 255, 255, 0.1);
         }
+
         .header h1 {
             font-size: 26px;
             font-weight: 800;
             color: #fff;
             letter-spacing: -0.5px;
         }
+
         .header p {
             color: rgba(255, 255, 255, 0.4);
             font-size: 12px;
             margin-top: 2px;
+            letter-spacing: 0.5px;
         }
+
         .header-links {
             display: flex;
             align-items: center;
@@ -550,6 +588,7 @@
             flex-wrap: wrap;
             margin-top: 8px;
         }
+
         .badge {
             display: inline-block;
             padding: 2px 12px;
@@ -558,8 +597,10 @@
             border-radius: 30px;
             font-size: 11px;
             color: #ffcc00;
+            letter-spacing: 0.5px;
             font-weight: 600;
         }
+
         .telegram-link {
             display: inline-block;
             padding: 2px 12px;
@@ -572,6 +613,7 @@
             font-weight: 600;
             transition: all 0.2s ease;
         }
+
         .telegram-link:hover {
             background: rgba(0, 229, 255, 0.12);
             border-color: #00e5ff;
@@ -588,6 +630,7 @@
             flex-wrap: wrap;
             justify-content: center;
         }
+
         .tab-btn {
             background: transparent;
             border: none;
@@ -602,21 +645,27 @@
             text-align: center;
             min-width: 55px;
         }
+
         .tab-btn:hover {
             background: rgba(255, 255, 255, 0.05);
             color: rgba(255, 255, 255, 0.7);
         }
+
         .tab-btn.active {
             background: rgba(255, 204, 0, 0.08);
             color: #ffcc00;
         }
+
         .tab-content {
             display: none;
             text-align: left;
         }
-        .tab-content.active { display: block; }
 
-        /* ===== SOCIAL MARQUEE (kept for style) ===== */
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== SOCIAL MARQUEE ===== */
         .social-marquee {
             overflow: hidden;
             padding: 6px 0;
@@ -624,11 +673,13 @@
             mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
         }
+
         .marquee-wrapper {
             display: flex;
             width: max-content;
             animation: scrollMarquee 35s linear infinite;
         }
+
         .marquee-item {
             color: rgba(255, 255, 255, 0.2);
             font-size: 11px;
@@ -639,17 +690,22 @@
             padding: 0 8px;
             flex-shrink: 0;
         }
+
         .marquee-item.separator {
             color: rgba(255, 255, 255, 0.05);
             padding: 0 2px;
         }
+
         @keyframes scrollMarquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
 
-        /* ===== PORTAL TAB ===== */
-        .portal-container { text-align: center; }
+        /* ===== TAB 1: PORTAL ===== */
+        .portal-container {
+            text-align: center;
+        }
+
         .heading-wrapper {
             display: flex;
             align-items: center;
@@ -658,11 +714,13 @@
             flex-wrap: wrap;
             margin-bottom: 4px;
         }
+
         .heading-wrapper h3 {
             font-size: 20px;
             font-weight: 700;
             color: #fff;
         }
+
         .tip-btn {
             background: rgba(0, 255, 0, 0.06);
             border: 1px solid rgba(0, 255, 0, 0.15);
@@ -674,10 +732,12 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
+
         .tip-btn:hover {
             background: rgba(0, 255, 0, 0.12);
             border-color: #4ade80;
         }
+
         .portal-container .sub {
             color: rgba(255, 255, 255, 0.35);
             font-size: 12px;
@@ -685,7 +745,9 @@
             text-align: center;
         }
 
-        .join-top-btn, .pay-simple-btn {
+        /* ===== BUTTONS ===== */
+        .join-top-btn,
+        .pay-simple-btn {
             display: block;
             width: 100%;
             max-width: 380px;
@@ -700,25 +762,33 @@
             text-align: center;
             color: #fff;
         }
+
         .join-top-btn {
             background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
             box-shadow: 0 4px 20px rgba(255, 0, 102, 0.2);
         }
+
         .join-top-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 6px 30px rgba(255, 0, 102, 0.35);
         }
+
         .pay-simple-btn {
             background: linear-gradient(135deg, #ff0066, #ffcc00, #00e5ff);
             box-shadow: 0 4px 20px rgba(255, 0, 102, 0.2);
         }
+
         .pay-simple-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 6px 30px rgba(255, 0, 102, 0.35);
         }
 
-        .subscribe-btn, .add-email-btn, .offers-subscribe-btn,
-        .free-previews-btn, .join-free-btn, .unlock-btn {
+        .subscribe-btn,
+        .add-email-btn,
+        .offers-subscribe-btn,
+        .free-previews-btn,
+        .join-free-btn,
+        .unlock-btn {
             display: block;
             width: 100%;
             max-width: 380px;
@@ -733,65 +803,80 @@
             text-align: center;
             color: #fff;
         }
+
         .subscribe-btn {
             background: linear-gradient(135deg, #22c55e, #16a34a);
             box-shadow: 0 2px 12px rgba(34, 197, 94, 0.2);
         }
+
         .subscribe-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
         }
+
         .add-email-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(0, 229, 255, 0.15);
             color: #00e5ff;
         }
+
         .add-email-btn:hover {
             background: rgba(0, 229, 255, 0.08);
             border-color: #00e5ff;
         }
+
         .offers-subscribe-btn {
             background: linear-gradient(135deg, #0070ba, #005ea6);
             box-shadow: 0 2px 12px rgba(0, 112, 186, 0.2);
         }
+
         .offers-subscribe-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 4px 20px rgba(0, 112, 186, 0.3);
         }
+
         .free-previews-btn {
             background: linear-gradient(135deg, #8b5cf6, #6d28d9);
             box-shadow: 0 2px 12px rgba(139, 92, 246, 0.2);
         }
+
         .free-previews-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
         }
+
         .join-free-btn {
             background: linear-gradient(135deg, #14b8a6, #0d9488);
             box-shadow: 0 2px 12px rgba(20, 184, 166, 0.2);
         }
+
         .join-free-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 4px 20px rgba(20, 184, 166, 0.3);
         }
+
         .unlock-btn {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             box-shadow: 0 2px 12px rgba(239, 68, 68, 0.2);
         }
+
         .unlock-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
         }
+
         .unlock-btn.locked {
             background: linear-gradient(135deg, #4a4a5a, #333344);
             box-shadow: none;
             cursor: not-allowed;
         }
+
         .unlock-btn.locked:hover {
             transform: none;
             box-shadow: none;
         }
 
+        /* ===== EMAIL FIELD ===== */
         .email-input-field {
             width: 100%;
             max-width: 380px;
@@ -808,16 +893,19 @@
             cursor: pointer;
             position: relative;
         }
+
         .email-input-field:hover {
             border-color: rgba(0, 229, 255, 0.25);
             background: rgba(255, 255, 255, 0.06);
         }
+
         .email-input-field .typing-text {
             color: rgba(255, 255, 255, 0.35);
             pointer-events: none;
             font-family: 'Courier New', monospace;
             font-size: 13px;
         }
+
         .email-input-field .typing-text .cursor {
             display: inline-block;
             width: 2px;
@@ -827,7 +915,12 @@
             animation: blink 0.8s step-end infinite;
             vertical-align: middle;
         }
-        @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         .email-input-field .email-glow {
             position: absolute;
             right: 14px;
@@ -838,6 +931,7 @@
             opacity: 0.6;
         }
 
+        /* ===== ORDER SUMMARY ===== */
         .order-summary {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 16px;
@@ -846,6 +940,7 @@
             margin-bottom: 20px;
             text-align: center;
         }
+
         .order-summary .row {
             display: flex;
             justify-content: space-between;
@@ -856,10 +951,21 @@
             max-width: 260px;
             margin: 0 auto;
         }
-        .order-summary .row:last-child { border-bottom: none; }
-        .order-summary .row .label { color: rgba(255, 255, 255, 0.35); }
-        .order-summary .row .value { color: #fff; font-weight: 600; }
-        .order-summary .row.total { margin-top: 4px; font-size: 14px; }
+
+        .order-summary .row:last-child {
+            border-bottom: none;
+        }
+        .order-summary .row .label {
+            color: rgba(255, 255, 255, 0.35);
+        }
+        .order-summary .row .value {
+            color: #fff;
+            font-weight: 600;
+        }
+        .order-summary .row.total {
+            margin-top: 4px;
+            font-size: 14px;
+        }
         .order-summary .row.total .value {
             background: linear-gradient(135deg, #ffcc00, #ff0066);
             -webkit-background-clip: text;
@@ -868,6 +974,7 @@
             font-weight: 800;
         }
 
+        /* ===== PROMO ===== */
         .promo-section {
             margin-bottom: 20px;
             border-radius: 16px;
@@ -875,6 +982,7 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
             background: #000;
         }
+
         .promo-section img {
             display: block;
             width: 100%;
@@ -883,21 +991,25 @@
             object-fit: contain;
             background: #000;
         }
+
         .promo-section .subscribe-btn {
             border-radius: 0;
             margin: 0 auto;
             max-width: 100%;
         }
+
         .promo-section .add-email-btn {
             border-radius: 0;
             margin: 0 auto;
             max-width: 100%;
         }
 
+        /* ===== PAYMENT PROCESSORS ===== */
         .processors-section {
             margin-bottom: 20px;
             text-align: center;
         }
+
         .processors-section .section-label {
             color: rgba(255, 255, 255, 0.15);
             font-size: 9px;
@@ -909,17 +1021,20 @@
             border-top: 1px solid rgba(255, 255, 255, 0.04);
             padding-top: 10px;
         }
+
         .processors-section .section-label:first-of-type {
             border-top: none;
             padding-top: 0;
             margin-top: 0;
         }
+
         .processor-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 4px;
             justify-content: center;
         }
+
         .processor-chip {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.04);
@@ -935,12 +1050,17 @@
             gap: 4px;
             text-decoration: none;
         }
+
         .processor-chip:hover {
             background: rgba(255, 255, 255, 0.06);
             border-color: rgba(255, 204, 0, 0.15);
             color: #fff;
         }
-        .processor-chip .emoji { font-size: 12px; }
+
+        .processor-chip .emoji {
+            font-size: 12px;
+        }
+
         .processor-chip.highlight {
             border-width: 1.5px;
             padding: 6px 14px;
@@ -950,38 +1070,51 @@
             font-size: 13px;
             border-color: rgba(255, 255, 255, 0.1);
         }
-        .processor-chip.highlight .emoji { font-size: 16px; }
+
+        .processor-chip.highlight .emoji {
+            font-size: 16px;
+        }
+
         .processor-chip.highlight[data-brand="stripe"] {
             background: linear-gradient(135deg, #635bff, #4a42d4);
             border-color: #7c73ff;
         }
+
         .processor-chip.highlight[data-brand="paypal"] {
             background: linear-gradient(135deg, #0070ba, #005ea6);
             border-color: #1a8cd8;
         }
+
         .processor-chip.highlight[data-brand="patreon"] {
             background: linear-gradient(135deg, #ff424d, #e0323d);
             border-color: #ff6b7a;
         }
+
         .processor-chip.highlight[data-brand="whop"] {
             background: linear-gradient(135deg, #00d4aa, #00b894);
             border-color: #33e6c4;
         }
+
         .processor-chip.highlight[data-brand="discord"] {
             background: linear-gradient(135deg, #5865f2, #4752c4);
             border-color: #7c8aff;
         }
+
         .processor-chip.highlight[data-brand="deviantart"] {
             background: linear-gradient(135deg, #05cc47, #04a83a);
             border-color: #33e66d;
         }
-        .processor-chip.highlight:hover { transform: scale(1.04); }
+
+        .processor-chip.highlight:hover {
+            transform: scale(1.04);
+        }
 
         .secure-badge {
             text-align: center;
             margin-top: 10px;
             color: rgba(255, 255, 255, 0.12);
             font-size: 10px;
+            letter-spacing: 0.3px;
         }
 
         .video-wrapper {
@@ -991,6 +1124,7 @@
             background: #000;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
+
         .video-wrapper video {
             display: block;
             width: 100%;
@@ -999,7 +1133,10 @@
             object-fit: cover;
         }
 
-        .pay-section { margin-top: 20px; }
+        .pay-section {
+            margin-top: 20px;
+        }
+
         .subscriber-count {
             display: inline-block;
             margin-top: 6px;
@@ -1011,16 +1148,26 @@
             border-radius: 30px;
             padding: 4px 16px;
         }
-        .subscriber-count strong { color: #ffcc00; font-size: 17px; }
 
-        /* ===== OFFERS TAB ===== */
-        .offers-container { text-align: left; }
+        .subscriber-count strong {
+            color: #ffcc00;
+            font-size: 17px;
+        }
+
+        /* ============================================================ */
+        /* TAB 2: OFFERS */
+        /* ============================================================ */
+        .offers-container {
+            text-align: left;
+        }
+
         .offers-container h3 {
             font-size: 20px;
             font-weight: 700;
             text-align: center;
             color: #fff;
         }
+
         .offers-container .sub {
             color: rgba(255, 255, 255, 0.35);
             font-size: 12px;
@@ -1028,6 +1175,7 @@
             text-align: center;
         }
 
+        /* ===== SLIDESHOW ===== */
         .slideshow-container {
             position: relative;
             width: 100%;
@@ -1039,12 +1187,14 @@
             background: #000;
             touch-action: pan-y;
         }
+
         .slideshow-container .slide-track {
             display: flex;
             transition: transform 0.5s ease;
             will-change: transform;
             width: 100%;
         }
+
         .slideshow-container .slide {
             min-width: 100%;
             flex-shrink: 0;
@@ -1053,6 +1203,7 @@
             justify-content: center;
             background: #000;
         }
+
         .slideshow-container .slide img {
             display: block;
             width: 100%;
@@ -1063,6 +1214,7 @@
             user-select: none;
             -webkit-user-drag: none;
         }
+
         .slideshow-container .slide-btn {
             position: absolute;
             top: 50%;
@@ -1078,13 +1230,20 @@
             transition: all 0.2s ease;
             line-height: 1;
         }
+
         .slideshow-container .slide-btn:hover {
             background: rgba(255, 0, 102, 0.3);
             border-color: rgba(255, 204, 0, 0.2);
             color: #fff;
         }
-        .slideshow-container .slide-btn.prev { left: 8px; }
-        .slideshow-container .slide-btn.next { right: 8px; }
+
+        .slideshow-container .slide-btn.prev {
+            left: 8px;
+        }
+        .slideshow-container .slide-btn.next {
+            right: 8px;
+        }
+
         .slideshow-container .dots {
             position: absolute;
             bottom: 8px;
@@ -1097,6 +1256,7 @@
             padding: 4px 10px;
             border-radius: 30px;
         }
+
         .slideshow-container .dots .dot {
             width: 8px;
             height: 8px;
@@ -1107,13 +1267,17 @@
             border: none;
             padding: 0;
         }
-        .slideshow-container .dots .dot:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .slideshow-container .dots .dot:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
         .slideshow-container .dots .dot.active {
             background: #ffcc00;
             width: 16px;
             border-radius: 10px;
         }
 
+        /* ===== OFFER TIERS ===== */
         .offer-tier {
             background: rgba(255, 255, 255, 0.02);
             border-radius: 16px;
@@ -1122,9 +1286,11 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
             transition: all 0.2s ease;
         }
+
         .offer-tier:hover {
             border-color: rgba(0, 229, 255, 0.08);
         }
+
         .offer-tier .tier-badge {
             display: inline-block;
             padding: 2px 12px;
@@ -1135,45 +1301,53 @@
             text-transform: uppercase;
             margin-bottom: 8px;
         }
+
         .offer-tier .tier-badge.tier1 {
             background: rgba(0, 229, 255, 0.08);
             color: #00e5ff;
             border: 1px solid rgba(0, 229, 255, 0.08);
         }
+
         .offer-tier .tier-badge.tier2 {
             background: rgba(255, 204, 0, 0.08);
             color: #ffcc00;
             border: 1px solid rgba(255, 204, 0, 0.08);
         }
+
         .offer-tier .tier-badge.tier3 {
             background: rgba(255, 0, 102, 0.08);
             color: #ff0066;
             border: 1px solid rgba(255, 0, 102, 0.08);
         }
+
         .offer-tier h4 {
             font-size: 17px;
             font-weight: 700;
             color: #fff;
             margin-bottom: 4px;
         }
+
         .offer-tier .tier-sub {
             color: rgba(255, 255, 255, 0.35);
             font-size: 12px;
             margin-bottom: 6px;
             font-style: italic;
         }
+
         .offer-tier .tier-desc {
             color: rgba(255, 255, 255, 0.5);
             font-size: 12px;
             line-height: 1.6;
             margin-bottom: 8px;
         }
+
         .offer-tier .tier-codes {
             background: rgba(0, 0, 0, 0.15);
             border-radius: 8px;
             padding: 8px 12px;
             border: 1px solid rgba(255, 255, 255, 0.03);
         }
+
         .offer-tier .tier-codes .code-label {
             color: rgba(255, 255, 255, 0.15);
             font-size: 8px;
@@ -1182,31 +1356,51 @@
             text-transform: uppercase;
             margin-bottom: 2px;
         }
+
         .offer-tier .tier-codes .code-item {
             color: rgba(255, 255, 255, 0.5);
             font-size: 11px;
             padding: 2px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
-        .offer-tier .tier-codes .code-item:last-child { border-bottom: none; }
-        .offer-tier .tier-codes .code-item strong { color: #fff; }
 
-        /* ===== BIO TAB ===== */
-        .bio-full { text-align: left; }
-        .bio-intro { margin-bottom: 16px; }
+        .offer-tier .tier-codes .code-item:last-child {
+            border-bottom: none;
+        }
+        .offer-tier .tier-codes .code-item strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* ============================================================ */
+        /* TAB 3: BIO */
+        /* ============================================================ */
+        .bio-full {
+            text-align: left;
+        }
+
+        .bio-intro {
+            margin-bottom: 16px;
+        }
+
         .bio-intro h2 {
             font-size: 18px;
             font-weight: 700;
             color: #fff;
             margin-bottom: 4px;
         }
+
         .bio-intro p {
             color: rgba(255, 255, 255, 0.5);
             font-size: 13px;
             line-height: 1.7;
             margin-bottom: 6px;
         }
-        .bio-intro .highlight { color: #ffcc00; font-weight: 600; }
+
+        .bio-intro .highlight {
+            color: #ffcc00;
+            font-weight: 600;
+        }
 
         .bio-stats {
             display: flex;
@@ -1220,19 +1414,27 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
             flex-wrap: wrap;
         }
-        .bio-stats .stat-item { display: flex; flex-direction: column; align-items: center; }
+
+        .bio-stats .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .bio-stats .stat-number {
             font-size: 20px;
             font-weight: 800;
             color: #fff;
             line-height: 1.2;
         }
+
         .bio-stats .stat-label {
             font-size: 10px;
             color: rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
+
         .bio-stats .stat-link {
             font-size: 10px;
             color: #00e5ff;
@@ -1241,7 +1443,10 @@
             transition: color 0.2s ease;
             margin-top: 2px;
         }
-        .bio-stats .stat-link:hover { color: #ffcc00; }
+
+        .bio-stats .stat-link:hover {
+            color: #ffcc00;
+        }
 
         .follow-btn {
             padding: 6px 16px;
@@ -1255,24 +1460,29 @@
             border-radius: 30px;
             letter-spacing: 0.3px;
         }
+
         .follow-btn:hover {
             background: rgba(255, 0, 102, 0.15);
             border-color: #ff0066;
         }
 
-        .bio-features, .bio-instructions {
+        .bio-features,
+        .bio-instructions {
             background: rgba(255, 255, 255, 0.02);
             border-radius: 16px;
             padding: 14px 12px;
             margin-bottom: 16px;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
-        .bio-features h3, .bio-instructions h3 {
+
+        .bio-features h3,
+        .bio-instructions h3 {
             color: #fff;
             font-size: 15px;
             font-weight: 700;
             margin-bottom: 8px;
         }
+
         .bio-features .feature-item {
             display: flex;
             align-items: center;
@@ -1282,7 +1492,10 @@
             color: rgba(255, 255, 255, 0.6);
             font-size: 12px;
         }
-        .bio-features .feature-item:last-child { border-bottom: none; }
+
+        .bio-features .feature-item:last-child {
+            border-bottom: none;
+        }
         .bio-features .feature-item .feat-icon {
             font-size: 16px;
             width: 24px;
@@ -1307,6 +1520,7 @@
             font-size: 12px;
             line-height: 1.6;
         }
+
         .bio-instructions .step .step-num {
             background: rgba(255, 255, 255, 0.04);
             color: #fff;
@@ -1329,6 +1543,7 @@
             justify-content: center;
             margin-bottom: 16px;
         }
+
         .bio-contact .contact-item {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
@@ -1342,6 +1557,7 @@
             align-items: center;
             gap: 4px;
         }
+
         .bio-contact .contact-item:hover {
             background: rgba(255, 255, 255, 0.06);
             border-color: rgba(0, 229, 255, 0.12);
@@ -1354,6 +1570,7 @@
             gap: 8px;
             margin-top: 4px;
         }
+
         .bio-quick-links .quick-link {
             display: flex;
             align-items: center;
@@ -1369,10 +1586,12 @@
             font-weight: 500;
             font-size: 13px;
         }
+
         .bio-quick-links .quick-link:hover {
             background: rgba(255, 255, 255, 0.04);
             border-color: rgba(255, 204, 0, 0.08);
         }
+
         .bio-quick-links .quick-link .ql-left {
             display: flex;
             align-items: center;
@@ -1388,6 +1607,7 @@
             font-size: 12px;
             transition: transform 0.2s ease;
         }
+
         .bio-quick-links .quick-link:hover .ql-arrow {
             color: rgba(255, 255, 255, 0.3);
             transform: translateX(3px);
@@ -1398,9 +1618,12 @@
             margin-top: 14px;
             font-size: 9px;
             color: rgba(255, 255, 255, 0.06);
+            letter-spacing: 0.3px;
         }
 
-        /* ===== FORUMS TAB ===== */
+        /* ============================================================ */
+        /* TAB 4: FORUMS */
+        /* ============================================================ */
         .section-title {
             color: #fff;
             font-size: 16px;
@@ -1414,6 +1637,7 @@
             justify-content: center;
             flex-wrap: wrap;
         }
+
         .section-title .lock {
             font-size: 10px;
             color: #ffcc00;
@@ -1423,6 +1647,7 @@
             font-weight: 500;
             border: 1px solid rgba(255, 204, 0, 0.04);
         }
+
         .form-wrapper {
             width: 100%;
             margin: 0 auto;
@@ -1431,6 +1656,7 @@
             background: rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
+
         .form-wrapper iframe {
             width: 100%;
             height: 700px;
@@ -1438,22 +1664,30 @@
             display: block;
             background: transparent;
         }
+
         .join-list-text {
             text-align: center;
             margin-top: 12px;
             color: rgba(255, 255, 255, 0.3);
             font-size: 13px;
+            letter-spacing: 0.3px;
             font-weight: 500;
         }
 
-        /* ===== PREMIUM TAB ===== */
-        .premium-container { text-align: left; }
+        /* ============================================================ */
+        /* TAB 5: PREMIUM */
+        /* ============================================================ */
+        .premium-container {
+            text-align: left;
+        }
+
         .premium-container h3 {
             font-size: 20px;
             font-weight: 700;
             text-align: center;
             color: #fff;
         }
+
         .premium-container .sub {
             color: rgba(255, 255, 255, 0.35);
             font-size: 12px;
@@ -1467,6 +1701,7 @@
             gap: 8px;
             margin-bottom: 16px;
         }
+
         .premium-pricing .price-card {
             background: rgba(255, 255, 255, 0.02);
             border-radius: 16px;
@@ -1475,9 +1710,11 @@
             text-align: center;
             transition: all 0.2s ease;
         }
+
         .premium-pricing .price-card:hover {
             border-color: rgba(0, 229, 255, 0.08);
         }
+
         .premium-pricing .price-card .plan-name {
             color: #fff;
             font-weight: 700;
@@ -1494,6 +1731,7 @@
             font-size: 10px;
             line-height: 1.4;
         }
+
         .premium-pricing .price-card.highlight {
             border-color: rgba(255, 0, 102, 0.2);
             background: rgba(255, 0, 102, 0.04);
@@ -1504,6 +1742,7 @@
             flex-direction: column;
             gap: 10px;
         }
+
         .premium-category {
             background: rgba(255, 255, 255, 0.02);
             border-radius: 16px;
@@ -1511,6 +1750,7 @@
             border: 1px solid rgba(255, 255, 255, 0.03);
             transition: all 0.2s ease;
         }
+
         .premium-category h4 {
             color: #fff;
             font-size: 14px;
@@ -1520,8 +1760,17 @@
             align-items: center;
             gap: 4px;
         }
-        .premium-category .status-badge { font-size: 11px; margin-left: auto; }
-        .premium-category ul { list-style: none; padding: 0; }
+
+        .premium-category .status-badge {
+            font-size: 11px;
+            margin-left: auto;
+        }
+
+        .premium-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
         .premium-category ul li {
             color: rgba(255, 255, 255, 0.5);
             font-size: 11px;
@@ -1531,9 +1780,18 @@
             align-items: center;
             gap: 6px;
         }
-        .premium-category ul li:last-child { border-bottom: none; }
-        .premium-category ul li .li-icon { font-size: 13px; width: 20px; text-align: center; }
-        .premium-category ul li strong { color: #fff; }
+
+        .premium-category ul li:last-child {
+            border-bottom: none;
+        }
+        .premium-category ul li .li-icon {
+            font-size: 13px;
+            width: 20px;
+            text-align: center;
+        }
+        .premium-category ul li strong {
+            color: #fff;
+        }
 
         .premium-note {
             margin-top: 14px;
@@ -1546,7 +1804,10 @@
             line-height: 1.6;
             text-align: center;
         }
-        .premium-note strong { color: #ffcc00; }
+
+        .premium-note strong {
+            color: #ffcc00;
+        }
 
         /* ===== MODAL OVERLAY (legacy form) ===== */
         .modal-overlay {
@@ -1563,7 +1824,11 @@
             align-items: center;
             padding: 20px;
         }
-        .modal-overlay.active { display: flex; }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
         .modal-content {
             background: #14141f;
             border-radius: 20px;
@@ -1576,6 +1841,7 @@
             max-height: 90vh;
             overflow: hidden;
         }
+
         .modal-content .close-modal {
             position: absolute;
             top: 10px;
@@ -1589,7 +1855,11 @@
             z-index: 10;
             line-height: 1;
         }
-        .modal-content .close-modal:hover { color: #fff; }
+
+        .modal-content .close-modal:hover {
+            color: #fff;
+        }
+
         .modal-content iframe {
             width: 100%;
             height: 400px;
@@ -1619,15 +1889,18 @@
             opacity: 0;
             animation: slideIn 0.4s ease 1.5s forwards;
         }
+
         .multilingual-popup.closed {
             transform: translateX(120%);
             opacity: 0;
             pointer-events: none;
         }
+
         @keyframes slideIn {
             0% { transform: translateX(120%); opacity: 0; }
             100% { transform: translateX(0); opacity: 1; }
         }
+
         .multilingual-popup .popup-close {
             position: absolute;
             top: 4px;
@@ -1641,8 +1914,15 @@
             line-height: 1;
             padding: 0 4px;
         }
-        .multilingual-popup .popup-close:hover { color: #fff; }
-        .multilingual-popup .popup-message { margin-right: 14px; }
+
+        .multilingual-popup .popup-close:hover {
+            color: #fff;
+        }
+
+        .multilingual-popup .popup-message {
+            margin-right: 14px;
+        }
+
         .multilingual-popup .popup-message .lang {
             display: flex;
             align-items: flex-start;
@@ -1650,7 +1930,10 @@
             margin-bottom: 2px;
             padding: 2px 0;
         }
-        .multilingual-popup .popup-message .lang:last-child { margin-bottom: 0; }
+
+        .multilingual-popup .popup-message .lang:last-child {
+            margin-bottom: 0;
+        }
         .multilingual-popup .popup-message .lang .flag {
             font-size: 13px;
             flex-shrink: 0;
@@ -1661,98 +1944,453 @@
             font-size: 10.5px;
             color: rgba(255, 255, 255, 0.6);
         }
+
         .multilingual-popup .popup-message .lang .text a {
             color: #ffcc00;
             text-decoration: none;
             font-weight: 600;
         }
-        .multilingual-popup .popup-message .lang .text a:hover { text-decoration: underline; }
+
+        .multilingual-popup .popup-message .lang .text a:hover {
+            text-decoration: underline;
+        }
 
         .footer {
             text-align: center;
             margin-top: 24px;
             font-size: 9px;
             color: rgba(255, 255, 255, 0.05);
+            letter-spacing: 0.3px;
         }
 
-        /* ===== RESPONSIVE (condensed) ===== */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 550px) {
-            .action-row { flex-direction: column; gap: 10px; }
-            .join-free-groups-btn { font-size: 16px; padding: 14px 16px; }
-            .container { padding: 18px 12px; }
-            .tab-btn { font-size: 10px; padding: 4px 8px; min-width: 50px; }
-            .processor-chip { font-size: 9px; padding: 3px 8px; }
-            .processor-chip.highlight { font-size: 12px; padding: 5px 12px; }
-            .processor-chip.highlight .emoji { font-size: 14px; }
-            .form-wrapper iframe { height: 550px; }
-            .header h1 { font-size: 22px; }
-            .avatar { width: 60px; height: 60px; font-size: 28px; }
-            .join-top-btn { font-size: 15px; padding: 12px; }
-            .premium-pricing { grid-template-columns: 1fr; }
-            .multilingual-popup { max-width: 220px; right: 6px; bottom: 12px; padding: 10px 12px; font-size: 10px; }
-            .multilingual-popup .popup-message .lang .text { font-size: 10px; }
-            .order-summary .row { font-size: 11px; max-width: 220px; }
-            .order-summary .row.total .value { font-size: 18px; }
-            .modal-content iframe { height: 300px; }
-            .bio-stats { flex-direction: column; align-items: stretch; gap: 8px; }
-            .bio-stats .stat-item { flex-direction: row; justify-content: space-between; gap: 8px; }
-            .follow-btn { width: 100%; text-align: center; }
-            .subscriber-count { font-size: 14px; padding: 4px 12px; }
-            .subscriber-count strong { font-size: 16px; }
-            .email-input-field { font-size: 12px; padding: 10px 14px; }
-            .email-input-field .typing-text { font-size: 12px; }
-            .email-input-field .email-glow { font-size: 16px; }
-            .slideshow-container .slide-btn { padding: 5px 10px; font-size: 16px; }
-            .slideshow-container .dots { gap: 4px; padding: 4px 8px; }
-            .slideshow-container .dots .dot { width: 7px; height: 7px; }
-            .slideshow-container .dots .dot.active { width: 12px; }
-            .slideshow-container .slide img { max-height: 250px; }
-            .processor-grid-open { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
-            .processor-grid-open .payment-card { padding: 0.6rem 0.2rem; }
-            .processor-grid-open .payment-card .card-icon { font-size: 1.4rem; }
-            .processor-grid-open .payment-card .payment-name { font-size: 0.7rem; }
-            .processor-grid-open .payment-card .emoji-symbol { font-size: 1rem; }
+            .opening-stack .img-wrap,
+            .opening-stack .stripe-under-enter {
+                max-width: 100%;
+            }
+            .opening-stack .img-wrap img {
+                aspect-ratio: 16 / 9;
+            }
+            .action-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .join-free-groups-btn {
+                font-size: 16px;
+                padding: 14px 16px;
+            }
+            .container {
+                padding: 18px 12px;
+            }
+            .tab-btn {
+                font-size: 10px;
+                padding: 4px 8px;
+                min-width: 50px;
+            }
+            .processor-chip {
+                font-size: 9px;
+                padding: 3px 8px;
+            }
+            .processor-chip.highlight {
+                font-size: 12px;
+                padding: 5px 12px;
+            }
+            .processor-chip.highlight .emoji {
+                font-size: 14px;
+            }
+            .form-wrapper iframe {
+                height: 550px;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+            .avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+            .join-top-btn {
+                font-size: 15px;
+                padding: 12px;
+            }
+            .pay-simple-btn::before,
+            .pay-simple-btn::after {
+                display: none;
+            }
+            .free-previews-btn::before,
+            .free-previews-btn::after {
+                display: none;
+            }
+            .offer-tier h4 {
+                font-size: 16px;
+            }
+            .bio-contact .contact-item {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            .premium-pricing {
+                grid-template-columns: 1fr;
+            }
+            .unlock-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .multilingual-popup {
+                max-width: 220px;
+                right: 6px;
+                bottom: 12px;
+                padding: 10px 12px;
+                font-size: 10px;
+            }
+            .multilingual-popup .popup-message .lang .text {
+                font-size: 10px;
+            }
+            .marquee-item {
+                font-size: 10px;
+                padding: 0 6px;
+            }
+            .promo-section .subscribe-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .promo-section .add-email-btn {
+                font-size: 13px;
+                padding: 8px;
+            }
+            .heading-wrapper h3 {
+                font-size: 18px;
+            }
+            .tip-btn {
+                font-size: 11px;
+                padding: 2px 10px;
+            }
+            .promo-section img {
+                max-height: 250px;
+            }
+            .order-summary .row {
+                font-size: 11px;
+                max-width: 220px;
+            }
+            .order-summary .row.total .value {
+                font-size: 18px;
+            }
+            .modal-content iframe {
+                height: 300px;
+            }
+            .modal-content {
+                padding: 16px;
+            }
+            .bio-stats {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            .bio-stats .stat-item {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 8px;
+            }
+            .follow-btn {
+                width: 100%;
+                text-align: center;
+            }
+            .subscriber-count {
+                font-size: 14px;
+                padding: 4px 12px;
+            }
+            .subscriber-count strong {
+                font-size: 16px;
+            }
+            .free-previews-btn {
+                font-size: 15px;
+                padding: 12px;
+            }
+            .email-input-field {
+                font-size: 12px;
+                padding: 10px 14px;
+            }
+            .email-input-field .typing-text {
+                font-size: 12px;
+            }
+            .email-input-field .email-glow {
+                font-size: 16px;
+            }
+            .header-links {
+                gap: 6px;
+            }
+            .offers-subscribe-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .slideshow-container .slide-btn {
+                padding: 5px 10px;
+                font-size: 16px;
+            }
+            .slideshow-container .dots {
+                gap: 4px;
+                padding: 4px 8px;
+            }
+            .slideshow-container .dots .dot {
+                width: 7px;
+                height: 7px;
+            }
+            .slideshow-container .dots .dot.active {
+                width: 12px;
+            }
+            .slideshow-container .slide img {
+                max-height: 250px;
+            }
+            .processor-grid-open {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 8px;
+            }
+            .processor-grid-open .payment-card {
+                padding: 0.6rem 0.2rem;
+            }
+            .processor-grid-open .payment-card .card-icon {
+                font-size: 1.4rem;
+            }
+            .processor-grid-open .payment-card .payment-name {
+                font-size: 0.7rem;
+            }
+            .processor-grid-open .payment-card .emoji-symbol {
+                font-size: 1rem;
+            }
             .action-row .btn-half .free-wallpapers-btn,
-            .action-row .btn-half .enter-btn { font-size: 16px; padding: 14px 16px; }
-            .payment-modal-content { padding: 20px 16px 24px; }
-            .form-modal-content iframe { height: 350px; }
+            .action-row .btn-half .enter-btn {
+                font-size: 16px;
+                padding: 14px 16px;
+            }
+            .payment-modal-content {
+                padding: 20px 16px 24px;
+            }
+            .form-modal-content iframe {
+                height: 350px;
+            }
         }
 
         @media (max-width: 420px) {
-            .tab-btn { font-size: 9px; padding: 3px 5px; min-width: 44px; }
-            .processor-chip.highlight { font-size: 11px; padding: 4px 10px; }
-            .processor-chip.highlight .emoji { font-size: 12px; }
-            .form-wrapper iframe { height: 450px; }
-            .join-top-btn { font-size: 14px; padding: 10px; }
-            .multilingual-popup { max-width: 180px; padding: 8px 10px; font-size: 9px; }
-            .multilingual-popup .popup-message .lang .text { font-size: 9px; }
-            .multilingual-popup .popup-close { font-size: 12px; }
-            .order-summary .row { font-size: 10px; max-width: 180px; }
-            .order-summary .row.total .value { font-size: 16px; }
-            .modal-content iframe { height: 250px; }
-            .subscriber-count { font-size: 12px; padding: 3px 10px; }
-            .subscriber-count strong { font-size: 14px; }
-            .email-input-field { font-size: 11px; padding: 8px 12px; }
-            .email-input-field .typing-text { font-size: 11px; }
-            .email-input-field .email-glow { font-size: 14px; }
-            .slideshow-container .slide-btn { padding: 4px 8px; font-size: 14px; }
-            .slideshow-container .slide-btn.prev { left: 4px; }
-            .slideshow-container .slide-btn.next { right: 4px; }
-            .slideshow-container .dots { gap: 3px; padding: 3px 6px; bottom: 4px; }
-            .slideshow-container .dots .dot { width: 6px; height: 6px; }
-            .slideshow-container .dots .dot.active { width: 10px; }
-            .slideshow-container .slide img { max-height: 200px; }
-            .processor-grid-open { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; }
-            .processor-grid-open .payment-card { padding: 0.5rem 0.2rem; }
-            .processor-grid-open .payment-card .card-icon { font-size: 1.2rem; }
-            .processor-grid-open .payment-card .payment-name { font-size: 0.65rem; }
-            .processor-grid-open .payment-card .emoji-symbol { font-size: 0.85rem; }
-            .processor-grid-open .payment-card .venom-note { font-size: 0.45rem; padding: 0.05rem 0.4rem; }
+            .opening-stack .img-wrap img {
+                aspect-ratio: 16 / 9;
+            }
+            .skip-hint {
+                font-size: 10px;
+            }
+            .tab-nav {
+                gap: 2px;
+            }
+            .tab-btn {
+                font-size: 9px;
+                padding: 3px 5px;
+                min-width: 44px;
+            }
+            .processor-chip.highlight {
+                font-size: 11px;
+                padding: 4px 10px;
+            }
+            .processor-chip.highlight .emoji {
+                font-size: 12px;
+            }
+            .form-wrapper iframe {
+                height: 450px;
+            }
+            .join-top-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .join-top-btn::before,
+            .join-top-btn::after {
+                display: none;
+            }
+            .free-previews-btn::before,
+            .free-previews-btn::after {
+                display: none;
+            }
+            .offer-tier {
+                padding: 12px 10px;
+            }
+            .unlock-btn {
+                font-size: 13px;
+                padding: 8px;
+            }
+            .unlock-btn::before,
+            .unlock-btn::after {
+                display: none;
+            }
+            .multilingual-popup {
+                max-width: 180px;
+                padding: 8px 10px;
+                font-size: 9px;
+            }
+            .multilingual-popup .popup-message .lang .text {
+                font-size: 9px;
+            }
+            .multilingual-popup .popup-close {
+                font-size: 12px;
+            }
+            .marquee-item {
+                font-size: 9px;
+                padding: 0 4px;
+            }
+            .promo-section .subscribe-btn {
+                font-size: 13px;
+                padding: 8px;
+            }
+            .promo-section .add-email-btn {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .heading-wrapper h3 {
+                font-size: 16px;
+            }
+            .tip-btn {
+                font-size: 10px;
+                padding: 2px 8px;
+            }
+            .promo-section img {
+                max-height: 200px;
+            }
+            .order-summary .row {
+                font-size: 10px;
+                max-width: 180px;
+            }
+            .order-summary .row.total .value {
+                font-size: 16px;
+            }
+            .order-summary {
+                padding: 10px;
+            }
+            .modal-content iframe {
+                height: 250px;
+            }
+            .modal-content {
+                padding: 12px;
+            }
+            .subscriber-count {
+                font-size: 12px;
+                padding: 3px 10px;
+            }
+            .subscriber-count strong {
+                font-size: 14px;
+            }
+            .free-previews-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .email-input-field {
+                font-size: 11px;
+                padding: 8px 12px;
+            }
+            .email-input-field .typing-text {
+                font-size: 11px;
+            }
+            .email-input-field .email-glow {
+                font-size: 14px;
+            }
+            .header-links {
+                gap: 4px;
+            }
+            .telegram-link {
+                font-size: 10px;
+                padding: 2px 10px;
+            }
+            .badge {
+                font-size: 10px;
+                padding: 2px 10px;
+            }
+            .offers-subscribe-btn {
+                font-size: 13px;
+                padding: 8px;
+            }
+            .slideshow-container .slide-btn {
+                padding: 4px 8px;
+                font-size: 14px;
+            }
+            .slideshow-container .slide-btn.prev {
+                left: 4px;
+            }
+            .slideshow-container .slide-btn.next {
+                right: 4px;
+            }
+            .slideshow-container .dots {
+                gap: 3px;
+                padding: 3px 6px;
+                bottom: 4px;
+            }
+            .slideshow-container .dots .dot {
+                width: 6px;
+                height: 6px;
+            }
+            .slideshow-container .dots .dot.active {
+                width: 10px;
+            }
+            .slideshow-container .slide img {
+                max-height: 200px;
+            }
+            .processor-grid-open {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 6px;
+            }
+            .processor-grid-open .payment-card {
+                padding: 0.5rem 0.2rem;
+            }
+            .processor-grid-open .payment-card .card-icon {
+                font-size: 1.2rem;
+            }
+            .processor-grid-open .payment-card .payment-name {
+                font-size: 0.65rem;
+            }
+            .processor-grid-open .payment-card .emoji-symbol {
+                font-size: 0.85rem;
+            }
+            .processor-grid-open .payment-card .venom-note {
+                font-size: 0.45rem;
+                padding: 0.05rem 0.4rem;
+            }
             .action-row .btn-half .free-wallpapers-btn,
-            .action-row .btn-half .enter-btn { font-size: 14px; padding: 12px 14px; }
-            .join-free-groups-btn { font-size: 14px; padding: 12px 14px; }
-            .payment-modal-content { padding: 16px 12px 20px; }
-            .form-modal-content iframe { height: 300px; }
+            .action-row .btn-half .enter-btn {
+                font-size: 14px;
+                padding: 12px 14px;
+            }
+            .join-free-groups-btn {
+                font-size: 14px;
+                padding: 12px 14px;
+            }
+            .payment-modal-content {
+                padding: 16px 12px 20px;
+            }
+            .form-modal-content iframe {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .processor-grid-open {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 4px;
+            }
+            .processor-grid-open .payment-card .card-icon {
+                font-size: 1rem;
+            }
+            .processor-grid-open .payment-card .payment-name {
+                font-size: 0.55rem;
+            }
+            .processor-grid-open .payment-card .emoji-symbol {
+                font-size: 0.7rem;
+            }
+            .action-row .btn-half .free-wallpapers-btn,
+            .action-row .btn-half .enter-btn {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+            .join-free-groups-btn {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+            .form-modal-content iframe {
+                height: 250px;
+            }
         }
     </style>
 </head>
@@ -1760,47 +2398,51 @@
 
     <!-- ===== OPENING OVERLAY ===== -->
     <div class="opening-overlay" id="openingOverlay">
+
+        <!-- ===== VERTICAL STACK: Stripe Image → Stripe Card → PayPal Image ===== -->
         <div class="opening-stack">
-            <!-- Stripe Image Trigger -->
+            <!-- Stripe Image -->
             <div class="img-wrap" id="stripeImageTrigger">
                 <img src="https://64.media.tumblr.com/6f6bbfbab448dbd65470fc9e4129648a/67813ecedd3dabee-2a/s1280x1920/472f5d792ae7d8ddfbafc8614d28faa5b4f8b922.pnj" alt="Pay with Stripe" loading="lazy" />
                 <span class="overlay-badge">⚡ Click to pay with Stripe</span>
             </div>
 
-            <!-- PayPal Image Trigger -->
-            <div class="img-wrap" id="paypalImageTrigger">
-                <img src="https://64.media.tumblr.com/5308a43789b5c577b8bcbc9573687bd1/67813ecedd3dabee-f1/s1280x1920/d14b21e06febda19ea2693731951429d89cb7c6a.webp" alt="Pay with PayPal" loading="lazy" />
-                <span class="overlay-badge">💸 Click to pay with PayPal</span>
-            </div>
-
-            <!-- Stripe Direct Button -->
+            <!-- Stripe Card (larger, now between images) -->
             <div class="stripe-under-enter">
                 <div class="stripe-label">⚡ or pay with Stripe directly</div>
                 <stripe-buy-button buy-button-id="buy_btn_1To1ABFRbDEWBIuImlKSGB0L" publishable-key="pk_live_51Tb3oKFRbDEWBIuIdJxw3zJmH9u75HuAMcC8wVf5umYIRcauPcVEpFqmQhTMWH9ETfyPEgN3LpYl5kQwrTUn0fKf00hRARMgRc">
                 </stripe-buy-button>
             </div>
+
+            <!-- PayPal Image (with object-fit cover) -->
+            <div class="img-wrap" id="paypalImageTrigger">
+                <img class="paypal-img-fill" src="https://64.media.tumblr.com/5308a43789b5c577b8bcbc9573687bd1/67813ecedd3dabee-f1/s1280x1920/d14b21e06febda19ea2693731951429d89cb7c6a.webp" alt="Pay with PayPal" loading="lazy" />
+                <span class="overlay-badge">💸 Click to pay with PayPal</span>
+            </div>
         </div>
 
-        <!-- Processor Grid -->
-        <div class="processor-grid-open" id="processorGridOpen"></div>
-
-        <!-- Free Wallpapers + Enter Patreon+ -->
+        <!-- ===== BUTTONS (above processor grid) ===== -->
         <div class="action-row">
             <div class="btn-half">
-                <a href="https://www.mediafire.com/folder/1l1p3c0gsdcub/Patreon%2B" target="_blank" class="free-wallpapers-btn">🖼️ Free Wallpapers</a>
+                <a href="https://www.mediafire.com/folder/1l1p3c0gsdcub/Patreon%2B" target="_blank" class="free-wallpapers-btn">
+                    🖼️ Free Wallpapers
+                </a>
             </div>
             <div class="btn-half">
                 <button class="enter-btn" id="enterBtn">✦ Enter Patreon+ ✦</button>
             </div>
         </div>
 
-        <!-- Join Free Groups -->
+        <!-- Join Free Groups (full width, under the row) -->
         <button class="join-free-groups-btn" id="openFormBtn">👥 Join Free Groups</button>
+
+        <!-- ===== PROCESSOR GRID (26 payment embeds) ===== -->
+        <div class="processor-grid-open" id="processorGridOpen"></div>
 
         <div class="skip-hint" id="skipHint">click anywhere to skip</div>
     </div>
 
-    <!-- ===== FORM MODAL (overlay) ===== -->
+    <!-- ===== FORM MODAL ===== -->
     <div class="form-modal-overlay" id="formModalOverlay">
         <div class="form-modal-content">
             <button class="form-modal-close" id="formModalClose">&times;</button>
@@ -1809,7 +2451,7 @@
         </div>
     </div>
 
-    <!-- ===== STRIPE MODAL ===== -->
+    <!-- ===== STRIPE PAYMENT MODAL ===== -->
     <div class="payment-modal-overlay" id="stripeModal">
         <div class="payment-modal-content">
             <button class="modal-close" id="stripeModalClose">✕</button>
@@ -1823,7 +2465,7 @@
         </div>
     </div>
 
-    <!-- ===== PAYPAL MODAL ===== -->
+    <!-- ===== PAYPAL PAYMENT MODAL ===== -->
     <div class="payment-modal-overlay" id="paypalModal">
         <div class="payment-modal-content">
             <button class="modal-close" id="paypalModalClose">✕</button>
@@ -1842,17 +2484,26 @@
     <!-- ===== MAIN CONTENT ===== -->
     <div class="main-content" id="mainContent">
 
-        <!-- ===== MULTILINGUAL POPUP ===== -->
+        <!-- ===== MULTILINGUAL POP-UP ===== -->
         <div class="multilingual-popup" id="multilingualPopup">
             <button class="popup-close" id="popupClose" aria-label="Close">✕</button>
             <div class="popup-message">
-                <div class="lang"><span class="flag">🇬🇧</span><span class="text">📬 Questions? <a href="https://t.me/Superhelpful" target="_blank">t.me/Superhelpful</a></span></div>
-                <div class="lang"><span class="flag">🇪🇸</span><span class="text">📬 ¿Preguntas? <a href="https://t.me/Superhelpful" target="_blank">t.me/Superhelpful</a></span></div>
-                <div class="lang"><span class="flag">🇨🇳</span><span class="text">📬 有问题？ <a href="https://t.me/Superhelpful" target="_blank">t.me/Superhelpful</a></span></div>
+                <div class="lang">
+                    <span class="flag">🇬🇧</span>
+                    <span class="text">📬 Questions? <a href="https://t.me/Superhelpful" target="_blank">t.me/Superhelpful</a></span>
+                </div>
+                <div class="lang">
+                    <span class="flag">🇪🇸</span>
+                    <span class="text">📬 ¿Preguntas? <a href="https://t.me/Superhelpful" target="_blank">t.me/Superhelpful</a></span>
+                </div>
+                <div class="lang">
+                    <span class="flag">🇨🇳</span>
+                    <span class="text">📬 有问题？ <a href="https://t.me/Superhelpful" target="_blank">t.me/Superhelpful</a></span>
+                </div>
             </div>
         </div>
 
-        <!-- ===== LEGACY FORM MODAL ===== -->
+        <!-- ===== MODAL OVERLAY (form preview) ===== -->
         <div class="modal-overlay" id="formModal">
             <div class="modal-content">
                 <button class="close-modal" id="closeModalBtn">&times;</button>
@@ -1860,7 +2511,7 @@
             </div>
         </div>
 
-        <!-- ===== FOLLOW MODAL ===== -->
+        <!-- ===== FOLLOW MODAL (Linktree preview) ===== -->
         <div class="modal-overlay" id="followModal">
             <div class="modal-content">
                 <button class="close-modal" id="closeFollowModal">&times;</button>
@@ -1870,7 +2521,9 @@
 
         <div class="container">
 
+            <!-- ========================================================= -->
             <!-- HEADER -->
+            <!-- ========================================================= -->
             <div class="header">
                 <div class="avatar">🍕</div>
                 <h1>Patreon+</h1>
@@ -1881,7 +2534,9 @@
                 </div>
             </div>
 
+            <!-- ========================================================= -->
             <!-- TABS -->
+            <!-- ========================================================= -->
             <div class="tab-nav">
                 <button class="tab-btn active" data-tab="payments">💳 Portal</button>
                 <button class="tab-btn" data-tab="offers">📦 Offers</button>
@@ -1895,59 +2550,107 @@
             <!-- ========================================================= -->
             <div class="tab-content active" id="tab-payments">
                 <div class="portal-container">
-                    <!-- Marquee (styling only) -->
+
                     <div class="social-marquee">
                         <div class="marquee-wrapper">
-                            <span class="marquee-item">bluesky</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">twitter</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">keet.io</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">wordpress</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">patreon</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">github</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">telegram</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">fanvue</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">deviant art</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">tumblr</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">tiktok</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">gumroad</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">substack</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">whop</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">stoat</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">buymeacoffee</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">ko fi</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">vimeo</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">jabburr</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">eachoed</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">element</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">matrix.io</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">discord</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">facebook</span><span class="marquee-item separator">•</span>
+                            <span class="marquee-item">bluesky</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">twitter</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">keet.io</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">wordpress</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">patreon</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">github</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">telegram</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">fanvue</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">deviant art</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">tumblr</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">tiktok</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">gumroad</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">substack</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">whop</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">stoat</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">buymeacoffee</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">ko fi</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">vimeo</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">jabburr</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">eachoed</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">element</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">matrix.io</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">discord</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">facebook</span>
+                            <span class="marquee-item separator">•</span>
                             <span class="marquee-item">instagram</span>
                             <!-- duplicate for seamless loop -->
-                            <span class="marquee-item">bluesky</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">twitter</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">keet.io</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">wordpress</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">patreon</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">github</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">telegram</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">fanvue</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">deviant art</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">tumblr</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">tiktok</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">gumroad</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">substack</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">whop</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">stoat</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">buymeacoffee</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">ko fi</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">vimeo</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">jabburr</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">eachoed</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">element</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">matrix.io</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">discord</span><span class="marquee-item separator">•</span>
-                            <span class="marquee-item">facebook</span><span class="marquee-item separator">•</span>
+                            <span class="marquee-item">bluesky</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">twitter</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">keet.io</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">wordpress</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">patreon</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">github</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">telegram</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">fanvue</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">deviant art</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">tumblr</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">tiktok</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">gumroad</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">substack</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">whop</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">stoat</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">buymeacoffee</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">ko fi</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">vimeo</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">jabburr</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">eachoed</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">element</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">matrix.io</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">discord</span>
+                            <span class="marquee-item separator">•</span>
+                            <span class="marquee-item">facebook</span>
+                            <span class="marquee-item separator">•</span>
                             <span class="marquee-item">instagram</span>
                         </div>
                     </div>
@@ -1961,15 +2664,29 @@
                     <button class="join-top-btn" id="joinNowBtn">🚀 Join Now</button>
 
                     <div class="email-input-field" id="emailInputField">
-                        <span class="typing-text" id="typingText"><span class="cursor"></span></span>
+                        <span class="typing-text" id="typingText">
+                            <span class="cursor"></span>
+                        </span>
                         <span class="email-glow">✉️</span>
                     </div>
 
                     <div class="order-summary">
-                        <div class="row"><span class="label">📦 Plan</span><span class="value">Pro ⭐ (Monthly)</span></div>
-                        <div class="row"><span class="label">🔄 Billing</span><span class="value">Recurring</span></div>
-                        <div class="row"><span class="label">👥 Members</span><span class="value">18</span></div>
-                        <div class="row total"><span class="label">Total</span><span class="value">$5.99</span></div>
+                        <div class="row">
+                            <span class="label">📦 Plan</span>
+                            <span class="value">Pro ⭐ (Monthly)</span>
+                        </div>
+                        <div class="row">
+                            <span class="label">🔄 Billing</span>
+                            <span class="value">Recurring</span>
+                        </div>
+                        <div class="row">
+                            <span class="label">👥 Members</span>
+                            <span class="value">18</span>
+                        </div>
+                        <div class="row total">
+                            <span class="label">Total</span>
+                            <span class="value">$5.99</span>
+                        </div>
                     </div>
 
                     <div class="promo-section">
@@ -1978,7 +2695,6 @@
                         <button class="add-email-btn" id="addEmailBtn">📧 Add Email</button>
                     </div>
 
-                    <!-- ===== PAYMENT PROCESSORS (all your links) ===== -->
                     <div class="processors-section">
                         <span class="section-label">💳 Payment Processors</span>
                         <div class="processor-grid">
@@ -2047,18 +2763,21 @@
                         <button class="pay-simple-btn" id="payNowBtn">Pay $5.99 now</button>
                         <div class="subscriber-count">👥 Total subscribers: <strong>15</strong></div>
                     </div>
+
                 </div>
+                <!-- footer inside portal -->
                 <div class="footer">© 2026 Patreon+ · Direct payments · ⚡</div>
             </div>
 
             <!-- ========================================================= -->
-            <!-- TAB 2: OFFERS (unchanged – keep slideshow and tiers) -->
+            <!-- TAB 2: OFFERS -->
             <!-- ========================================================= -->
             <div class="tab-content" id="tab-offers">
                 <div class="offers-container">
                     <h3>📦 My Offerings</h3>
                     <p class="sub">A curated framework of exclusive content tiers.</p>
 
+                    <!-- ===== SLIDESHOW ===== -->
                     <div class="slideshow-container" id="slideshowContainer">
                         <div class="slide-track" id="slideTrack">
                             <div class="slide"><img src="https://64.media.tumblr.com/b2e688cafd199cc0095ce826ae1311e2/96dadbb12967f31e-52/s500x750/a0a03286373dec2ae8fe070d3eb5ee2deca46536.jpg" alt="Slide 1" loading="lazy" /></div>
@@ -2118,19 +2837,29 @@
                     </div>
 
                     <button class="free-previews-btn" id="freePreviewsBtn">🎬 Free Previews</button>
+
                     <div class="footer">© 2026 Patreon+ · Exclusive content framework · 🔐</div>
                 </div>
             </div>
 
             <!-- ========================================================= -->
-            <!-- TAB 3: BIO (unchanged) -->
+            <!-- TAB 3: BIO -->
             <!-- ========================================================= -->
             <div class="tab-content" id="tab-bio">
                 <div class="bio-full">
                     <div class="bio-intro">
                         <h2>👋 Welcome to Patreon+</h2>
-                        <p>I'm <span class="highlight">Fed Jumper</span> – a creator, developer, and community builder. This is your direct hub to everything I offer: <strong>premium content, exclusive services, and a vibrant community</strong> – all without middlemen or platform fees.</p>
-                        <p>Whether you're here for <span class="highlight">Street Style</span>, <span class="highlight">Global Relaxation</span>, or the <span class="highlight">Vault</span>, you've come to the right place. Everything is designed to give you the best experience, and I'm always open to feedback.</p>
+                        <p>
+                            I'm <span class="highlight">Fed Jumper</span> – a creator, developer, and community builder.
+                            This is your direct hub to everything I offer: <strong>premium content, exclusive services,
+                            and a vibrant community</strong> – all without middlemen or platform fees.
+                        </p>
+                        <p>
+                            Whether you're here for <span class="highlight">Street Style</span>,
+                            <span class="highlight">Global Relaxation</span>, or the <span class="highlight">Vault</span>,
+                            you've come to the right place. Everything is designed to give you the best experience,
+                            and I'm always open to feedback.
+                        </p>
                     </div>
 
                     <div class="bio-stats">
@@ -2144,22 +2873,54 @@
 
                     <div class="bio-features">
                         <h3>🎁 Free Premium Features</h3>
-                        <div class="feature-item"><span class="feat-icon">🔓</span><span class="feat-label">Unlock exclusive content from all three tiers</span><span class="feat-tag">Free</span></div>
-                        <div class="feature-item"><span class="feat-icon">🎥</span><span class="feat-label">Early access to videos and guides</span><span class="feat-tag">Free</span></div>
-                        <div class="feature-item"><span class="feat-icon">💬</span><span class="feat-label">Private community chat (Discord & Telegram)</span><span class="feat-tag">Free</span></div>
-                        <div class="feature-item"><span class="feat-icon">📅</span><span class="feat-label">1‑on‑1 consultation sessions (limited)</span><span class="feat-tag">Free</span></div>
-                        <div class="feature-item"><span class="feat-icon">📈</span><span class="feat-label">Real‑time analytics and insights</span><span class="feat-tag">Free</span></div>
+                        <div class="feature-item">
+                            <span class="feat-icon">🔓</span>
+                            <span class="feat-label">Unlock exclusive content from all three tiers</span>
+                            <span class="feat-tag">Free</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feat-icon">🎥</span>
+                            <span class="feat-label">Early access to videos and guides</span>
+                            <span class="feat-tag">Free</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feat-icon">💬</span>
+                            <span class="feat-label">Private community chat (Discord & Telegram)</span>
+                            <span class="feat-tag">Free</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feat-icon">📅</span>
+                            <span class="feat-label">1‑on‑1 consultation sessions (limited)</span>
+                            <span class="feat-tag">Free</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feat-icon">📈</span>
+                            <span class="feat-label">Real‑time analytics and insights</span>
+                            <span class="feat-tag">Free</span>
+                        </div>
                     </div>
 
                     <div class="bio-instructions">
                         <h3>📋 How to get started</h3>
-                        <div class="step"><span class="step-num">1</span><span><strong>Join the community</strong> – Click the "Join Now" button on the Portal tab to get instant access.</span></div>
-                        <div class="step"><span class="step-num">2</span><span><strong>Explore the Offers</strong> – Check out the <strong>Offers</strong> tab to see all my curated content tiers.</span></div>
-                        <div class="step"><span class="step-num">3</span><span><strong>Visit the Forums</strong> – Head to the <strong>Forums</strong> tab to ask questions, share feedback, and connect with others.</span></div>
-                        <div class="step"><span class="step-num">4</span><span><strong>Stay updated</strong> – Join my email list below or follow me on social media for the latest news.</span></div>
+                        <div class="step">
+                            <span class="step-num">1</span>
+                            <span><strong>Join the community</strong> – Click the "Join Now" button on the Portal tab to get instant access.</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">2</span>
+                            <span><strong>Explore the Offers</strong> – Check out the <strong>Offers</strong> tab to see all my curated content tiers.</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">3</span>
+                            <span><strong>Visit the Forums</strong> – Head to the <strong>Forums</strong> tab to ask questions, share feedback, and connect with others.</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">4</span>
+                            <span><strong>Stay updated</strong> – Join my email list below or follow me on social media for the latest news.</span>
+                        </div>
                     </div>
 
-                    <div style="margin-bottom:14px;">
+                    <div style="margin-bottom: 14px;">
                         <h3 style="color:#fff; font-size:15px; font-weight:700; margin-bottom:8px;">📬 Contact & Social</h3>
                         <div class="bio-contact">
                             <a href="mailto:viraldancandotrends@proton.me" class="contact-item">✉️ Email</a>
@@ -2172,12 +2933,31 @@
                     </div>
 
                     <div class="bio-quick-links">
-                        <div class="quick-link" id="bioQuickPortal"><span class="ql-left"><span class="ql-icon">💳</span><span>Go to Portal</span></span><span class="ql-arrow">→</span></div>
-                        <div class="quick-link" id="bioQuickOffers"><span class="ql-left"><span class="ql-icon">📦</span><span>Browse Offers</span></span><span class="ql-arrow">→</span></div>
-                        <div class="quick-link" id="bioQuickForums"><span class="ql-left"><span class="ql-icon">💬</span><span>Visit Forums</span></span><span class="ql-arrow">→</span></div>
+                        <div class="quick-link" id="bioQuickPortal">
+                            <span class="ql-left">
+                                <span class="ql-icon">💳</span>
+                                <span>Go to Portal</span>
+                            </span>
+                            <span class="ql-arrow">→</span>
+                        </div>
+                        <div class="quick-link" id="bioQuickOffers">
+                            <span class="ql-left">
+                                <span class="ql-icon">📦</span>
+                                <span>Browse Offers</span>
+                            </span>
+                            <span class="ql-arrow">→</span>
+                        </div>
+                        <div class="quick-link" id="bioQuickForums">
+                            <span class="ql-left">
+                                <span class="ql-icon">💬</span>
+                                <span>Visit Forums</span>
+                            </span>
+                            <span class="ql-arrow">→</span>
+                        </div>
                     </div>
 
                     <button class="join-free-btn" id="joinFreeBtn">🎉 Join for Free</button>
+
                     <div class="bio-footer">© 2026 Patreon+ · Your all‑in‑one creative hub · 🌟</div>
                 </div>
             </div>
@@ -2186,7 +2966,9 @@
             <!-- TAB 4: FORUMS -->
             <!-- ========================================================= -->
             <div class="tab-content" id="tab-forums">
-                <div class="section-title">💬 Community Forums <span class="lock">Join the discussion</span></div>
+                <div class="section-title">
+                    💬 Community Forums <span class="lock">Join the discussion</span>
+                </div>
                 <div class="form-wrapper">
                     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8aWw977kjtAR9OUfdtJdYRLc9DPDC5e0Gt7lDCj5p-Ieysg/viewform?embedded=true" width="640" height="2640" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
                 </div>
@@ -2203,16 +2985,31 @@
                     <p class="sub">Everything Link trees charges money for – unlocked here for free.</p>
 
                     <div class="premium-pricing">
-                        <div class="price-card"><div class="plan-name">Plus</div><div class="plan-price">$9.99<span style="font-size:13px;color:rgba(255,255,255,0.15);">/mo</span></div><div class="plan-desc">Verified branding, custom themes, advanced tracking</div></div>
-                        <div class="price-card highlight"><div class="plan-name">Pro ⭐</div><div class="plan-price">$29.99<span style="font-size:13px;color:rgba(255,255,255,0.15);">/mo</span></div><div class="plan-desc">Full layout customization, e‑commerce, newsletter builder</div></div>
-                        <div class="price-card" style="grid-column:span 2;"><div class="plan-name">Agency</div><div class="plan-price">$49.99<span style="font-size:13px;color:rgba(255,255,255,0.15);">/mo + $9.99/seat</span></div><div class="plan-desc">Multi‑client dashboard, team management, 5‑seat minimum</div></div>
+                        <div class="price-card">
+                            <div class="plan-name">Plus</div>
+                            <div class="plan-price">$9.99<span style="font-size:13px;color:rgba(255,255,255,0.15);">/mo</span></div>
+                            <div class="plan-desc">Verified branding, custom themes, advanced tracking</div>
+                        </div>
+                        <div class="price-card highlight">
+                            <div class="plan-name">Pro ⭐</div>
+                            <div class="plan-price">$29.99<span style="font-size:13px;color:rgba(255,255,255,0.15);">/mo</span></div>
+                            <div class="plan-desc">Full layout customization, e‑commerce, newsletter builder</div>
+                        </div>
+                        <div class="price-card" style="grid-column: span 2;">
+                            <div class="plan-name">Agency</div>
+                            <div class="plan-price">$49.99<span style="font-size:13px;color:rgba(255,255,255,0.15);">/mo + $9.99/seat</span></div>
+                            <div class="plan-desc">Multi‑client dashboard, team management, 5‑seat minimum</div>
+                        </div>
                     </div>
 
                     <button class="unlock-btn locked" id="unlockBtn">🔒 Unlock All Features</button>
 
                     <div class="premium-features">
                         <div class="premium-category" data-category="monetization">
-                            <h4><span>💰 Monetization & E‑Commerce</span><span class="status-badge">🔒</span></h4>
+                            <h4>
+                                <span>💰 Monetization & E‑Commerce</span>
+                                <span class="status-badge">🔒</span>
+                            </h4>
                             <ul>
                                 <li><span class="li-icon">🔒</span> <strong>Locked Products</strong> – Pay‑to‑unlock links, videos, or files</li>
                                 <li><span class="li-icon">📚</span> <strong>Native Course Builder</strong> – Sell educational video lessons</li>
@@ -2222,8 +3019,12 @@
                                 <li><span class="li-icon">📦</span> <strong>Digital Paywalls</strong> – Gate content behind Pro tier or transaction fees</li>
                             </ul>
                         </div>
+
                         <div class="premium-category" data-category="customization">
-                            <h4><span>🎨 Profile Customization</span><span class="status-badge">🔒</span></h4>
+                            <h4>
+                                <span>🎨 Profile Customization</span>
+                                <span class="status-badge">🔒</span>
+                            </h4>
                             <ul>
                                 <li><span class="li-icon">🔄</span> <strong>Link Carousels</strong> – Horizontal swipeable banners for multiple links</li>
                                 <li><span class="li-icon">✨</span> <strong>Featured Link Animations</strong> – Shine, Pulse, Bounce effects</li>
@@ -2231,8 +3032,12 @@
                                 <li><span class="li-icon">📹</span> <strong>Video Feeds</strong> – Embed playable multimedia streams directly</li>
                             </ul>
                         </div>
+
                         <div class="premium-category" data-category="analytics">
-                            <h4><span>📊 Marketing Automations & Analytics</span><span class="status-badge">🔒</span></h4>
+                            <h4>
+                                <span>📊 Marketing Automations & Analytics</span>
+                                <span class="status-badge">🔒</span>
+                            </h4>
                             <ul>
                                 <li><span class="li-icon">📢</span> <strong>Post to All</strong> – Broadcast updates to every connected platform</li>
                                 <li><span class="li-icon">⏰</span> <strong>Link Scheduler</strong> – Program when links go live or expire</li>
@@ -2241,15 +3046,23 @@
                                 <li><span class="li-icon">📧</span> <strong>Automated Email Capture</strong> – Custom intake forms, Apple Wallet integration</li>
                             </ul>
                         </div>
+
                         <div class="premium-category" data-category="team">
-                            <h4><span>👥 Team Management (Agency Only)</span><span class="status-badge">🔒</span></h4>
+                            <h4>
+                                <span>👥 Team Management (Agency Only)</span>
+                                <span class="status-badge">🔒</span>
+                            </h4>
                             <ul>
                                 <li><span class="li-icon">📊</span> <strong>Multi‑Client Dashboard</strong> – Manage multiple influencer profiles</li>
                                 <li><span class="li-icon">👤</span> <strong>Seat‑based Access</strong> – $9.99 per extra seat, 5‑seat minimum</li>
                             </ul>
                         </div>
+
                         <div class="premium-category" data-category="interactive">
-                            <h4><span>📱 Interactive & Networking</span><span class="status-badge">🔒</span></h4>
+                            <h4>
+                                <span>📱 Interactive & Networking</span>
+                                <span class="status-badge">🔒</span>
+                            </h4>
                             <ul>
                                 <li><span class="li-icon">📞</span> <strong>Paid Calls / Consultations</strong> – Schedule and charge for 1‑on‑1 sessions</li>
                                 <li><span class="li-icon">📣</span> <strong>The "Shout" Feature</strong> – Broadcast text, graphics, or videos to all subscribers</li>
@@ -2259,14 +3072,22 @@
                                 <li><span class="li-icon">🔗</span> <strong>Affiliate & Payout Hub</strong> – Centralized tracking for brand links and commissions</li>
                             </ul>
                         </div>
+
                         <div class="premium-category" data-category="ambassador">
-                            <h4><span>🤝 Ambassador Rewards</span><span class="status-badge">🔒</span></h4>
+                            <h4>
+                                <span>🤝 Ambassador Rewards</span>
+                                <span class="status-badge">🔒</span>
+                            </h4>
                             <ul>
                                 <li><span class="li-icon">👑</span> <strong>Referral Milestones</strong> – Earn cash or tech prizes (Apple Watch, PS5) for inviting new creators</li>
                             </ul>
                         </div>
+
                         <div class="premium-category" data-category="technical">
-                            <h4><span>⚙️ Under‑the‑Hood Technical Actions</span><span class="status-badge">🔒</span></h4>
+                            <h4>
+                                <span>⚙️ Under‑the‑Hood Technical Actions</span>
+                                <span class="status-badge">🔒</span>
+                            </h4>
                             <ul>
                                 <li><span class="li-icon">🔗</span> <strong>Deep‑Linking Architecture</strong> – Force native app launches for links</li>
                                 <li><span class="li-icon">🎵</span> <strong>Bandsintown Event Sync</strong> – Automatically pull live tour dates</li>
@@ -2288,6 +3109,7 @@
             <div class="footer">© 2026 Patreon+ · Direct payments · ⚡</div>
 
         </div> <!-- end container -->
+
     </div> <!-- end main-content -->
 
     <script>
@@ -2304,31 +3126,50 @@
                 overlay.classList.add('hidden');
                 mainContent.classList.add('visible');
                 document.body.style.background = '#0a0a12';
-                setTimeout(() => { overlay.style.display = 'none'; }, 700);
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 700);
             }
 
             enterBtn.addEventListener('click', dismissOverlay);
             skipHint.addEventListener('click', dismissOverlay);
-            overlay.addEventListener('click', function(e) { if (e.target === overlay) dismissOverlay(); });
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    dismissOverlay();
+                }
+            });
+
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && !overlay.classList.contains('hidden')) dismissOverlay();
+                if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+                    dismissOverlay();
+                }
             });
         })();
 
         // ============================================================
-        // FORM MODAL (overlay)
+        // FORM MODAL
         // ============================================================
         (function() {
             const openBtn = document.getElementById('openFormBtn');
             const modal = document.getElementById('formModalOverlay');
             const closeBtn = document.getElementById('formModalClose');
 
-            function openModal() { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-            function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+            function openModal() {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
 
             openBtn.addEventListener('click', openModal);
             closeBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) closeModal();
+            });
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
             });
@@ -2349,16 +3190,30 @@
                 document.getElementById('paypalChip')
             ].filter(Boolean);
 
-            // Stripe
-            function openStripeModal(e) { if (e) e.preventDefault(); stripeModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-            function closeStripeModal() { stripeModal.classList.remove('active'); document.body.style.overflow = ''; }
+            // --- Stripe ---
+            function openStripeModal(e) {
+                if (e) e.preventDefault();
+                stripeModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
 
-            stripeTriggers.forEach(el => el.addEventListener('click', openStripeModal));
+            function closeStripeModal() {
+                stripeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            stripeTriggers.forEach(el => {
+                el.addEventListener('click', openStripeModal);
+            });
+
             document.getElementById('stripeModalClose').addEventListener('click', closeStripeModal);
-            stripeModal.addEventListener('click', function(e) { if (e.target === stripeModal) closeStripeModal(); });
+            stripeModal.addEventListener('click', function(e) {
+                if (e.target === stripeModal) closeStripeModal();
+            });
 
-            // PayPal
-            let paypalLoaded = false, paypalRendered = false;
+            // --- PayPal ---
+            let paypalLoaded = false;
+            let paypalRendered = false;
 
             function loadPayPalSDK() {
                 if (paypalLoaded) return Promise.resolve();
@@ -2367,8 +3222,13 @@
                     script.src =
                         'https://www.paypal.com/sdk/js?client-id=AaZIURGHfoVL0seNGmKhkm3_piU1UERhw7N4TaWhA8DIRRfxZ383l5QqVbyBHfsrB1Hz3H589vd1ZcpI&buyer-country=US&currency=USD&components=buttons&enable-funding=venmo,paylater,card';
                     script.setAttribute('data-sdk-integration-source', 'developer-studio');
-                    script.onload = function() { paypalLoaded = true; resolve(); };
-                    script.onerror = function() { reject(new Error('Failed to load PayPal SDK')); };
+                    script.onload = function() {
+                        paypalLoaded = true;
+                        resolve();
+                    };
+                    script.onerror = function() {
+                        reject(new Error('Failed to load PayPal SDK'));
+                    };
                     document.head.appendChild(script);
                 });
             }
@@ -2377,12 +3237,17 @@
                 if (paypalRendered) return;
                 const container = document.getElementById('paypal-button-container');
                 if (!container || typeof paypal === 'undefined') return;
+
                 container.innerHTML = '';
+
                 paypal.Buttons({
                     createOrder: function(data, actions) {
                         return actions.order.create({
                             purchase_units: [{
-                                amount: { value: '5.99', currency_code: 'USD' },
+                                amount: {
+                                    value: '5.99',
+                                    currency_code: 'USD'
+                                },
                                 description: 'Patreon+ Pro ⭐ Monthly'
                             }]
                         });
@@ -2390,7 +3255,8 @@
                     onApprove: function(data, actions) {
                         return actions.order.capture().then(function(details) {
                             const msg = document.getElementById('result-message');
-                            msg.textContent = '✅ Payment completed! Thank you, ' + details.payer.name.given_name + '!';
+                            msg.textContent = '✅ Payment completed! Thank you, ' + details.payer.name
+                                .given_name + '!';
                             msg.style.color = '#4ade80';
                         });
                     },
@@ -2405,30 +3271,43 @@
                         msg.textContent = '⏹️ Payment cancelled.';
                         msg.style.color = '#f59e0b';
                     }
-                }).render(container).then(() => { paypalRendered = true; });
+                }).render(container).then(() => {
+                    paypalRendered = true;
+                });
             }
 
             function openPaypalModal(e) {
                 if (e) e.preventDefault();
                 paypalModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+
                 if (!paypalLoaded) {
                     const container = document.getElementById('paypal-button-container');
                     container.innerHTML = '<div class="paypal-loading"><i class="fas fa-spinner fa-pulse"></i> Loading PayPal…</div>';
-                    loadPayPalSDK().then(() => renderPayPalButtons())
-                        .catch(() => {
-                            container.innerHTML = '<div style="color:#ef4444;font-size:13px;">❌ Failed to load PayPal. Please try again.</div>';
-                        });
+                    loadPayPalSDK().then(() => {
+                        renderPayPalButtons();
+                    }).catch(() => {
+                        container.innerHTML =
+                            '<div style="color:#ef4444;font-size:13px;">❌ Failed to load PayPal. Please try again.</div>';
+                    });
                 } else {
                     renderPayPalButtons();
                 }
             }
 
-            function closePaypalModal() { paypalModal.classList.remove('active'); document.body.style.overflow = ''; }
+            function closePaypalModal() {
+                paypalModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
 
-            paypalTriggers.forEach(el => el.addEventListener('click', openPaypalModal));
+            paypalTriggers.forEach(el => {
+                el.addEventListener('click', openPaypalModal);
+            });
+
             document.getElementById('paypalModalClose').addEventListener('click', closePaypalModal);
-            paypalModal.addEventListener('click', function(e) { if (e.target === paypalModal) closePaypalModal(); });
+            paypalModal.addEventListener('click', function(e) {
+                if (e.target === paypalModal) closePaypalModal();
+            });
 
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
@@ -2472,20 +3351,33 @@
             ];
 
             const popularNames = ['Stripe', 'Patreon', 'PayPal', 'Whop', 'Discord'];
-            const popular = [], rest = [];
-            allProcessors.forEach(p => { popularNames.includes(p.name) ? popular.push(p) : rest.push(p); });
+            const popular = [];
+            const rest = [];
+
+            allProcessors.forEach(p => {
+                if (popularNames.includes(p.name)) {
+                    popular.push(p);
+                } else {
+                    rest.push(p);
+                }
+            });
+
             popular.sort((a, b) => popularNames.indexOf(a.name) - popularNames.indexOf(b.name));
             const sorted = [...popular, ...rest.sort((a, b) => a.name.localeCompare(b.name))];
 
             const grid = document.getElementById('processorGridOpen');
             if (!grid) return;
+
             sorted.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'payment-card';
+
                 const iconDiv = document.createElement('div');
                 iconDiv.className = 'card-icon';
+
                 if (p.multiCrypto) {
-                    iconDiv.innerHTML = `<div class="multi-crypto"><i class="fab fa-bitcoin"></i><i class="fab fa-ethereum"></i><i class="fas fa-coins"></i></div>`;
+                    iconDiv.innerHTML =
+                        `<div class="multi-crypto"><i class="fab fa-bitcoin"></i><i class="fab fa-ethereum"></i><i class="fas fa-coins"></i></div>`;
                 } else {
                     const faIcon = document.createElement('i');
                     faIcon.className = p.icon;
@@ -2496,10 +3388,12 @@
                 emojiSpan.innerText = p.emoji;
                 iconDiv.appendChild(emojiSpan);
                 card.appendChild(iconDiv);
+
                 const nameSpan = document.createElement('div');
                 nameSpan.className = 'payment-name';
                 nameSpan.innerText = p.name;
                 card.appendChild(nameSpan);
+
                 if (p.badge) {
                     const badge = document.createElement('div');
                     badge.className = 'venom-note';
@@ -2507,6 +3401,7 @@
                     else badge.innerText = p.badge;
                     card.appendChild(badge);
                 }
+
                 grid.appendChild(card);
             });
         })();
@@ -2516,12 +3411,14 @@
         // ============================================================
         const tabButtons = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
+
         tabButtons.forEach(btn => {
             btn.addEventListener('click', function() {
                 tabButtons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 tabContents.forEach(c => c.classList.remove('active'));
-                document.getElementById(`tab-${this.dataset.tab}`).classList.add('active');
+                const target = this.dataset.tab;
+                document.getElementById(`tab-${target}`).classList.add('active');
             });
         });
 
@@ -2556,6 +3453,7 @@
             document.body.style.overflow = 'hidden';
         });
 
+        // EMAIL INPUT
         document.getElementById('emailInputField')?.addEventListener('click', function() {
             document.getElementById('formModal').classList.add('active');
         });
@@ -2563,12 +3461,14 @@
             document.getElementById('formModal').classList.add('active');
         });
 
-        // LEGACY FORM MODAL
+        // FORM MODAL (legacy)
         const formModal = document.getElementById('formModal');
         document.getElementById('closeModalBtn')?.addEventListener('click', function() {
             formModal.classList.remove('active');
         });
-        formModal?.addEventListener('click', function(e) { if (e.target === formModal) formModal.classList.remove('active'); });
+        formModal?.addEventListener('click', function(e) {
+            if (e.target === formModal) formModal.classList.remove('active');
+        });
 
         // FOLLOW MODAL
         const followBtn = document.getElementById('followBtn');
@@ -2576,13 +3476,19 @@
         document.getElementById('closeFollowModal')?.addEventListener('click', function() {
             followModal.classList.remove('active');
         });
-        followBtn?.addEventListener('click', function() { followModal.classList.add('active'); });
-        followModal?.addEventListener('click', function(e) { if (e.target === followModal) followModal.classList.remove('active'); });
+        followBtn?.addEventListener('click', function() {
+            followModal.classList.add('active');
+        });
+        followModal?.addEventListener('click', function(e) {
+            if (e.target === followModal) followModal.classList.remove('active');
+        });
 
+        // JOIN FREE
         document.getElementById('joinFreeBtn')?.addEventListener('click', function() {
             window.open('https://www.patreon.com/c/Viraldancandofunk/membership', '_blank');
         });
 
+        // OFFERS
         document.getElementById('offersSubscribeBtn')?.addEventListener('click', function() {
             document.getElementById('paypalModal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -2591,6 +3497,7 @@
             window.open('https://t.me/Planetdanca', '_blank');
         });
 
+        // PREMIUM UNLOCK
         document.getElementById('unlockBtn')?.addEventListener('click', function() {
             window.open('https://discord.gg/JBSE9wN2kA', '_blank');
         });
@@ -2633,10 +3540,15 @@
         nextBtn?.addEventListener('click', () => goToSlide(currentSlide + 1));
 
         const container = document.getElementById('slideshowContainer');
-        container?.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        container?.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
         container?.addEventListener('touchend', (e) => {
             const diff = touchStartX - e.changedTouches[0].screenX;
-            if (Math.abs(diff) > 50) diff > 0 ? goToSlide(currentSlide + 1) : goToSlide(currentSlide - 1);
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? goToSlide(currentSlide + 1) : goToSlide(currentSlide - 1);
+            }
         }, { passive: true });
 
         let slideInterval = setInterval(() => goToSlide(currentSlide + 1), 5000);
@@ -2649,7 +3561,9 @@
         // TYPING EFFECT
         // ============================================================
         const phrases = ['📧 Type your email here...', '📨 Enter your email...', '✉️ Your email address...'];
-        let phraseIndex = 0, charIndex = 0, isDeleting = false;
+        let phraseIndex = 0,
+            charIndex = 0,
+            isDeleting = false;
         const typingElement = document.getElementById('typingText');
 
         function typeEffect() {
@@ -2657,12 +3571,21 @@
             if (isDeleting) {
                 charIndex--;
                 typingElement.innerHTML = currentPhrase.substring(0, charIndex) + '<span class="cursor"></span>';
-                if (charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; setTimeout(typeEffect, 800); return; }
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    setTimeout(typeEffect, 800);
+                    return;
+                }
                 setTimeout(typeEffect, 40);
             } else {
                 charIndex++;
                 typingElement.innerHTML = currentPhrase.substring(0, charIndex) + '<span class="cursor"></span>';
-                if (charIndex === currentPhrase.length) { isDeleting = true; setTimeout(typeEffect, 2000); return; }
+                if (charIndex === currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 2000);
+                    return;
+                }
                 setTimeout(typeEffect, 60);
             }
         }
@@ -2683,5 +3606,6 @@
             }
         }, 10000);
     </script>
+
 </body>
 </html>
